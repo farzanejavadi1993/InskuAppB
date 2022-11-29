@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:id="@+id/cardLan"
+        android:layout_width="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+
+            <RelativeLayout
+                android:id="@+id/rl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="12dp"
+                android:layout_toRightOf="@+id/orderProductDeleteBtn"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:background="#00000000"
+                    android:id="@+id/txt_name_item_recycle_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="4dp"
+                    android:textColor="@color/black_light"
+                    android:textSize="@dimen/less_small_size" />
+
+                <TextView
+
+                    android:id="@+id/order_list_item_recycle_txt_discount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
+                    android:layout_toLeftOf="@+id/txt_name_item_recycle_order"
+                    android:textColor="@color/invite_friend_color"
+                    android:textSize="@dimen/less_small_size" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="12dp">
+
+                <RelativeLayout
+                    android:layout_marginBottom="15dp"
+                    android:id="@+id/layout_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true">
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:id="@+id/unit1_item_recycle_order"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_toLeftOf="@+id/iv_minus_invoice"
+                        android:textColor="#272727"
+                        android:textSize="@dimen/less_small_size" />
+
+                    <ImageView
+
+                        android:id="@+id/iv_minus_invoice"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="12.5dp"
+                        android:layout_toLeftOf="@+id/amount1_item_recycle_order"
+                        android:background="@drawable/minus_background"
+                        app:srcCompat="@drawable/ic_minus_red" />
+
+                    <EditText
+
+                        android:id="@+id/amount1_item_recycle_order"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/iv_max_invoice"
+
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/iransans"
+                        android:gravity="center"
+                        android:inputType="numberDecimal"
+                        android:padding="5dp"
+                        android:text="0 "
+                        android:textColor="@color/black_l"
+                        android:textSize="@dimen/less_small_size"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/iv_max_invoice"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="12.5dp"
+                        android:background="@drawable/plus_background"
+                        app:srcCompat="@drawable/ic_plus_white" />
+
+                </RelativeLayout>
+
+                <TextView
+
+                    android:id="@+id/price_item_recycle_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="12dp"
+
+                    android:textColor="@color/black_l"
+                    android:textSize="@dimen/less_small_size" />
+
+                <TextView
+
+                    android:id="@+id/totalPrice_item_recycle_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/price_item_recycle_order"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="5dp"
+
+                    android:textColor="@color/black_light"
+                    android:textSize="@dimen/less_small_size"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+
+            <ImageView
+                android:id="@+id/orderProductDeleteBtn"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="10dp"
+                app:srcCompat="@drawable/ic_close" />
+
+            <ImageView
+                android:visibility="gone"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/orderProductDeleteBtn"
+                android:background="#00000000"
+                app:srcCompat="@drawable/ic_warning"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/orderProductWarning"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                tools:ignore="ContentDescription" />
+
+
+            <ProgressBar
+                android:visibility="gone"
+                android:id="@+id/progress"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_toRightOf="@+id/orderProductDeleteBtn"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="10dp"
+                />
+
+
+
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/rl1"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:background="#B8B8B8" />
+    </LinearLayout>
+
+</RelativeLayout>
+
+
+
+
+
+
+
+

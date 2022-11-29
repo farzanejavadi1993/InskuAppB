@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="color_primary_light">#FFF34D</color>
+    <color name="color_primary">#FFF017</color>
+    <color name="color_primary_dark">#EADC17</color>
+    <color name="white">#FFFFFFFF</color>
+
+
+
+
+    <color name="teal_200">#5448BB</color>
+    <color name="teal_500">#374DC5</color>
+    <color name="teal_600">#0A2EF6</color>
+    <color name="teal_50">#0388F1</color>
+
+    <color name="teal_700">#C5C501</color>
+    <color name="black">#FF000000</color>
+    <color name="warning_color">#FFC107</color>
+
+    <color name="background_light">#F8F8F8</color>
+    <color name="light_color">#eee</color>
+    <color name="less_normal_color">#5A5A5A</color>
+    <color name="normal_color">#474747</color>
+    <color name="color_title">#232323</color>
+    <color name="bottom_background_inActive_color">#CCCCCC</color>
+    <color name="colorRedGray800">#03A9F4</color>
+    <color name="selected_item_color">#4CAF50</color>
+    <color name="selected_item_color_yellow">#FFEA0C</color>
+    <color name="colorGray">#BEBEBE</color>
+    <color name="colorRedLight">#DC4740</color>
+    <color name="selected_item_color_orange">#FF9800</color>
+    <color name="selected_item_color_pink">#EF759F</color>
+    <color name="selected_item_color_pink_light">#F38FB1</color>
+    <color name="selected_item_color_yellow2">#CCBD34</color>
+    <color name="colorGreenLight">#12E613</color>
+    <color name="topaz">#13b6ad</color>
+    <color name="invalid_name_color">#8a8a8a</color>
+    <color name="invite_friend_color">#FF0000</color>
+    <color name="purple">#9C27B0</color>
+    <color name="pinkRed">#12E9D5</color>
+    <color name="black_l">#6C6C6C</color>
+    <color name="blue">#2196F3</color>
+    <color name="black_light">#2f2f2f</color>
+    <color name="green_button_enabled">#ff58cc02</color>
+</resources>

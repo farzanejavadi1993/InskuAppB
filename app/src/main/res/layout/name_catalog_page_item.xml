@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="catalogPage"
+            type="ir.kitgroup.inskuappb.model.ModelCatalogPage" />
+    </data>
+    <RelativeLayout
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.github.siyamed.shapeimageview.RoundedImageView
+            android:id="@+id/ivCatalogPage"
+            setImageViewCatalogPage="@{catalogPage.P}"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_centerHorizontal="true"
+            app:siBorderColor="#ccc"
+            app:siBorderWidth="2dp"
+            app:siRadius="12dp" />
+
+        <TextView
+            android:id="@+id/name_catalogPage"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivCatalogPage"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/search_layout_background"
+            android:gravity="center"
+            android:paddingLeft="3dp"
+            android:paddingTop="10dp"
+            android:paddingRight="3dp"
+            android:paddingBottom="10dp"
+            android:singleLine="true"
+            android:text="@{catalogPage.N}"
+            android:textColor="#2f2f2f"
+            android:textSize="12dp" />
+
+
+
+
+    </RelativeLayout>
+</layout>

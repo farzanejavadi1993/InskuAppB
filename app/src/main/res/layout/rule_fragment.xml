@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools">
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/order_list_date_layout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        android:elevation="4dp">
+
+        <RelativeLayout
+            android:id="@+id/iv_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="18dp"
+            android:background="@drawable/background_item_white">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerInParent="true"
+                android:padding="4dp"
+                android:rotationY="180"
+                app:srcCompat="@drawable/ic_fi_rr_angle_small_left" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:text="قوانین و مقررات"
+            android:id="@+id/txt_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/normal_color"
+            android:textSize="@dimen/less_small_size"
+            android:textStyle="bold" />
+
+
+
+
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_margin="@dimen/size16"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+         <TextView
+             android:layout_margin="14dp"
+             android:id="@+id/tvRule"
+             android:textSize="@dimen/normal_size"
+             android:layout_alignParentRight="true"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>
+
+
+</layout>

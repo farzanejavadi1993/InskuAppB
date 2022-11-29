@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        tools:ignore="UselessParent">
+
+        <RelativeLayout
+            android:id="@+id/layoutLogo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="95dp"
+                android:layout_height="87dp"
+                android:layout_centerHorizontal="true"
+                app:srcCompat="@drawable/inskuiconn"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_below="@+id/layoutLogo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:cardCornerRadius="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            app:strokeWidth="0.5dp"
+            app:strokeColor="#2f2f2f">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_marginLeft="@dimen/size16"
+                    android:layout_marginRight="@dimen/size16"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/normal_color"
+                    android:gravity="center"
+                    android:text="@string/add_city"
+                    android:id="@+id/txtMessage"
+                    android:textSize="@dimen/normal_size"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <EditText
+                    android:layout_marginLeft="@dimen/size16"
+                    android:layout_marginRight="@dimen/size16"
+                    android:layout_marginTop="10dp"
+                    android:padding="13dp"
+                    android:id="@+id/edtAddCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_card"
+                    android:fontFamily="@font/iransans"
+                    android:textColor="@color/normal_color"
+                    android:textColorHint="@color/normal_color"
+                    android:textSize="@dimen/small_size"
+                    android:textStyle="bold"
+                    tools:ignore="SpUsage" />
+
+
+
+                <LinearLayout
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_weight="0.3"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/rl_cancel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="8dp">
+
+                        <TextView
+                            android:id="@+id/tv_no"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/border_shape_red"
+                            android:gravity="center"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="10dp"
+                            android:paddingBottom="5dp"
+                            android:text="بعدا"
+                            android:textColor="@color/red"
+                            android:textSize="12dp" />
+                    </RelativeLayout>
+
+
+
+                    <RelativeLayout
+                        android:layout_weight="0.33"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/rl_ok"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="8dp">
+
+                        <TextView
+                            android:id="@+id/tv_ok"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/border_shape"
+                            android:gravity="center"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="10dp"
+                            android:paddingBottom="5dp"
+                            android:text="ذخیره"
+                            android:textColor="@color/colorGreenLight"
+                            android:textSize="12dp" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

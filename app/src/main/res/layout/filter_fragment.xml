@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="8dp"
+            tools:ignore="UnusedAttribute">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="18dp"
+                android:padding="8dp"
+                android:rotationY="180"
+                app:srcCompat="@drawable/ic_fi_rr_angle_small_left"
+                tools:ignore="ContentDescription" />
+
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:lineSpacingExtra="16dp"
+                android:text="فیلترها"
+                android:textColor="@color/normalColor"
+                android:textSize="@dimen/normal_size"
+                android:textStyle="bold"
+                tools:ignore="RelativeOverlap" />
+
+            <TextView
+                android:id="@+id/txt_deleteAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                android:text="حذف فیلتر"
+                android:textColor="@color/teal_200"
+                android:textSize="@dimen/less_small_size" />
+        </RelativeLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="28dp"
+                android:layout_marginRight="28dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/cardPhoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical">
+
+                        <TextView
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="شماره تلفن معرف"
+                            android:textColor="@color/teal_200"
+                            android:textSize="@dimen/less_small_size"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText,SpUsage" />
+
+                        <EditText
+                            android:id="@+id/edtMobileM"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_card"
+                            android:fontFamily="@font/iransans"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:maxLength="11"
+                            android:padding="13dp"
+                            android:textColor="@color/normal_color"
+                            android:textColorHint="@color/normal_color"
+                            android:textSize="@dimen/small_size"
+                            android:textStyle="bold"
+                            tools:ignore="SpUsage" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="شماره تلفن همراه"
+                            android:textColor="@color/teal_200"
+                            android:textSize="@dimen/less_small_size"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText,SpUsage" />
+
+                        <EditText
+                            android:id="@+id/edtMobile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_card"
+                            android:enabled="false"
+                            android:fontFamily="@font/iransans"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:maxLength="11"
+                            android:padding="13dp"
+                            android:textColor="@color/normal_color"
+                            android:textColorHint="@color/normal_color"
+                            android:textSize="@dimen/small_size"
+                            android:textStyle="bold"
+                            tools:ignore="SpUsage" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/cardFullNameUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cardPhoneNumber"
+                    android:layout_marginTop="14dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical">
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/txtLastName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:text="نام خانوادگی"
+                                android:textColor="@color/teal_200"
+                                android:textSize="@dimen/less_small_size"
+                                android:textStyle="bold"
+                                tools:ignore="HardcodedText,SpUsage" />
+
+                            <TextView
+                                android:id="@+id/txtStarLastName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toLeftOf="@+id/txtLastName"
+                                android:text="*"
+                                android:textColor="@color/red"
+                                android:textSize="@dimen/less_small_size"
+                                android:textStyle="bold"
+                                tools:ignore="HardcodedText,SpUsage" />
+                        </RelativeLayout>
+
+                        <EditText
+                            android:id="@+id/edtLastName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_card"
+                            android:fontFamily="@font/iransans"
+                            android:padding="13dp"
+                            android:textColor="@color/normal_color"
+                            android:textColorHint="@color/normal_color"
+                            android:textSize="@dimen/small_size"
+                            android:textStyle="bold"
+                            tools:ignore="SpUsage" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/txtName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:text="نام"
+                                android:textColor="@color/teal_200"
+                                android:textSize="@dimen/less_small_size"
+                                android:textStyle="bold"
+                                tools:ignore="HardcodedText,SpUsage" />
+
+                            <TextView
+                                android:id="@+id/txtStarName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toLeftOf="@+id/txtName"
+                                android:text="*"
+                                android:textColor="@color/red"
+                                android:textSize="@dimen/less_small_size"
+                                android:textStyle="bold"
+                                tools:ignore="HardcodedText,SpUsage" />
+                        </RelativeLayout>
+
+
+                        <EditText
+                            android:id="@+id/edtName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_card"
+                            android:fontFamily="@font/iransans"
+                            android:padding="13dp"
+                            android:textColor="@color/normal_color"
+                            android:textColorHint="@color/normal_color"
+                            android:textSize="@dimen/small_size"
+                            android:textStyle="bold"
+                            tools:ignore="SpUsage" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+
+                    android:id="@+id/cardContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/cardGuild"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/txtGuild"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:text="صنف"
+                                android:textColor="@color/teal_200"
+                                android:textSize="@dimen/less_small_size"
+                                android:textStyle="bold"
+                                tools:ignore="HardcodedText,SpUsage" />
+
+                            <TextView
+                                android:id="@+id/txtStarGuild"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toLeftOf="@+id/txtGuild"
+                                android:text="*"
+                                android:textColor="@color/red"
+                                android:textSize="@dimen/less_small_size"
+                                android:textStyle="bold"
+                                tools:ignore="HardcodedText,SpUsage" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/cardGuild1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_card">
+
+                            <EditText
+                                android:id="@+id/edtGuild"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="38dp"
+                                android:background="@android:color/transparent"
+                                android:drawableRight="@drawable/ic_search"
+                                android:drawablePadding="6dp"
+                                android:fontFamily="@font/iransans"
+                                android:gravity="right"
+                                android:padding="13dp"
+                                android:textColor="@color/normal_color"
+                                android:textColorHint="@color/normal_color"
+                                android:textSize="@dimen/small_size"
+                                android:textStyle="bold"
+                                tools:ignore="SpUsage" />
+
+                            <ImageView
+                                android:id="@+id/guildClose"
+                                android:layout_width="36dp"
+                                android:layout_height="match_parent"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dp"
+                                android:visibility="gone"
+                                app:srcCompat="@drawable/close" />
+                        </RelativeLayout>
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_guild"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/txtState"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:text="استان"
+                                android:textColor="@color/teal_200"
+                                android:textSize="@dimen/less_small_size"
+                                android:textStyle="bold"
+                                tools:ignore="HardcodedText,SpUsage" />
+
+                            <TextView
+                                android:id="@+id/txtStarState"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toLeftOf="@+id/txtState"
+                                android:text="*"
+                                android:textColor="@color/red"
+                                android:textSize="@dimen/less_small_size"
+                                android:textStyle="bold"
+                                tools:ignore="HardcodedText,SpUsage" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/cardState1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_card">
+
+                            <EditText
+                                android:id="@+id/edtState"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="38dp"
+                                android:background="@android:color/transparent"
+                                android:drawableRight="@drawable/ic_search"
+                                android:drawablePadding="6dp"
+                                android:fontFamily="@font/iransans"
+                                android:gravity="right"
+                                android:padding="13dp"
+                                android:textColor="@color/normal_color"
+                                android:textColorHint="@color/normal_color"
+                                android:textSize="@dimen/small_size"
+                                android:textStyle="bold"
+                                tools:ignore="SpUsage" />
+
+                            <ImageView
+                                android:id="@+id/stateClose"
+                                android:layout_width="36dp"
+                                android:layout_height="match_parent"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dp"
+                                android:visibility="gone"
+                                app:srcCompat="@drawable/close" />
+                        </RelativeLayout>
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_state"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/cardCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/txtCity"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:text="شهر"
+                                android:textColor="@color/teal_200"
+                                android:textSize="@dimen/less_small_size"
+                                android:textStyle="bold"
+                                tools:ignore="HardcodedText,SpUsage" />
+
+                            <TextView
+                                android:id="@+id/txtStarCity"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toLeftOf="@+id/txtCity"
+                                android:text="*"
+                                android:textColor="@color/red"
+                                android:textSize="@dimen/less_small_size"
+                                android:textStyle="bold"
+                                tools:ignore="HardcodedText,SpUsage" />
+                        </RelativeLayout>
+
+
+                        <RelativeLayout
+                            android:id="@+id/cardCity1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_card">
+
+                            <EditText
+                                android:id="@+id/edtCity"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="38dp"
+                                android:background="@android:color/transparent"
+                                android:drawableRight="@drawable/ic_search"
+                                android:drawablePadding="6dp"
+                                android:fontFamily="@font/iransans"
+                                android:gravity="right"
+                                android:padding="13dp"
+                                android:textColor="@color/normal_color"
+                                android:textColorHint="@color/normal_color"
+                                android:textSize="@dimen/small_size"
+                                android:textStyle="bold"
+                                tools:ignore="SpUsage" />
+
+                            <ImageView
+                                android:id="@+id/cityClose"
+                                android:layout_width="36dp"
+                                android:layout_height="match_parent"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dp"
+                                android:visibility="gone"
+                                app:srcCompat="@drawable/close" />
+                        </RelativeLayout>
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_city"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/cardCity"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/cardNameStore"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/card1"
+                        android:layout_marginTop="14dp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tvNameStore"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:text="نام فروشگاه"
+                                android:textColor="@color/teal_200"
+                                android:textSize="@dimen/less_small_size"
+                                android:textStyle="bold"
+                                tools:ignore="HardcodedText,SpUsage" />
+
+                            <TextView
+                                android:id="@+id/tvStarNameStore"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toLeftOf="@+id/tvNameStore"
+                                android:text="*"
+                                android:textColor="@color/red"
+                                android:textSize="@dimen/less_small_size"
+                                android:textStyle="bold"
+                                tools:ignore="HardcodedText,SpUsage" />
+                        </RelativeLayout>
+
+                        <EditText
+                            android:id="@+id/edtNameStore"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_card"
+                            android:fontFamily="@font/iransans"
+                            android:padding="13dp"
+                            android:textColor="@color/normal_color"
+                            android:textColorHint="@color/normal_color"
+                            android:textSize="@dimen/small_size"
+                            android:textStyle="bold"
+                            tools:ignore="SpUsage" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/cardBusinessR"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardNameStore"
+                        android:layout_marginTop="14dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:gravity="right"
+                            android:lineSpacingExtra="10dp"
+                            android:text="نوع پخش"
+                            android:textColor="@color/teal_200"
+                            android:textSize="@dimen/less_small_size"
+                            android:textStyle="bold" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_businessR"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="35dp"
+                            android:layout_marginRight="35dp"
+                            tools:itemCount="3"
+                            tools:listitem="@layout/bussiness_r_item" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnShowBusinessR"
+                            android:layout_width="match_parent"
+                            android:layout_height="54dp"
+                            android:layout_marginLeft="22dp"
+                            android:layout_marginRight="22dp"
+                            android:backgroundTint="@color/white"
+                            android:fontFamily="@font/iransans"
+                            android:text="نمایش همه"
+                            android:textColor="@color/teal_200"
+                            android:textSize="13dp"
+                            android:textStyle="bold"
+
+                            app:cornerRadius="15dp"
+                            app:strokeColor="@color/teal_200"
+                            app:strokeWidth="1dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDoFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:backgroundTint="@color/color_primary"
+            android:fontFamily="@font/iransans"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:text="اعمال فیلتر"
+            android:textColor="@color/normal_color"
+            android:textSize="@dimen/normal_size"
+            android:textStyle="bold"
+            app:cornerRadius="25dp"
+            app:strokeColor="@color/color_primary"
+            app:strokeWidth="1dp" />
+
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/cardError8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvError8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/red"
+                android:textSize="@dimen/normal_size" />
+
+            <ImageView
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_below="@+id/tvError8"
+                android:layout_centerHorizontal="true"
+                app:srcCompat="@drawable/ic_refresh" />
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

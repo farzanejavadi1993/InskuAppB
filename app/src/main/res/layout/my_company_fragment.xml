@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:clickable="true"
+        android:focusable="true"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/layout_not_found"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_icon_empty"
+                android:layout_width="@dimen/passenger_icon_empty_page"
+                android:layout_height="@dimen/passenger_icon_empty_page"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/passenger_icon_empty_page_top_margin"
+                app:srcCompat="@drawable/ic_not_found"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_not_find"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/not_find_top_margin"
+                android:gravity="center"
+                android:lineSpacingExtra="10dp"
+                android:text="@string/passenger_not_find"
+                android:textColor="@color/invalid_name_color"
+                android:textSize="@dimen/not_find_size"
+
+                tools:ignore="SpUsage" />
+
+            <TextView
+                android:id="@+id/tv_not_find_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/not_find_description_left_right_margin"
+                android:layout_marginTop="@dimen/not_find_description_top_margin"
+                android:layout_marginEnd="@dimen/not_find_description_left_right_margin"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="9dp"
+                android:text="@string/company_not_find_description"
+                android:textColor="@color/invalid_name_color"
+                android:textSize="@dimen/not_find_description_size"
+
+                tools:ignore="SpUsage" />
+
+
+
+
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_centerInParent="true"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/cardError1"
+            android:layout_marginRight="22dp"
+            android:layout_marginLeft="22dp"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@color/red"
+                android:textSize="@dimen/normal_size"
+                android:id="@+id/tvError1"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+            <ImageView
+                android:layout_centerHorizontal="true"
+                app:srcCompat="@drawable/ic_refresh"
+                android:layout_below="@+id/tvError1"
+                android:layout_width="38dp"
+                android:layout_height="38dp"/>
+        </RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            tools:itemCount="3"
+            tools:listitem="@layout/row_recycler_company"
+            android:layout_marginBottom="?attr/actionBarSize"
+            android:id="@+id/recycler_my_company"
+            android:layout_height="match_parent"/>
+
+
+    </RelativeLayout>
+</layout>

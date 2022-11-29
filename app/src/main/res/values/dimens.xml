@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+
+    <dimen name="very_large">35dp</dimen>
+    <dimen name="more_large_size">25dp</dimen>
+    <dimen name="large_size">22dp</dimen>
+    <dimen name="less_large_size">17dp</dimen>
+    <dimen name="size16">17dp</dimen>
+    <dimen name="normal_size">15dp</dimen>
+    <dimen name="less_normal_size">14dp</dimen>
+    <dimen name="small_size">13dp</dimen>
+    <dimen name="less_small_size">12dp</dimen>
+    <dimen name="very_small_size">11dp</dimen>
+
+
+
+    <dimen name="normalTextSize">12dp</dimen>
+    <dimen name="titleIntroSize">15dp</dimen>
+    <dimen name="largeSize">25dp</dimen>
+
+    <dimen name="normalSpace">22dp</dimen>
+
+    <dimen name="not_find_description_left_right_margin">37dp</dimen>
+    <dimen name="not_find_description_top_margin">8dp</dimen>
+    <dimen name="not_find_size">12dp</dimen>
+    <dimen name="not_find_description_size">13dp</dimen>
+    <dimen name="passenger_title_size">18dp</dimen>
+    <dimen name="passenger_icon_empty_page">96dp</dimen>
+    <dimen name="passenger_icon_empty_page_top_margin">90dp</dimen>
+    <dimen name="not_find_top_margin">12dp</dimen>
+    <dimen name="order_list_item_recycle_txt_name_size">12dp</dimen>
+    <dimen name="order_list_item_recycle_txt_sumPrice_size">12dp</dimen>
+    <dimen name="order_list_item_recycle_editText_size">12dp</dimen>
+    <dimen name="order_list_item_recycle_txt_price_size">11dp</dimen>
+</resources>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout >
+
+    <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_marginStart="@dimen/normalSpace"
+            android:layout_marginEnd="@dimen/normalSpace"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="100"
+                android:gravity="start"
+                android:orientation="horizontal">
+
+                <me.relex.circleindicator.CircleIndicator
+                    android:rotationY="180"
+                    android:id="@+id/indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:ci_drawable="@drawable/shape_indicator"
+                    app:ci_drawable_unselected="@drawable/shape_indicator" />
+
+            </LinearLayout>
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/tv_Counting_intro"
+                android:textColor="@color/normal_color"
+                android:textSize="@dimen/normalTextSize"
+                tools:ignore="SpUsage" />
+
+            <TextView
+                android:id="@+id/text_page"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/normal_color"
+                android:textSize="@dimen/normalTextSize"
+                tools:ignore="HardcodedText,SpUsage"
+                android:text=" 1 " />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/tv_page_intro"
+                android:textColor="@color/normal_color"
+                android:textSize="@dimen/normalTextSize"
+                tools:ignore="SpUsage" />
+        </LinearLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:rotationY="180"
+            android:id="@+id/viewpager_Intro"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_marginStart="@dimen/normalSpace"
+            android:layout_marginEnd="@dimen/normalSpace"
+            android:layout_marginBottom="12dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="56dp"
+                android:fontFamily="@font/iransans"
+                android:id="@+id/btn_next"
+                android:text="@string/tv_next_intro"
+                android:textStyle="bold"
+                android:textColor="@color/normal_color"
+                android:textSize="@dimen/normalTextSize"
+                app:cornerRadius="22dp"
+                tools:ignore="SpUsage,UsingOnClickInXml" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="100"
+                android:gravity="center"
+                android:weightSum="100" />
+
+            <com.google.android.material.button.MaterialButton
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="56dp"
+                android:fontFamily="@font/iransans"
+                android:id="@+id/btn_pre"
+                android:text="@string/tv_previous_intro"
+                android:textColor="@color/normal_color"
+                android:textSize="@dimen/normalTextSize"
+                app:cornerRadius="22dp"
+                tools:ignore="SpUsage,UsingOnClickInXml" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>

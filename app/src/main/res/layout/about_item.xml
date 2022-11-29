@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="15dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/name_product"
+            style="@style/textView"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="8dp"
+            android:padding="5dp"
+            android:text="نام کالا : "
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/name"
+            style="@style/textView"
+            android:layout_marginBottom="8dp"
+            android:layout_toLeftOf="@+id/name_product"
+            android:padding="5dp" />
+
+        <TextView
+            android:id="@+id/remain_product"
+            style="@style/textView"
+            android:layout_below="@id/name_product"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="8dp"
+            android:padding="5dp"
+            android:text="مقدار قابل سفارش : "
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/remain"
+            style="@style/textView"
+            android:layout_below="@id/name_product"
+            android:layout_marginBottom="8dp"
+            android:layout_toLeftOf="@+id/remain_product"
+            android:padding="5dp" />
+
+        <RelativeLayout
+            android:id="@+id/r_cofficient_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/remain_product">
+
+            <TextView
+                android:id="@+id/cofficient_product"
+                style="@style/textView"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="8dp"
+                android:padding="5dp"
+                android:text="ضریب فروش  : "
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/cofficient"
+                style="@style/textView"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="8dp"
+                android:layout_toLeftOf="@+id/cofficient_product"
+                android:padding="5dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/r_gift_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/r_cofficient_product">
+
+            <TextView
+                android:id="@+id/gift_product"
+                style="@style/textView"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="8dp"
+                android:padding="5dp"
+                android:text="جایزه : "
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/gift"
+                style="@style/textView"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="8dp"
+                android:layout_toLeftOf="@+id/gift_product"
+                android:padding="5dp" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/r_discount_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/r_gift_product">
+            <TextView
+                android:layout_centerVertical="true"
+                android:id="@+id/discount_product"
+                style="@style/textView"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="8dp"
+                android:padding="5dp"
+                android:text="تخفف  : "
+                android:textStyle="bold" />
+            <TextView
+                android:layout_centerVertical="true"
+                android:id="@+id/discount"
+                style="@style/textView"
+                android:layout_marginBottom="8dp"
+                android:layout_toLeftOf="@+id/discount_product"
+                android:padding="5dp" />
+        </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/r_lower_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/r_discount_product">
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/lower_product"
+            style="@style/textView"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="8dp"
+            android:padding="5dp"
+            android:text="حداقل مقدار خرید : "
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/lower"
+            style="@style/textView"
+            android:layout_marginBottom="8dp"
+            android:layout_toLeftOf="@+id/lower_product"
+            android:padding="5dp" />
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/r_upper_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/r_lower_product">
+        <TextView
+            android:id="@+id/upper_product"
+            style="@style/textView"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="8dp"
+            android:padding="5dp"
+            android:text="حداکثر مقدار خرید : "
+            android:textStyle="bold" />
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/upper"
+            style="@style/textView"
+            android:layout_below="@id/r_lower_product"
+            android:layout_marginBottom="8dp"
+            android:layout_toLeftOf="@+id/upper_product"
+            android:padding="5dp" />
+    </RelativeLayout>
+
+
+
+
+
+        <TextView
+            android:id="@+id/textDescribe"
+            style="@style/textView"
+            android:layout_below="@id/r_upper_product"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="8dp"
+            android:padding="5dp"
+            android:textColor="@color/teal_200"
+            android:textStyle="bold" />
+
+        <TextView
+
+            android:id="@+id/unit"
+            style="@style/textView"
+            android:layout_below="@id/lower"
+            android:layout_marginBottom="8dp"
+            android:layout_toLeftOf="@+id/upper_product"
+            android:padding="5dp" />
+
+
+        <RelativeLayout
+            android:id="@+id/layout_amount"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textDescribe"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="15dp">
+
+
+            <ImageView
+
+                android:id="@+id/iv_minus"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12.5dp"
+                android:background="@drawable/minus_background"
+                app:srcCompat="@drawable/ic_minus_red" />
+
+            <EditText
+                android:id="@+id/edt_amount_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/iv_max"
+                android:layout_toRightOf="@+id/iv_minus"
+                android:fontFamily="@font/iransans"
+                android:gravity="center"
+                android:inputType="numberDecimal"
+                android:padding="5dp"
+                android:text="0"
+                android:textColor="@color/black_l"
+                android:textSize="@dimen/normal_size"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/iv_max"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12.5dp"
+                android:background="@drawable/plus_background"
+                app:srcCompat="@drawable/ic_plus_white" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_amount"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/rl_cancel"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="8dp"
+                android:layout_marginBottom="30dp">
+
+                <TextView
+                    android:id="@+id/tv_negative"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/border_shape_red"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="5dp"
+                    android:text="کنسل"
+                    android:textColor="@color/colorRedLight"
+                    android:textSize="@dimen/normal_size" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_ok"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="8dp"
+                android:layout_marginBottom="30dp">
+
+                <TextView
+                    android:id="@+id/tv_positive"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/border_shape"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="5dp"
+                    android:text="تایید"
+                    android:textColor="@color/colorGreenLight"
+                    android:textSize="@dimen/normal_size" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

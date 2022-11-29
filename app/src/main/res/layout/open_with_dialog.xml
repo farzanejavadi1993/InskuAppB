@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        tools:ignore="UselessParent">
+
+        <RelativeLayout
+            android:id="@+id/layoutLogo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="95dp"
+                android:layout_height="87dp"
+                android:layout_centerHorizontal="true"
+                app:srcCompat="@drawable/inskuiconn"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layoutLogo"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            app:cardCornerRadius="15dp"
+            app:strokeColor="#2f2f2f"
+            app:strokeWidth="0.5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="12dp"
+                    android:gravity="center"
+                    android:text="باز کردن با برنامه"
+                    android:textColor="#2f2f2f"
+                    android:textSize="14dp"
+                    tools:ignore="ObsoleteLayoutParam" />
+
+                <com.github.gcacace.signaturepad.views.SignaturePad
+                    android:id="@+id/signaturePad"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:visibility="gone" />
+
+                <LinearLayout
+
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/salein"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="0.5">
+
+                        <ImageView
+                            android:id="@+id/iv_salein"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_centerHorizontal="true"
+
+                            app:srcCompat="@drawable/ic_salein"
+                            android:textColor="@color/colorRedLight"
+                            android:textSize="12dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/iv_salein"
+                            android:layout_centerHorizontal="true"
+
+                            android:text="سالین"
+                            android:textColor="@color/normal_color"
+                            android:textSize="@dimen/normal_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/companies"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="0.5">
+
+                        <ImageView
+
+                            android:id="@+id/iv_companies"
+                            android:layout_width="55dp"
+                            android:layout_height="45dp"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/colorRedLight"
+                            android:textSize="12dp"
+                          />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/iv_companies"
+                            android:layout_centerHorizontal="true"
+                            android:id="@+id/tv_companies"
+
+                            android:textColor="@color/normal_color"
+                            android:textSize="@dimen/normal_size" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,304 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        tools:ignore="RedundantNamespace">
+
+        <RelativeLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            android:elevation="4dp">
+
+            <RelativeLayout
+                android:id="@+id/basket"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/background_item"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/img_order"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerInParent="true"
+                    android:padding="7dp"
+                    app:srcCompat="@drawable/ic_basket"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/badge"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/nb_badge_bg"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="@color/white"
+                    android:textSize="11dp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/Menu"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/iv_back"
+                android:background="@drawable/background_item"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <ImageView
+                    android:id="@+id/imgMenu"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:padding="7dp"
+                    app:srcCompat="@drawable/ic_menu"
+                    tools:ignore="ContentDescription" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/iv_back"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="18dp"
+                android:background="@drawable/background_item_white">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerInParent="true"
+                    android:padding="4dp"
+                    android:rotationY="180"
+                    app:srcCompat="@drawable/ic_fi_rr_angle_small_left" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+
+                android:id="@+id/catalogTopLayout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:orientation="horizontal">
+
+                <HorizontalScrollView
+                    android:id="@+id/catalogHSV"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:fillViewport="true"
+                    android:measureAllChildren="false"
+                    android:scrollbars="none"
+                    tools:ignore="ObsoleteLayoutParam,UselessParent">
+
+                    <LinearLayout
+                        android:id="@+id/catalogTopInnerLay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/catalogCounterLayout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <ProgressBar
+                    android:id="@+id/progress"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp" />
+
+                <LinearLayout
+
+                    android:id="@+id/layoutNumbers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/counterAllCatalog"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:textColor="@color/red"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:text=" / "
+                        android:textColor="@color/red"
+                        android:textSize="12dp"
+                        android:textStyle="bold"
+                        app:srcCompat="@android:drawable/ic_input_add" />
+
+                    <TextView
+                        android:id="@+id/counterCurrentCatalog"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:textColor="@color/red"
+                        android:textSize="12dp"
+                        android:textStyle="bold"
+                        app:srcCompat="@android:drawable/ic_input_add" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12dp"
+                    android:background="#00000000"
+                    android:gravity="center"
+                    android:text="کالایی موجود نیست"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/small_size"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+
+
+                <LinearLayout
+                    android:id="@+id/catalogBottomLayout"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/border_1dp"
+                    android:focusable="false"
+                    android:layout_height="0dp"
+                    android:layout_weight="5"
+                    android:orientation="horizontal">
+                    <RelativeLayout
+                        android:visibility="gone"
+                        android:id="@+id/cardError23"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="22dp"
+                        android:layout_marginRight="22dp">
+
+                        <TextView
+                            android:id="@+id/tvError23"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/normal_size" />
+
+
+                        <ImageView
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:layout_below="@+id/tvError23"
+                            android:layout_centerHorizontal="true"
+                            app:srcCompat="@drawable/ic_refresh" />
+                    </RelativeLayout>
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:ignore="UselessParent">
+
+                        <LinearLayout
+                            android:id="@+id/catalogBottomInnerLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+
+                        </LinearLayout>
+                    </ScrollView>
+                </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/catalogNextBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:descendantFocusability="blocksDescendants"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            tools:ignore="RtlHardcoded">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/left_arrow_icon"
+                tools:ignore="ContentDescription" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/catalogPrevBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:descendantFocusability="blocksDescendants"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            tools:ignore="RtlHardcoded">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/right_arrow_icon"
+                tools:ignore="ContentDescription" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</layout>

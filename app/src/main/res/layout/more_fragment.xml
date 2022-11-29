@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:id="@+id/cardMain"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginRight="35dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="12dp"
+                        app:srcCompat="@drawable/ic_profile"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="8dp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/less_normal_size"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+                        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+                    <TextView
+                        android:id="@+id/tvMobile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginEnd="8dp"
+                        android:textColor="#919191"
+                        android:textSize="@dimen/less_normal_size"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+                        app:layout_constraintTop_toBottomOf="@+id/tvName" />
+                    <TextView
+                        android:id="@+id/detailProfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:background="@drawable/background_card"
+                        android:fontFamily="@font/iransans"
+                        android:paddingLeft="@dimen/size16"
+                        android:paddingTop="5dp"
+                        android:paddingRight="@dimen/size16"
+                        android:paddingBottom="5dp"
+                        android:text="مشاهده و ویرایش حساب کاربری"
+                        android:textColor="@color/teal_200"
+                        android:textSize="@dimen/small_size"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                <RelativeLayout
+                    android:id="@+id/cardContactUs"
+                    android:layout_marginTop="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize">
+
+                    <ImageView
+                        android:tint="@color/black_l"
+                        android:id="@+id/ivSupport"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="12dp"
+                        app:srcCompat="@drawable/ic_contact_us" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="8dp"
+                        android:layout_toLeftOf="@+id/ivSupport"
+                        android:text="تماس با ما"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/less_normal_size"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="12dp"
+                        android:padding="5dp"
+                        app:srcCompat="@drawable/ic_fi_rr_angle_small_left" />
+                </RelativeLayout>
+
+
+                <View
+                    android:background="#ccc"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+
+                <RelativeLayout
+                    android:id="@+id/cardSaveAdvertisement"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize">
+
+                    <ImageView
+                        android:id="@+id/iv_save"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="12dp"
+                        app:srcCompat="@drawable/ic_bookmark"
+                        android:tint="@color/black_l" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="8dp"
+                        android:layout_toLeftOf="@+id/iv_save"
+                        android:text="طرح های ذخیره شده"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/less_normal_size"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="12dp"
+                        android:padding="5dp"
+                        app:srcCompat="@drawable/ic_fi_rr_angle_small_left" />
+                </RelativeLayout>
+
+                <View
+                    android:background="#ccc"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+
+
+                <RelativeLayout
+                    android:id="@+id/cardRequest_call"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize">
+
+                    <ImageView
+                        android:id="@+id/request_call"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="12dp"
+                        app:srcCompat="@drawable/ic_request_call"
+                        android:tint="@color/black_l" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="8dp"
+                        android:layout_toLeftOf="@+id/request_call"
+                        android:text="درخواست های تماس"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/less_normal_size"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="12dp"
+                        android:padding="5dp"
+                        app:srcCompat="@drawable/ic_fi_rr_angle_small_left" />
+                </RelativeLayout>
+                <View
+                    android:background="#ccc"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+
+
+                <RelativeLayout
+                    android:id="@+id/cardRequestAdvertisement"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize">
+
+                    <ImageView
+                        android:id="@+id/request_advertisement"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="12dp"
+                        app:srcCompat="@drawable/ic_request_gift"
+                        android:tint="@color/black_l" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="8dp"
+                        android:layout_toLeftOf="@+id/request_advertisement"
+                        android:text="طرح های خواسته شده"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/less_normal_size"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="12dp"
+                        android:padding="5dp"
+                        app:srcCompat="@drawable/ic_fi_rr_angle_small_left" />
+                </RelativeLayout>
+                <View
+                    android:background="#ccc"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+
+
+
+
+                <RelativeLayout
+                    android:id="@+id/cardpower"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize">
+
+                    <ImageView
+                        android:id="@+id/iv_power"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="12dp"
+                        app:srcCompat="@drawable/ic_power" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="8dp"
+                        android:layout_toLeftOf="@+id/iv_power"
+                        android:text="خروج از حساب کاربری"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/less_normal_size"
+                        android:textStyle="bold" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_below="@+id/cardMain"
+            android:layout_marginTop="18dp"
+            android:layout_width="match_parent"
+            app:cardCornerRadius="12dp"
+            android:layout_marginLeft="@dimen/size16"
+            android:layout_marginRight="@dimen/size16"
+            app:cardElevation="5dp"
+            android:layout_marginBottom="90dp"
+
+            android:layout_height="?attr/actionBarSize">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:id="@+id/shareApp"
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:background="@color/white"
+                    android:layout_height="?attr/actionBarSize">
+
+                    <ImageView
+                        android:id="@+id/iv_share"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="12dp"
+                        app:srcCompat="@drawable/ic_share" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="4dp"
+                        android:layout_toLeftOf="@+id/iv_share"
+                        android:text="اشتراک گذاری برنامه"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/less_normal_size"
+                        android:textStyle="bold" />
+
+
+                </RelativeLayout>
+                <View
+                    android:background="#ccc"
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"/>
+                <RelativeLayout
+                    android:id="@+id/cardStar"
+                    android:background="@color/white"
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="?attr/actionBarSize">
+
+                    <ImageView
+                        android:id="@+id/iv_star"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="12dp"
+                        app:srcCompat="@drawable/star_vector" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="4dp"
+                        android:layout_toLeftOf="@+id/iv_star"
+                        android:text="امتیاز به برنامه"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/less_normal_size"
+                        android:textStyle="bold" />
+
+
+                </RelativeLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+
+    </RelativeLayout>
+
+</layout>
+
+
+
+

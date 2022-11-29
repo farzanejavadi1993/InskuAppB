@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="survey"
+            type="ir.kitgroup.inskuappb.model.Survey" />
+    </data>
+
+    <RelativeLayout
+        android:rotationY="180"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/cardSurvey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/border_survey">
+
+        <TextView
+
+            android:id="@+id/title_survey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingTop="2dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="2dp"
+            android:text="@{survey.title}"
+            android:textColor="@color/teal_200"
+            android:textSize="@dimen/small_size"
+            tools:ignore="SpUsage" />
+
+
+    </RelativeLayout>
+</layout>

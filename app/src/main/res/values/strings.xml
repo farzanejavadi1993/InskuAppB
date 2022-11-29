@@ -1,0 +1,90 @@
+<resources>
+    <string name="app_name">پخش یاب</string>
+
+    <string name="tv_Counting_intro">از 3</string>
+    <string name="tv_page_intro">صفحه</string>
+    <string name="tv_next_intro">بعدی</string>
+    <string name="tv_previous_intro">قبلی</string>
+    <string name="title_first_intro">پیدا کن</string>
+    <string name="wrong_phone_number">"شماره همراه وارد شده اشتباه است."</string>
+    <string name="error_connect_to_internet">اتصال به اینترنت برقرار نیست</string>
+    <string name="error_name">نام الزامی است.</string>
+    <string name="error_l_name">نام خانوادگی الزامی است.</string>
+    <string name="error_store_name">نام فروشگاه الزامی است.</string>
+
+    <string name="error_watsApp">"لطفا اپلیکیشن واتس آپ نصب کنید."</string>
+    <string name="description_first_intro">با پخش یاب ، شرکت های توزیع و پخش مورد نیاز خودتو پیدا کن.</string>
+    <string name="rule1">با ثبت نام در پخش یاب </string>
+    <string name="rule2"> قوانین و مقررات آن را می پذیرم.</string>
+    <string name="title_third_intro">سفارش بده</string>
+    <string name="description_third_intro">با پخش یاب ، کاتالوگ محصولات شرکت های پخش را ببین و سفارش بده.</string>
+    <string name="title_second_intro">در جریان باش</string>
+    <string name="description_second_intro">در پخش یاب ، جدیدترین طرح ها و جشنواره ها برای شما اطلاع رسانی خواهد شد.</string>
+    <string name="login_to_account">تایید و دریافت کد</string>
+    <string name="Register_to_account">ثبت اطلاعات</string>
+    <string name="Register_to_application">ورود به برنامه</string>
+    <string name="use_features">برای استفاده از امکانات نرم افزار باید </string>
+    <string name="enter_phone">شماره تلفن همراه خود را تایید کنید </string>
+    <string name="phone">تلفن همراه</string>
+
+    <string name="confirm_number">تایید شماره موبایل</string>
+    <string name="confirm_code">تایید کد</string>
+    <string name="information_account">ورود اطلاعات کاربری</string>
+    <string name="description_application">اپلیکیشن ویژه صنعت توزیع و پخش</string>
+    <string name="name_application">Insku Business</string>
+    <string name="link_KitGroup">تولید شده توسط <a href="http://www.kitgroup.ir/">کیت گروپ</a></string>
+    <string name="store">"فروشگاه پاس"</string>
+    <string name="owner">"فرزانه جوادی"</string>
+    <string name="address">"بولوار سجاد بین سجاد 2 و 4 جنب بانک"</string>
+    <string name="total_price">"جمع مبلغ :"</string>
+    <string name="total_discount">"جمع تخفیف :"</string>
+    <string name="pure_price">"مبلغ قابل پرداخت :"</string>
+    <string name="register_order">"ثبت سفارش"</string>
+    <string name="price">"2,500,000 ریال"</string>
+    <string name="delgir_company">"شرکت پخش دلگیر"</string>
+    <string name="not_found_company">هیچ شرکتی یافت نشد"</string>
+    <string name="about_delgir_company">"کیت گروپ سازمانی دانش محور و عملیاتی در محیط کسب و کار ایران می باشد که کار حرفه ای و پیچیده در زمینه تعامل سازمانی انجام داده است، کیت گروپ شناخت عمیق در سه وجه اساسی توسعه و پایداری سازمان های مدرن و چابک  "</string>
+
+    <string name="get_catalog">دریافت کاتالوگ</string>
+    <string name="add_city">شهر مورد نظر شما در لیست شهرها موجود نمیباشد.آن را اضافه کنید.</string>
+    <string name="continue_add_passenger">تایید  و ادامه</string>
+    <string name="company_phone">05137638311</string>
+    <string name="company_message">09125375171</string>
+    <string name="companyAddress">بولوار جانباز-بین جانباز 1 و 3  -جنب پیتزا کندز - ساختمان برج آسمان - طبقه 7</string>
+    <string name="lat">36.32675778593688</string>
+    <string name="lng">59.56374851107552</string>
+
+
+    <string name="passenger_add_user">  سفارش آنلاین</string>
+    <string name="passenger_not_find">چیزی یافت نشد!</string>
+    <string name="passenger_not_find_description">شما هنوز هیچ سفارشی ثبت نکرده‌اید. برای شروع روی دکمه سفارش آنلاین بزنید.</string>
+    <string name="company_not_find_description">شما هنوز هیچ شرکتی ذخیره نکرده‌اید. شرکت مورد نظر خود را از لیست شرکت ها ذخیره کنید.</string>
+
+
+    <string name="message_not_find_description">شما هنوز هیچ پیامی دریافت نکرده‌اید.</string>
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBvR07aFM-1ddGVgt392lRnUge3weT6nUY</string>
+
+
+    <string name="passenger_title">لیست سفارشات</string>
+
+
+
+    <string name="path_salein_companies">.Activities.LauncherActivity</string>
+    <string name="link_salein_companies">https://cafebazaar.ir/app/</string>
+
+
+    <string name="pkg_salein">ir.kitgroup.salein</string>
+    <string name="path_salein">ir.kitgroup.salein.Activities.LauncherActivity</string>
+    <string name="link_salein">https://cafebazaar.ir/app/ir.kitgroup.salein</string>
+
+    <string name="watApp_b_link">com.whatsapp.w4b</string>
+    <string name="watApp_link">com.whatsapp</string>
+
+    <string name="tel_url">https://t.me/kcgroup_channel</string>
+    <string name="wat_url">com.whatsapp</string>
+    <string name="gmail_url">info@kitgroup.ir</string>
+
+    <string name="web_url">www.kitgroup.ir</string>
+
+</resources>

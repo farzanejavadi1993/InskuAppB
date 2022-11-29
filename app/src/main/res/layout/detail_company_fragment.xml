@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true">
+
+        <RelativeLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            android:elevation="10dp">
+
+            <RelativeLayout
+                android:id="@+id/iv_back"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/size16"
+                android:background="@drawable/background_item_white">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerInParent="true"
+                    android:padding="4dp"
+                    android:rotationY="180"
+                    app:srcCompat="@drawable/ic_fi_rr_angle_small_left" />
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/tvNameCompany"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:lineSpacingExtra="10dp"
+                android:textColor="@color/normalColor"
+                android:textSize="@dimen/normal_size"
+                android:textStyle="bold" />
+
+
+        </RelativeLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:ignore="UselessParent">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:layout_below="@+id/toolbar"
+                    android:visibility="gone">
+
+                    <com.smarteist.autoimageslider.SliderView
+                        android:id="@+id/slider"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        app:sliderAnimationDuration="600"
+                        app:sliderAutoCycleDirection="back_and_forth"
+                        app:sliderIndicatorAnimationDuration="600"
+                        app:sliderIndicatorEnabled="true"
+                        app:sliderIndicatorGravity="center_horizontal|bottom"
+                        app:sliderIndicatorMargin="15dp"
+                        app:sliderIndicatorOrientation="horizontal"
+                        app:sliderIndicatorPadding="3dp"
+                        app:sliderIndicatorRadius="2dp"
+                        app:sliderIndicatorSelectedColor="@color/color_primary"
+                        app:sliderIndicatorUnselectedColor="@color/colorGray"
+                        app:sliderScrollTimeInSec="2" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginRight="8dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardMessage"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="0.25"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|top"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/ivMessageC"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                app:srcCompat="@drawable/message_vector" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:text="پیام ها"
+                                android:textColor="@color/normalColor"
+                                android:textSize="@dimen/less_small_size" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardGift"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="0.25"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|top"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/ivAdvertise"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                app:srcCompat="@drawable/gift_vector" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:text="طرح ها"
+                                android:textColor="@color/normalColor"
+                                android:textSize="@dimen/less_small_size" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/pdf"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="0.25"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|top"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/ivPdf"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:padding="5dp"
+                                app:srcCompat="@drawable/ic_pdf" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:text="دانلود pdf"
+                                android:textColor="@color/normalColor"
+                                android:textSize="@dimen/less_small_size" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btnPhone"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="0.25"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|top"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/ivPhone"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:padding="8dp"
+
+                                app:srcCompat="@drawable/phone1" />
+
+                            <TextView
+                                android:id="@+id/tvphone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:text="09150469164"
+                                android:textColor="@color/normalColor"
+                                android:textSize="@dimen/less_small_size" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <com.google.android.material.card.MaterialCardView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="12dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="10dp">
+
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:orientation="vertical">
+
+
+                        <RelativeLayout
+                            android:id="@+id/cardCall"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginBottom="12dp">
+
+                            <TextView
+
+                                android:id="@+id/tvCall"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_centerHorizontal="true"
+                                android:background="@drawable/green_button"
+                                android:gravity="center"
+                                android:paddingLeft="25dp"
+                                android:paddingRight="25dp"
+                                android:text="با من تماس بگیر"
+                                android:textColor="#fff"
+                                android:textSize="@dimen/normal_size"
+                                android:textStyle="bold" />
+
+                            <ProgressBar
+                                android:id="@+id/progressCall"
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="15dp"
+                                android:layout_toLeftOf="@+id/tvCall"
+                                android:visibility="gone" />
+                        </RelativeLayout>
+
+
+                        <RelativeLayout
+                            android:id="@+id/cardError15"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginBottom="12dp"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:id="@+id/ivWarning"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:padding="5dp"
+                                app:srcCompat="@drawable/warning"
+                                tools:ignore="RtlHardcoded" />
+
+                            <TextView
+                                android:id="@+id/tvError15"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toLeftOf="@+id/ivWarning"
+                                android:gravity="right"
+                                android:textColor="@color/red"
+                                android:textSize="@dimen/small_size"
+                                android:textStyle="bold"
+                                tools:text="در حال حاضر این سیستم مجهز به سامانه سفارش آنلاین نمی باشد." />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/cardAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:background="@drawable/background_card"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp">
+
+                                <com.github.siyamed.shapeimageview.RoundedImageView
+                                    android:id="@+id/ivAddress"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_alignParentRight="true"
+                                    android:padding="5dp"
+                                    app:srcCompat="@drawable/ic_location"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/txtAddress"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="right"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginEnd="8dp"
+                                    android:textColor="@color/normal_color"
+                                    android:textSize="@dimen/small_size"
+                                    app:layout_constraintBottom_toBottomOf="@+id/ivAddress"
+                                    app:layout_constraintEnd_toStartOf="@+id/ivAddress"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="@+id/ivAddress" />
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <TextView
+                                android:id="@+id/txtNavigable"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginBottom="5dp"
+                                android:text="مسیریابی"
+                                android:textColor="@color/teal_200"
+                                android:textSize="@dimen/small_size"
+                                android:textStyle="bold"
+                                android:visibility="gone"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/ivAddress" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/cardSocialMedia"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginEnd="8dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:id="@+id/card_whatsapp"
+                                android:layout_width="38dp"
+                                android:layout_height="38dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="12dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="@drawable/background_item_white"
+                                android:elevation="4dp"
+                                android:visibility="gone">
+
+                                <ImageView
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_centerInParent="true"
+                                    app:srcCompat="@drawable/ic_watsapp"
+                                    tools:ignore="ContentDescription" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/card_telegram"
+                                android:layout_width="38dp"
+                                android:layout_height="38dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="12dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="@drawable/background_item_white"
+                                android:elevation="4dp"
+                                android:visibility="gone">
+
+                                <ImageView
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_centerInParent="true"
+                                    app:srcCompat="@drawable/ic_telegram" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/card_instagram"
+                                android:layout_width="38dp"
+                                android:layout_height="38dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="12dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="@drawable/background_item_white"
+                                android:elevation="4dp"
+                                android:visibility="gone">
+
+                                <ImageView
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_centerInParent="true"
+                                    app:srcCompat="@drawable/ic_instagram" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/card_web"
+                                android:layout_width="38dp"
+                                android:layout_height="38dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="12dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="@drawable/background_item_white"
+                                android:elevation="4dp"
+                                android:visibility="gone">
+
+                                <ImageView
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_centerInParent="true"
+                                    app:srcCompat="@drawable/ic_chorome" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/card_email"
+                                android:layout_width="38dp"
+                                android:layout_height="38dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="12dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="@drawable/background_item_white"
+                                android:elevation="4dp"
+                                android:visibility="gone">
+
+                                <ImageView
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_centerInParent="true"
+                                    app:srcCompat="@drawable/ic_email" />
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+
+                            android:id="@+id/cardCustomer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginBottom="12dp"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/cardOrder"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/imageOrder"
+                                    android:layout_width="65dp"
+                                    android:layout_height="65dp"
+                                    android:scaleType="fitXY"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/order" />
+
+                                <TextView
+                                    android:id="@+id/textView3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginEnd="12dp"
+                                    android:text="پیگیری سفارشات"
+                                    android:textColor="@color/normalColor"
+                                    android:textSize="@dimen/normal_size"
+                                    app:layout_constraintEnd_toStartOf="@+id/imageOrder"
+                                    app:layout_constraintTop_toTopOf="@+id/imageOrder" />
+
+                                <TextView
+                                    android:id="@+id/textView5"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="12dp"
+                                    android:text="مشاهده و ویرایش سفارشات شما در این شرکت"
+                                    android:textColor="#919191"
+                                    android:textSize="@dimen/small_size"
+                                    app:layout_constraintEnd_toStartOf="@+id/imageOrder"
+                                    app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:layout_marginLeft="32dp"
+                                android:layout_marginRight="32dp"
+                                android:background="#ccc" />
+
+
+                            <TextView
+                                android:id="@+id/tvCustomer"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="7.5dp"
+                                android:layout_marginRight="16dp"
+                                android:layout_marginBottom="7.5dp"
+                                android:gravity="right"
+                                android:textColor="@color/normalColor"
+                                android:textSize="@dimen/less_normal_size"
+                                android:textStyle="bold"
+                                tools:text="فروشگاه ها" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginRight="12dp"
+                                tools:itemCount="3"
+                                tools:listitem="@layout/name_catalog_item" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/cardAbout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginBottom="12dp"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivAbout"
+                                    android:layout_width="65dp"
+                                    android:layout_height="65dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:scaleType="fitXY"
+                                    app:srcCompat="@drawable/about"
+                                    tools:ignore="RtlHardcoded" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginEnd="4dp"
+                                    android:layout_toLeftOf="@+id/ivAbout"
+                                    android:orientation="vertical">
+
+                                    <TextView
+
+                                        android:id="@+id/txtTitleCompany"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="right"
+                                        android:gravity="right"
+                                        android:textColor="@color/teal_200"
+                                        android:textSize="@dimen/small_size"
+                                        android:textStyle="bold"
+                                        tools:text="lklklklklklklklklk" />
+
+                                    <TextView
+                                        android:id="@+id/txtGeo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/txtTitleCompany"
+                                        android:layout_marginTop="3dp"
+                                        android:layout_toLeftOf="@+id/ivAbout"
+                                        android:gravity="right"
+                                        android:textColor="#919191"
+                                        android:textSize="@dimen/small_size"
+                                        tools:text="lklklklklklklklklk"
+
+                                        />
+                                </LinearLayout>
+
+
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/txtDescription"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/ivAbout"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginBottom="15dp"
+                                android:gravity="right"
+                                android:textColor="@color/normal_color"
+                                android:textSize="@dimen/small_size"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/ivAbout" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="65dp"
+            android:id="@+id/progress"
+            app:cardCornerRadius="12dp"
+            android:layout_centerInParent="true"
+            android:layout_height="65dp">
+            <RelativeLayout
+                android:layout_width="65dp"
+                android:layout_height="65dp">
+                <ProgressBar
+                    android:layout_centerInParent="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp" />
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </RelativeLayout>
+
+
+</layout>

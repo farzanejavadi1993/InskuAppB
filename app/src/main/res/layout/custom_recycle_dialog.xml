@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:clickable="true"
+    app:cardCornerRadius="15dp"
+    android:focusable="true"
+    android:gravity="right"
+    android:orientation="vertical"
+    tools:ignore="RtlHardcoded">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="right"
+        android:orientation="vertical"
+        tools:ignore="RtlHardcoded">
+
+
+
+        <TextView
+            android:fontFamily="@font/iransans"
+            android:id="@+id/tvMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="8dp"
+            android:textColor="#000"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            tools:ignore="SpUsage" />
+
+        <EditText
+            android:fontFamily="@font/iransans"
+            android:id="@+id/edt_search_name_catalogpage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="8dp"
+            android:hint=" جستجوی نام صفحات "
+            android:textColor="#000"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            tools:ignore="Autofill,HardcodedText,TextFields" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewDialog"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <RelativeLayout
+
+            android:layout_marginTop="10dp"
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            tools:ignore="DisableBaselineAlignment">
+
+            <RelativeLayout
+                android:layout_centerInParent="true"
+                android:id="@+id/rl_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="8dp"
+                android:layout_marginBottom="30dp"
+                tools:ignore="ObsoleteLayoutParam">
+
+                <TextView
+
+                    android:id="@+id/tv_negative"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/border_shape_red"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="5dp"
+                    android:text="بستن"
+                    android:textColor="@color/colorRedLight"
+                    android:textSize="12dp"
+                    tools:ignore="HardcodedText" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

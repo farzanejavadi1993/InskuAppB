@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="ladder"
+            type="ir.kitgroup.inskuappb.model.Advertise" />
+    </data>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="15dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_marginTop="4dp"
+                android:id="@+id/cardCompany"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ProgressBar
+                    android:visibility="gone"
+                    android:id="@+id/progress_company"
+                    android:layout_marginRight="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/nameCompany"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"/>
+
+                <com.github.siyamed.shapeimageview.CircularImageView
+                    android:id="@+id/ivCompanyAd"
+                    setImageView="@{ladder.companyId}"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="12dp"
+                    android:padding="5dp"
+                    app:siBorderColor="#ccc"
+                    app:siBorderWidth="1dp"
+                    tools:ignore="RtlHardcoded" />
+
+                <TextView
+                    android:id="@+id/nameCompany"
+                    text="@{ladder.companyName}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/ivCompanyAd"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/normal_size"
+                    android:textStyle="bold"
+                    tools:ignore="SpUsage" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/ivLadder"
+                setImageViewAdvertise="@{ladder.i}"
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                android:layout_marginTop="7dp"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    tools:text=""
+                    android:id="@+id/tvTitleAd"
+                    style="@style/H7Right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="12dp"
+                    android:singleLine="true"
+                    android:text="@{ladder.title}"
+                    android:textColor="@color/normal_color"
+                    android:textSize="@dimen/less_normal_size"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:id="@+id/tvTypeAd"
+                    textInclude="@{ladder.dType.get1()!=null?ladder.dType.get1():ladder.dType.get2()!=null?ladder.dType.get2():ladder.dType.get3()!=null?ladder.dType.get3():ladder.dType.get4()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_toLeftOf="@+id/tvTitleAd"
+                    android:singleLine="true"
+                    android:textColor="@color/selected_item_color"
+                    android:textSize="@dimen/small_size"
+                    tools:ignore="SpUsage" />
+
+
+
+                <ImageView
+                    android:id="@+id/ivSave_ladder"
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12dp"
+                    app:srcCompat="@drawable/ic_bookmark" />
+
+                <ImageView
+                    android:id="@+id/viewC"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12dp"
+                    android:layout_toRightOf="@+id/ivSave_ladder"
+                    app:srcCompat="@drawable/view" />
+
+                <TextView
+                    android:id="@+id/tvView"
+                    textChangeInt="@{ladder.count}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12dp"
+                    android:layout_toRightOf="@+id/viewC"
+                    android:textColor="@color/normal_color"
+                    android:textSize="@dimen/very_small_size" />
+
+                <ProgressBar
+                    android:visibility="gone"
+                    android:id="@+id/progress_save_ladder"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/tvView"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
+
+            </RelativeLayout>
+
+            <TextView
+
+                style="@style/H7Right"
+                textExpire="@{ladder.expirationDate}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="right"
+                android:singleLine="true"
+                android:textColor="@color/red"
+                android:textSize="@dimen/small_size" />
+
+            <TextView
+                textEmpty="@{ladder.description}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|top"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="-7dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="20dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="right"
+                android:lineSpacingExtra="8dp"
+                android:singleLine="true"
+                android:textColor="#838383"
+                android:textSize="@dimen/small_size" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:background="#B8B8B8" />
+
+
+    </LinearLayout>
+
+
+</layout>

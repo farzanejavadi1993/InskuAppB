@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="state"
+            type="ir.kitgroup.inskuappb.dataBase.State" />
+    </data>
+
+    <RelativeLayout
+        android:background="@color/white"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <TextView
+
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvFilter"
+            android:fontFamily="@font/iransans"
+            android:layoutDirection="ltr"
+            android:text="@{state.Name}"
+            android:textColor="@color/black_light"
+            android:textSize="@dimen/small_size"
+            tools:ignore="SpUsage" />
+
+
+        <CheckBox
+            android:visibility="gone"
+            android:id="@+id/checkBox"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true" />
+
+        <View
+            android:layout_marginRight="35dp"
+            android:layout_marginLeft="35dp"
+            android:layout_alignParentBottom="true"
+            android:background="#ccc"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+    </RelativeLayout>
+</layout>

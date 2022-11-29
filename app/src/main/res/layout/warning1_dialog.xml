@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView
+    app:cardCornerRadius="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="380dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:background="#D65454"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+
+            android:layout_margin="15dp"
+            android:layout_gravity="center_horizontal"
+            app:srcCompat="@drawable/ic_warning_new"
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
+        <TextView
+            android:id="@+id/titleWarningDialog"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="14dp"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/textWarningDialog"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:textSize="12dp"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/cancelbtnWarningDialog"
+                android:padding="15dp"
+                android:textSize="13dp"
+                android:layout_weight="0.5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_cancel_warning_dialog"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                    android:gravity="center"
+                    android:text="کنسل"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <View
+                android:background="#ccc"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"/>
+
+            <LinearLayout
+                android:id="@+id/okBtnWarningDialog"
+                android:padding="15dp"
+                android:textSize="13dp"
+                android:layout_weight="0.5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_ok_warning_dialog"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                    android:gravity="center"
+                    android:text="تلاش مجدد"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

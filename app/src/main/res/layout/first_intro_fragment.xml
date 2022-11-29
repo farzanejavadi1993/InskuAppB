@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:rotationY="180">
+
+
+
+
+
+        <ImageView
+            android:id="@+id/intro_first_tv_app_name"
+            android:layout_width="150dp"
+            android:layout_height="45dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            app:srcCompat="@drawable/font" />
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/title"
+            android:layout_below="@+id/intro_first_tv_app_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/normalSpace"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="@dimen/normalSpace"
+            app:srcCompat="@drawable/first_intro"
+            tools:ignore="ContentDescription" />
+
+
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tvFirstDescription"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="24dp"
+            android:text="@string/title_first_intro"
+            android:textColor="@color/color_title"
+            android:textSize="@dimen/less_large_size"
+            android:textStyle="bold"
+            tools:ignore="SpUsage" />
+
+        <TextView
+            android:id="@+id/tvFirstDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/normalSpace"
+            android:layout_marginRight="@dimen/normalSpace"
+            android:layout_marginBottom="85dp"
+            android:gravity="center"
+            android:text="@string/description_first_intro"
+            android:textColor="@color/less_normal_color"
+            android:textSize="@dimen/normal_size"
+            tools:ignore="SpUsage" />
+    </RelativeLayout>
+</layout>

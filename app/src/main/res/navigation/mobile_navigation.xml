@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/SplashScreenFragment">
+
+    <fragment
+        android:id="@+id/SplashScreenFragment"
+        android:name="ir.kitgroup.inskuappb.ui.splashscreen.SplashScreenFragment"
+        tools:layout="@layout/splash_screen_fragment" >
+
+        <action
+            app:popUpTo="@id/SplashScreenFragment"
+            app:popUpToInclusive="true"
+            android:id="@+id/actionGoToIntroFragment"
+            app:destination="@id/IntroFragment" />
+
+        <action
+            app:popUpTo="@id/SplashScreenFragment"
+            app:popUpToInclusive="true"
+            android:id="@+id/actionGoToHomeFragment"
+            app:destination="@id/HomeFragment" />
+
+        <action
+            app:popUpTo="@id/SplashScreenFragment"
+            app:popUpToInclusive="true"
+            android:id="@+id/actionGoToFilterFragment"
+            app:destination="@id/FilterFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/IntroFragment"
+        android:name="ir.kitgroup.inskuappb.ui.intros.IntroFragment"
+        tools:layout="@layout/intro_fragment" >
+        <action
+            app:popUpTo="@id/IntroFragment"
+            app:popUpToInclusive="true"
+            android:id="@+id/actionGoToLoginFragment"
+            app:destination="@id/LoginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/LoginFragment"
+        android:name="ir.kitgroup.inskuappb.ui.logins.LoginFragment"
+        tools:layout="@layout/login_fragment" >
+        <action
+            android:id="@+id/actionGoToVerifyFragment"
+            app:destination="@id/VerifyCodeFragment" />
+        <action
+            android:id="@+id/actionGoToRuleFragment"
+            app:destination="@id/RuleFragment" />
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/RuleFragment"
+        android:name="ir.kitgroup.inskuappb.ui.logins.RuleFragment"
+        tools:layout="@layout/rule_fragment" >
+
+    </fragment>
+    <fragment
+        android:id="@+id/VerifyCodeFragment"
+        android:name="ir.kitgroup.inskuappb.ui.logins.VerifyCodeFragment"
+        tools:layout="@layout/verify_code_fragment" >
+
+
+        <action
+            app:popUpTo="@id/VerifyCodeFragment"
+            app:popUpToInclusive="true"
+            android:id="@+id/actionGoToHomeFragment"
+            app:destination="@id/HomeFragment"
+            />
+
+        <action
+            app:popUpTo="@id/VerifyCodeFragment"
+            app:popUpToInclusive="true"
+            android:id="@+id/actionGoToFilterFragment"
+            app:destination="@id/FilterFragment"
+            />
+        <argument
+            android:name="code"
+            app:argType="string" />
+        <argument
+            android:name="phoneNumber"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/HomeFragment"
+        android:name="ir.kitgroup.inskuappb.ui.launcher.homeItem.LauncherFragment"
+        tools:layout="@layout/home_fragment" >
+
+        <action
+            android:id="@+id/actionGoToDetailFragment"
+            app:destination="@id/DetailCompanyFragment"
+            />
+        <action
+            android:id="@+id/actionGoToFilterFragment"
+            app:destination="@id/FilterFragment"
+            />
+
+        <action
+            android:id="@+id/actionGoToSearchCompany"
+            app:destination="@id/SearchCompany"
+            />
+        <action
+            android:id="@+id/actionGoToSearchAdvertise"
+            app:destination="@id/SearchAdvertiseFragment"
+            />
+        <action
+            android:id="@+id/actionGoToDetailAdvertiseFragment"
+            app:destination="@id/DetailAdvertiseFragment"
+            />
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/DetailAdvertiseFragment"
+        android:name="ir.kitgroup.inskuappb.ui.launcher.homeItem.tab1Advertise.DetailAdvertiseFragment"
+        tools:layout="@layout/detail_advertise_fragment" >
+        <argument
+            android:name="Guid"
+            app:argType="string" />
+        <argument
+            android:name="save"
+            app:argType="boolean" />
+
+        <action
+            android:id="@+id/actionGoToDetailFragment"
+            app:destination="@id/DetailCompanyFragment"
+            />
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/SearchAdvertiseFragment"
+        android:name="ir.kitgroup.inskuappb.ui.launcher.homeItem.SearchAdvertiseFragment"
+        tools:layout="@layout/detail_advertise_fragment" >
+        <action
+            android:id="@+id/actionGoToDetailAdvertiseFragment"
+            app:destination="@id/DetailAdvertiseFragment"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/SearchCompany"
+        android:name="ir.kitgroup.inskuappb.ui.launcher.homeItem.SearchCompany"
+        tools:layout="@layout/search_company_fragment" >
+        <action
+            android:id="@+id/actionGoToDetailFragment"
+            app:destination="@id/DetailCompanyFragment"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/AdvertiseFragment"
+        android:name="ir.kitgroup.inskuappb.ui.launcher.homeItem.tab1Advertise.AdvertiseFragment"
+        tools:layout="@layout/advertise_fragment">
+
+
+        <action
+            android:id="@+id/actionGoToDetailAdvertiseFragment"
+            app:destination="@id/DetailAdvertiseFragment"
+            />
+
+        <action
+            android:id="@+id/actionGoToCompanyAdvertise"
+            app:destination="@id/CompanyAdvertise"
+            />
+    </fragment>
+    <fragment
+
+        android:id="@+id/CompanyAdvertise"
+        android:name="ir.kitgroup.inskuappb.ui.launcher.homeItem.tab1Advertise.CompanyAdvertiseFragment"
+        tools:layout="@layout/company_advertise_fragment">
+        <argument
+            android:name="companyId"
+            app:argType="string" />
+        <argument
+            android:name="companyName"
+            app:argType="string" />
+
+        <action
+            android:id="@+id/actionGoToDetailAdvertiseFragment"
+            app:destination="@id/DetailAdvertiseFragment"
+            />
+        <action
+            android:id="@+id/actionGoToDetailFragment"
+            app:destination="@id/DetailCompanyFragment"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/DetailCompanyFragment"
+        android:name="ir.kitgroup.inskuappb.ui.launcher.homeItem.tab3AllCompany.DetailCompanyFragment"
+        tools:layout="@layout/detail_company_fragment" >
+        <action
+            android:id="@+id/actionGoToCatalogFragment"
+            app:destination="@id/CatalogFragment"
+            />
+
+        <action
+            android:id="@+id/actionGoToDetailMessage"
+            app:destination="@id/DetailMessageFragment"
+            />
+        <action
+            android:id="@+id/actionGoToListOrderFragment"
+            app:destination="@id/ListOrderFragment"
+            />
+
+        <action
+            android:id="@+id/actionGoToCompanyAdvertise"
+            app:destination="@id/CompanyAdvertise"
+            />
+    </fragment>
+    <fragment
+
+        android:id="@+id/ProfileFragment"
+        android:name="ir.kitgroup.inskuappb.ui.launcher.profileitem.ProfileFragment"
+        tools:layout="@layout/more_fragment" >
+        <action
+            android:id="@+id/actionGoAdvertiseFragment"
+            app:destination="@id/AdvertiseFragment"
+            />
+
+        <action
+            android:id="@+id/actionGoToContactUsFragment"
+            app:destination="@id/ContactUsFragment"
+            />
+        <action
+
+            android:id="@+id/actionGoToFilterFragment"
+            app:destination="@id/FilterFragment"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/AllMessageFragment"
+        android:name="ir.kitgroup.inskuappb.ui.launcher.messageItem.AllMessageFragment"
+        tools:layout="@layout/all_company_message" >
+        <action
+            android:id="@+id/actionGoDetailMessageFragment"
+            app:destination="@id/DetailMessageFragment"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ContactUsFragment"
+        android:name="ir.kitgroup.inskuappb.ui.launcher.profileitem.ContactUsFragment"
+        tools:layout="@layout/contact_us_fragment" />
+    <fragment
+        android:id="@+id/DetailMessageFragment"
+        android:name="ir.kitgroup.inskuappb.ui.launcher.messageItem.DetailMessageFragment"
+        tools:layout="@layout/detail_message_fragment" >
+        <action
+            android:id="@+id/actionGoToDetailFragment"
+            app:destination="@id/DetailCompanyFragment"
+            />
+        <argument
+            android:name="GID"
+            app:argType="string" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+
+    </fragment>
+    <fragment
+
+        android:id="@+id/FilterFragment"
+        android:name="ir.kitgroup.inskuappb.ui.launcher.homeItem.FilterFragment"
+        tools:layout="@layout/filter_fragment" >
+        <action
+            app:popUpTo="@id/FilterFragment"
+            app:popUpToInclusive="true"
+            android:id="@+id/actionGoToHomeFragment"
+            app:destination="@id/HomeFragment"
+            />
+
+
+
+        <argument
+            android:name="phoneNumber"
+            app:argType="string" />
+
+        <argument
+            android:name="from"
+            app:argType="string" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/ListOrderFragment"
+        android:name="ir.kitgroup.inskuappb.ui.orders.ListOrderFragment"
+        tools:layout="@layout/list_order_fragment" >
+        <action
+            android:id="@+id/actionGoToCatalogFragment"
+            app:destination="@id/CatalogFragment"
+            />
+
+        <action
+            android:id="@+id/actionGoToOrderFragment"
+            app:destination="@id/OrderFragment"
+            />
+
+    </fragment>
+    <fragment
+        android:id="@+id/CatalogFragment"
+        android:name="ir.kitgroup.inskuappb.ui.orders.CatalogFragment"
+        tools:layout="@layout/catalog_activity" >
+        <action
+            android:id="@+id/actionGoToOrderFragment"
+            app:destination="@id/OrderFragment"
+            />
+        <argument
+            android:name="Cat"
+            app:argType="string" />
+
+        <argument
+            android:name="orderId"
+            app:argType="long" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/OrderFragment"
+        android:name="ir.kitgroup.inskuappb.ui.orders.OrderFragment"
+        tools:layout="@layout/order_fragment" >
+
+        <action
+            android:id="@+id/actionGoToCatalogFragment"
+            app:destination="@id/CatalogFragment"
+            />
+        <argument
+            android:name="Cat"
+            app:argType="string" />
+        <argument
+            android:name="OrderId"
+            app:argType="long" />
+        <argument
+            android:name="ordGid"
+            app:argType="string" />
+
+        <argument
+            android:name="customerId"
+            app:argType="string" />
+
+        <argument
+            android:name="edit"
+            app:argType="boolean" />
+    </fragment>
+
+</navigation>

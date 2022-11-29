@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="message"
+            type="ir.kitgroup.inskuappb.model.CompanyMessage" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.github.siyamed.shapeimageview.CircularImageView
+            android:id="@+id/img_profile_chat"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            setImageView="@{message.id}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_name_user"
+            android:layout_width="0dp"
+            android:gravity="right"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_toLeftOf="@+id/img_profile_chat"
+            android:text="@{message.Name}"
+            android:textColor="#000"
+            android:textSize="@dimen/less_normal_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/img_profile_chat"
+            app:layout_constraintStart_toEndOf="@+id/badge1"
+            app:layout_constraintTop_toTopOf="@+id/img_profile_chat"
+            tools:text="kjdkjdkjdkjdkjdkjd" />
+
+        <TextView
+            android:id="@+id/txt_message_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_name_user"
+            android:layout_marginEnd="12dp"
+            android:layout_toLeftOf="@+id/img_profile_chat"
+            android:gravity="right"
+            android:singleLine="true"
+            android:text="@{message.LastDate}"
+            android:textColor="#2f2f2f"
+            android:textSize="@dimen/small_size"
+            app:layout_constraintBottom_toBottomOf="@+id/img_profile_chat"
+            app:layout_constraintEnd_toStartOf="@+id/img_profile_chat"
+            app:layout_constraintTop_toBottomOf="@+id/txt_name_user"
+            tools:text="kjdkjdkjdkjdkjdkjd" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/img_profile_chat"
+            android:layout_marginTop="12dp"
+            android:background="#ccc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_profile_chat" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/badge1"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/nb_badge_bg"
+            android:gravity="center"
+            textMessage="@{message.newCount}"
+            android:textColor="@color/white"
+            android:textSize="@dimen/less_small_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

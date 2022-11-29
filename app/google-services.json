@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "479873913818",
+    "project_id": "inskuappb",
+    "storage_bucket": "inskuappb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:479873913818:android:eae017c76245848df6e6e3",
+        "android_client_info": {
+          "package_name": "ir.kitgroup.inskuappb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "479873913818-lprm3ne865spc19d8lugsaj90dhlhu1j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ir.kitgroup.inskuappb",
+            "certificate_hash": "255179deafec29a0e420869aeaf66d637c648899"
+          }
+        },
+        {
+          "client_id": "479873913818-a6k9tcgiv6nrjc3kl5e7rn8r2bo6ccm0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvJ7Z1V4QfN1kCskd6vIxOjPPdGGyZlbA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "479873913818-a6k9tcgiv6nrjc3kl5e7rn8r2bo6ccm0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
