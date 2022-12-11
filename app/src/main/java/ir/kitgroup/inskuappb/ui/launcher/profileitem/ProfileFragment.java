@@ -103,6 +103,7 @@ public class ProfileFragment extends Fragment {
         binding.cardSaveAdvertisement.setOnClickListener(view1 -> {
             Bundle bundle = new Bundle();
             bundle.putString("companyId", "");
+            bundle.putString("guid", "");
             bundle.putString("companyName", " نشان شده");
             Navigation.findNavController(getView()).navigate(R.id.CompanyAdvertise, bundle);
         });

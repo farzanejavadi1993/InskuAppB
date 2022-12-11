@@ -9,21 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.smarteist.autoimageslider.SliderViewAdapter;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ir.kitgroup.inskuappb.R;
-import ir.kitgroup.inskuappb.activities.MainActivity;
 import ir.kitgroup.inskuappb.classes.SliderImage;
-import ir.kitgroup.inskuappb.model.SliderData;
-import ir.kitgroup.inskuappb.util.Constant;
 
 public class SliderImageAdapter extends SliderViewAdapter<SliderImageAdapter.SliderAdapterViewHolder> {
 

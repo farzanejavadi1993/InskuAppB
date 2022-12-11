@@ -105,14 +105,9 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardSpecial"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_height="230dp"
                     android:layout_marginBottom="6dp"
-                    android:visibility="gone"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="10dp">
+                    android:visibility="gone">
 
                     <com.smarteist.autoimageslider.SliderView
                         android:id="@+id/slider"
@@ -134,14 +129,7 @@
                         app:sliderScrollTimeInSec="2" />
                 </com.google.android.material.card.MaterialCardView>
 
-                <View
 
-                    android:id="@+id/v1"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@+id/cardSpecial"
-                    android:background="#ccc"
-                    android:visibility="gone" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycle_limit_advertise"
@@ -149,12 +137,12 @@
                     android:background="@color/white"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/v1"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="3dp"
               />
 
 
                 <View
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="3dp"
                     android:id="@+id/v2"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -177,8 +165,7 @@
                             android:id="@+id/recycle_ladder_advertise"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:nestedScrollingEnabled="false"
-                             />
+                            android:nestedScrollingEnabled="false" />
                     </RelativeLayout>
 
                     <com.airbnb.lottie.LottieAnimationView

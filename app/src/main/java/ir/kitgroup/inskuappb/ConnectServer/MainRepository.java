@@ -21,6 +21,7 @@ import ir.kitgroup.inskuappb.model.AdvertisementStatus;
 import ir.kitgroup.inskuappb.model.AppDetail;
 import ir.kitgroup.inskuappb.model.CompanyStatus;
 import ir.kitgroup.inskuappb.model.Log;
+import ir.kitgroup.inskuappb.util.Constant;
 import retrofit2.http.Body;
 
 public class MainRepository {
@@ -48,8 +49,8 @@ public class MainRepository {
         return api.getCustomerFromServer(mobile);
     }
 
-    public Observable<List<Company>> getAllCompany(String text, int page, AccountFilter accountFilter) {
-        return api.getAllCompany("", text, accountFilter, 2, page);
+    public Observable<List<Company>> getAllCompany(AccountFilter accountFilter,String text,String appId,String customerId ,int page) {
+        return api.getAllCompany(accountFilter,"", text,appId,customerId, page);
     }
 
     public Observable<List<Company>> getCompany(String id) {
@@ -72,20 +73,30 @@ public class MainRepository {
         return api.getCity(list);
     }
 
-    public Observable<List<Advertise>> getAllAdvertisement(AccountFilter accountFilter, String text, int page) {
-        return api.getAllAdvertisement(accountFilter, text, page);
+    public Observable<List<Advertise>> getBillboardAdvs(AccountFilter accountFilter,String appId,String customerId) {
+        return api.getBillboardAdvs(accountFilter,appId,customerId);
     }
 
-    public Observable<List<Advertise>> getCompanyAdvertisement(List<String> companiesId, int page) {
-        return api.getCompanyAdvertisement(companiesId, page);
+    public Observable<List<Advertise>> getVipAdvertisements(AccountFilter accountFilter,String appId) {
+        return api.getVipAdvertisements(accountFilter,appId);
+    }
+
+    public Observable<List<Advertise>> getSimpleAdvertisements(AccountFilter accountFilter,String appId,String customerId,int page) {
+        return api.getSimpleAdvertisements(accountFilter,appId,customerId,page);
+    }
+
+
+
+    public Observable<List<Advertise>> getCompanyAdvertisement(List<String> companiesId, int page,String appId,String customerId) {
+        return api.getCompanyAdvertisement(companiesId, page,appId,customerId);
     }
 
     public Observable<List<Advertise>> getAdvertisement(String advertisementId) {
         return api.getAdvertisement(advertisementId);
     }
 
-    public Observable<List<Company>> getMyAccount(String customerId) {
-        return api.getMyCompany(customerId);
+    public Observable<List<Company>> getMyAccount(String customerId,String appId) {
+        return api.getMyCompany(customerId,appId);
     }
 
     public Observable<List<Advertise>> getMyAdvertisement(String customerId) {
@@ -115,8 +126,8 @@ public class MainRepository {
     public Observable<List<Log>> addNewCity(String cityName, String stateId) {
         return api.addNewCity(cityName, stateId);
     }
-    public Observable<List<Log>> addMyCompany(String customerId, String accountId) {
-        return api.addMyCompany(customerId, accountId);
+    public Observable<List<Log>> addMyCompany(String customerId, String accountId,String appId) {
+        return api.addMyCompany(customerId, accountId,appId);
     }
 
 
@@ -127,8 +138,8 @@ public class MainRepository {
         return api.addToMyAdvertisement(customerId, advertisementId);
     }
 
-    public Observable<List<Log>> DeleteMyAccount(String customerId, String accountId) {
-        return api.DeleteMyAccount(customerId, accountId);
+    public Observable<List<Log>> DeleteMyAccount(String customerId, String accountId,String appId) {
+        return api.DeleteMyAccount(customerId, accountId,appId);
     }
 
 

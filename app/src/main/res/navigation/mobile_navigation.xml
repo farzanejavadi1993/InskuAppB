@@ -173,6 +173,9 @@
         android:name="ir.kitgroup.inskuappb.ui.launcher.homeItem.tab1Advertise.CompanyAdvertiseFragment"
         tools:layout="@layout/company_advertise_fragment">
         <argument
+            android:name="guid"
+            app:argType="string" />
+        <argument
             android:name="companyId"
             app:argType="string" />
         <argument
@@ -210,6 +213,8 @@
             android:id="@+id/actionGoToCompanyAdvertise"
             app:destination="@id/CompanyAdvertise"
             />
+
+
     </fragment>
     <fragment
 

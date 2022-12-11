@@ -295,6 +295,7 @@ public class SplashScreenFragment extends Fragment {
     }
 
     private void init() {
+        Company.deleteAll(Company.class);
         account = Select.from(Account.class).first();
 
         //If the user has never logged in application

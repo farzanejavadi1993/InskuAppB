@@ -7,12 +7,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,22 +20,20 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 
 import com.google.android.flexbox.AlignItems;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.orm.query.Select;
 
-
-import org.apache.commons.collections4.CollectionUtils;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
-
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -49,18 +44,13 @@ import ir.kitgroup.inskuappb.R;
 import ir.kitgroup.inskuappb.adapter.SliderAdapter;
 import ir.kitgroup.inskuappb.adapter.UniversalAdapter2;
 import ir.kitgroup.inskuappb.classes.EndlessParentScrollListener;
-
 import ir.kitgroup.inskuappb.classes.dialog.CustomSnackBar;
 import ir.kitgroup.inskuappb.classes.filterr.Filters;
 import ir.kitgroup.inskuappb.dataBase.Account;
 import ir.kitgroup.inskuappb.dataBase.Company;
 import ir.kitgroup.inskuappb.dataBase.Files;
-
-
 import ir.kitgroup.inskuappb.databinding.AdvertiseFragmentBinding;
 import ir.kitgroup.inskuappb.model.Advertise;
-import ir.kitgroup.inskuappb.model.SliderData;
-import ir.kitgroup.inskuappb.ui.launcher.homeItem.LauncherFragment;
 import ir.kitgroup.inskuappb.util.Constant;
 
 
@@ -77,7 +67,8 @@ public class AdvertiseFragment extends Fragment {
 
 
     private SliderAdapter adapterSlider;
-    private final ArrayList<SliderData> sliderList = new ArrayList<>();
+
+    private final ArrayList<Advertise> sliderList = new ArrayList<>();
     private int height;
 
 
@@ -90,7 +81,7 @@ public class AdvertiseFragment extends Fragment {
     private final ArrayList<Advertise> ladderList = new ArrayList<>();
     private int pageMain = 1;
     private ImageView imgSave;
-    private int request = 0;
+    private final int request = 0;
     private ProgressBar progressSave;
     private ProgressBar progressCompany;
     private Filters doFilter;
@@ -100,20 +91,22 @@ public class AdvertiseFragment extends Fragment {
 
     private CustomSnackBar snackBar;
     private Account account;
-    private boolean requset=false;
+    private final boolean requset = false;
+
+    private boolean firstSync = false;
 
 
-   /*@SuppressLint("NotifyDataSetChanged")
+ /*   @SuppressLint("NotifyDataSetChanged")
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && !LauncherFragment.fragment.equals("advertise")) {
             if (mainViewModel != null) {
-                reloadAdvertisement();
+
             }
         }
-    }
-*/
+    }*/
+
 
     @Nullable
     @Override
@@ -127,15 +120,12 @@ public class AdvertiseFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        try {
-            init();
-            initAnimation();
-            initSpecial();
-            initLimit();
-            initLadder();
-        } catch (Exception ignored) {}
+        init();
+        initAnimation();
+        initSpecial();
+        initLimit();
+        initLadder();
     }
-
 
     @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})
     @Override
@@ -144,49 +134,94 @@ public class AdvertiseFragment extends Fragment {
         try {
             mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
             mainViewModel.getResultMessage().setValue(null);
+            mainViewModel.getResultSimpleAdvertisements().setValue(null);
 
-
-
-            if (pageMain * 10 > ladderList.size() && pageMain == 1) {
+            if (!firstSync) {
                 binding.animation.setVisibility(View.VISIBLE);
-                mainViewModel.getAllAdvertisement(doFilter.getAccountFilter(), "", pageMain);
+                mainViewModel.getResultSimpleAdvertisements().setValue(null);
+                mainViewModel.getBillboardAdvs(doFilter.getAccountFilter(), Constant.APPLICATION_ID, account.getI());
+                mainViewModel.getVipAdvertisements(doFilter.getAccountFilter(), Constant.APPLICATION_ID);
+                mainViewModel.getSimpleAdvertisements(doFilter.getAccountFilter(), Constant.APPLICATION_ID, account.getI(), pageMain);
             }
             else {
-                int position=sharedPreferences.getInt("position",-1);
-                if (position>=0){
-                    int count=sharedPreferences.getInt("view",ladderList.get(position).getCount());
-                    ladderList.get(position).setCount(count);
-                    sharedPreferences.edit().putInt("position",-1).apply();
-                    ladderAdapter.notifyItemChanged(position);
+                String storedHashMap = sharedPreferences.getString("storeHashMap", "");
+                if (!storedHashMap.equals("")) {
+                    sharedPreferences.edit().remove("storeHashMap").apply();
+                    useDataToSetInList(storedHashMap);
                 }
             }
+
+
             mainViewModel.getResultMessage().observe(getViewLifecycleOwner(), result -> {
                 if (result == null)
                     return;
-
                 binding.animation.setVisibility(View.GONE);
                 binding.progressBar22.setVisibility(View.GONE);
+
                 if (result.getCode() == 1) {
                     binding.tvError2.setText(result.getDescription());
                     binding.cardError2.setVisibility(View.VISIBLE);
                 } else
                     ShowMessageWarning(result.getDescription());
             });
-            mainViewModel.getResultAllAdvertisement().observe(getViewLifecycleOwner(), result -> {
 
+
+            mainViewModel.getResultBillboardAdvs().observe(getViewLifecycleOwner(), result -> {
                 if (result == null)
                     return;
 
-                mainViewModel.getResultAllAdvertisement().setValue(null);
-                binding.progressBar22.setVisibility(View.VISIBLE);
+                firstSync = true;
+                mainViewModel.getResultBillboardAdvs().setValue(null);
+
+                sliderList.clear();
+
+                if (result.size() > 0) {
+                    binding.cardSpecial.setVisibility(View.VISIBLE);
+                    int random = new Random(System.nanoTime()).nextInt(result.size());
+
+                    for (int i = random; i < result.size(); i++) {
+                        sliderList.add(result.get(i));
+                    }
+
+                    for (int j = 0; j < random; j++) {
+                        sliderList.add(result.get(j));
+                    }
+                }
+
+                adapterSlider.notifyDataSetChanged();
+                binding.slider.setSliderAdapter(adapterSlider);
+            });
+
+            mainViewModel.getResultVipAdvertisements().observe(getViewLifecycleOwner(), result -> {
+                if (result == null)
+                    return;
+
+                firstSync = true;
+                mainViewModel.getResultVipAdvertisements().setValue(null);
+
+                limitList.clear();
+
+                if (result.size() > 0)
+                    limitList.addAll(result);
+
+                limitAdapter.notifyDataSetChanged();
+
+            });
+
+            mainViewModel.getResultSimpleAdvertisements().observe(getViewLifecycleOwner(), result -> {
+
+                if (result == null)
+                    return;
+                firstSync = true;
+                mainViewModel.getResultSimpleAdvertisements().setValue(null);
+
+                if (pageMain == 1)
+                    ladderList.clear();
 
 
                 if (result.size() > 0) {
-                    allAdvertisement.clear();
-                    allAdvertisement.addAll(result);
-                    mainViewModel.getMyAdvertisement(account.getI());
-
-                } else if (result.size() == 0 && ladderList.size() == 0) {
+                    ladderList.addAll(result);
+                } else if (result.size() == 0 && ladderList.size() == 0 && limitList.size() == 0 && sliderList.size() == 0) {
                     binding.progressBar22.setVisibility(View.GONE);
                     binding.animation.setVisibility(View.GONE);
                     binding.layoutNotFound.setVisibility(View.VISIBLE);
@@ -194,121 +229,16 @@ public class AdvertiseFragment extends Fragment {
                     binding.progressBar22.setVisibility(View.GONE);
 
 
-            });
-            mainViewModel.getResultMyAdvertisement().observe(getViewLifecycleOwner(), rst -> {
-                if (rst == null)
-                    return;
+                if (ladderList.size() > 0 && limitList.size() > 0)
+                    binding.v2.setVisibility(View.VISIBLE);
 
-
-                mainViewModel.getResultMyAdvertisement().setValue(null);
-
-
-                if (rst != null) {
-
-
-                    for (int i = 0; i < rst.size(); i++) {
-                        ArrayList<Advertise> result = new ArrayList<>(allAdvertisement);
-                        int finalI = i;
-                        CollectionUtils.filter(result, r -> r.getI().equals(rst.get(finalI).getI()));
-                        if (result.size() > 0)
-                            allAdvertisement.get(allAdvertisement.indexOf(result.get(0))).setSave(true);
-                    }
-
-
-                    if (pageMain == 1) {
-                        ladderList.clear();
-                        limitList.clear();
-                    }
-
-
-                    ArrayList<Advertise> resultLimit = new ArrayList<>(allAdvertisement);
-                    CollectionUtils.filter(resultLimit, r -> r.getDShowIn().get2() != null);
-
-
-                    ArrayList<Advertise> finalLimitList = new ArrayList<>();
-
-                  for (int i = 0; i < resultLimit.size(); i++) {
-                        ArrayList<Advertise> res = new ArrayList<>(finalLimitList);
-                        int finalI = i;
-                        CollectionUtils.filter(res, r -> r.getCompanyId().equals(resultLimit.get(finalI).getCompanyId()));
-                        if (res.size() == 0)
-                            finalLimitList.add(resultLimit.get(i));
-                    }
-
-
-                    //region Show Only 8 Item
-                    int size = Math.min(finalLimitList.size(), 8);
-                    for (int i = size - 1; i >= 0; i--) {
-                        limitList.add(finalLimitList.get(i));
-                    }
-                    //endregion Show Only 8 Item
-
-
-                    ArrayList<Advertise> resultLadder = new ArrayList<>(allAdvertisement);
-                    CollectionUtils.filter(resultLadder, r -> r.getDShowIn().get1() != null);
-
-                    ladderList.addAll(resultLadder);
-
-
-                    if (ladderList.size() > 0 && limitList.size() > 0)
-                        binding.v2.setVisibility(View.VISIBLE);
-
-
-                    ArrayList<Advertise> resultSpecial = new ArrayList<>(allAdvertisement);
-                    CollectionUtils.filter(resultSpecial, r -> r.getDShowIn().get3() != null);
-                    if (resultSpecial.size() > 0) {
-
-                        binding.cardSpecial.setVisibility(View.VISIBLE);
-                        binding.v1.setVisibility(View.VISIBLE);
-                        sliderList.clear();
-                        int random  = new Random(System.nanoTime()).nextInt(resultSpecial.size()) ;
-
-                        for (int i = random; i < resultSpecial.size(); i++) {
-
-                            sliderList.add(new SliderData
-                                    (resultSpecial.get(i).getI()
-                                            , resultSpecial.get(i).getCompanyName(), resultSpecial.get(i).getDType(), resultSpecial.get(i).getI(), resultSpecial.get(i).getCount(), resultSpecial.get(i).isSave())
-                            );
-                        }
-
-                        for (int i = 0; i < random; i++) {
-
-                            sliderList.add(new SliderData
-                                    (resultSpecial.get(i).getI()
-                                            , resultSpecial.get(i).getCompanyName(), resultSpecial.get(i).getDType(), resultSpecial.get(i).getI(), resultSpecial.get(i).getCount(), resultSpecial.get(i).isSave())
-                            );
-                        }
-
-                        adapterSlider.notifyDataSetChanged();
-                        binding.slider.setSliderAdapter(adapterSlider);
-
-
-                    } else if (pageMain == 1 && resultSpecial.size() == 0) {
-                        binding.cardSpecial.setVisibility(View.GONE);
-                        binding.v1.setVisibility(View.GONE);
-                    }
-
-
-//                    if (limitList.size() == 0 && ladderList.size() == 0 && sliderList.size() == 0)
-//                        binding.layoutNotFound.setVisibility(View.VISIBLE);
-//                    else
-//                        binding.layoutNotFound.setVisibility(View.GONE);
-
-                }
-
-
-                if (pageMain == 1) {
-                    limitAdapter.notifyDataSetChanged();
+                if (pageMain == 1)
                     ladderAdapter.notifyDataSetChanged();
-                } else if (oldSizeLadderList <= ladderList.size())
+                else if (oldSizeLadderList <= ladderList.size())
                     ladderAdapter.notifyItemRangeInserted(oldSizeLadderList, ladderList.size() - 1);
 
-
-                binding.animation.setVisibility(View.GONE);
-                binding.progressBar22.setVisibility(View.GONE);
-
-
             });
+
             mainViewModel.getResultAddMyAdvertisement().observe(getViewLifecycleOwner(), result -> {
 
                 if (result == null)
@@ -318,7 +248,7 @@ public class AdvertiseFragment extends Fragment {
                 progressCompany.setVisibility(View.GONE);
                 mainViewModel.getResultAddMyAdvertisement().setValue(null);
                 if (result.get(0).getMessage() == 1) {
-                    ladderList.get(positionSelect).setSave(true);
+                    ladderList.get(positionSelect).setIsSaved(true);
                     imgSave.setImageResource(R.drawable.ic_complete_bookmark);
 
                 } else
@@ -326,6 +256,7 @@ public class AdvertiseFragment extends Fragment {
 
 
             });
+
             mainViewModel.getResultDeleteMyAdvertisement().observe(getViewLifecycleOwner(), result -> {
 
                 if (result == null)
@@ -333,7 +264,7 @@ public class AdvertiseFragment extends Fragment {
 
                 mainViewModel.getResultDeleteMyAdvertisement().setValue(null);
                 if (result.get(0).getMessage() == 1) {
-                    ladderList.get(positionSelect).setSave(false);
+                    ladderList.get(positionSelect).setIsSaved(false);
                     imgSave.setImageResource(R.drawable.ic_bookmark);
 
                 } else
@@ -343,6 +274,7 @@ public class AdvertiseFragment extends Fragment {
 
 
             });
+
             mainViewModel.getResultCompany().observe(getViewLifecycleOwner(), result -> {
 
                 if (result == null)
@@ -358,13 +290,14 @@ public class AdvertiseFragment extends Fragment {
                     Files.deleteAll(Files.class);
                     Files.saveInTx(result.get(0).getFiles());
                     Navigation.findNavController(getView()).navigate(R.id.DetailCompanyFragment);
+
                 }
 
 
             });
+
         } catch (Exception ignored) {
         }
-
 
     }
 
@@ -380,7 +313,6 @@ public class AdvertiseFragment extends Fragment {
         binding.animation.playAnimation();
         binding.animation.setVisibility(View.VISIBLE);
 
-
         binding.progressBar22.setAnimation("loading.json");
         binding.progressBar22.loop(true);
         binding.progressBar22.setSpeed(2f);
@@ -391,29 +323,27 @@ public class AdvertiseFragment extends Fragment {
 
 
     private void initSpecial() {
-        binding.cardSpecial.getLayoutParams().height = (int) (Constant.width * .522);
+        // binding.cardSpecial.getLayoutParams().height = (int) (Constant.width * .544);
         adapterSlider = new SliderAdapter(getActivity(), sliderList);
 
-        adapterSlider.setOnClickListener((sliderData, position) -> {
-
-            NavDirections action = AdvertiseFragmentDirections.actionGoToDetailAdvertiseFragment(sliderData.getI(), sliderData.isSave());
+        adapterSlider.setOnClickListener((advertise, position) -> {
+            saveValueInSharedPrefrence("slider", position);
+            String id = advertise.getI();
+            boolean save = advertise.getIsSaved();
+            NavDirections action = AdvertiseFragmentDirections.actionGoToDetailAdvertiseFragment(id, save);
             Navigation.findNavController(binding.getRoot()).navigate(action);
         });
 
- /*       binding.slider.setAutoCycleDirection(SliderView.LAYOUT_DIRECTION_LTR);*/
+
         binding.slider.setSliderAdapter(adapterSlider);
         binding.slider.setScrollTimeInSec(3);
         binding.slider.setIndicatorEnabled(true);
         binding.slider.setAutoCycle(true);
         binding.slider.startAutoCycle();
 
-
-        if (sliderList.size() > 0) {
-            binding.v1.setVisibility(View.VISIBLE);
+        if (sliderList.size() > 0)
             binding.cardSpecial.setVisibility(View.VISIBLE);
-        }
 
-        // binding.nested.setSaveFromParentEnabled(true);
     }
 
     private void initLimit() {
@@ -435,15 +365,11 @@ public class AdvertiseFragment extends Fragment {
 
 
         limitAdapter.setOnItemClickListener((binding, position) -> {
-            try {
-                Bundle bundle = new Bundle();
-                bundle.putString("companyId", limitList.get(position).getCompanyId());
-                bundle.putString("companyName", limitList.get(position).getCompanyName());
-                Navigation.findNavController(getView()).navigate(R.id.CompanyAdvertise, bundle);
-            } catch (Exception ignored) {
-                int p = 0;
-            }
-
+            Bundle bundle = new Bundle();
+            bundle.putString("guid", limitList.get(position).getI());
+            bundle.putString("companyId", limitList.get(position).getCompanyId());
+            bundle.putString("companyName", limitList.get(position).getCompanyName());
+            Navigation.findNavController(getView()).navigate(R.id.CompanyAdvertise, bundle);
         });
     }
 
@@ -490,43 +416,45 @@ public class AdvertiseFragment extends Fragment {
         binding.recycleLadderAdvertise.setAdapter(ladderAdapter);
 
         ladderAdapter.setOnItemClickListener((bin, position) -> {
-            sharedPreferences.edit().putInt("position",position).apply();
-            Bundle bundle = new Bundle();
-            bundle.putString("Guid", ladderList.get(position).getI());
-            bundle.putBoolean("save", ladderList.get(position).isSave());
-            Navigation.findNavController(getView()).navigate(R.id.DetailAdvertiseFragment, bundle);
+
+            saveValueInSharedPrefrence("ladder", position);
+            String id = ladderList.get(position).getI();
+            boolean save = ladderList.get(position).getIsSaved();
+            NavDirections action = AdvertiseFragmentDirections.actionGoToDetailAdvertiseFragment(id, save);
+            Navigation.findNavController(binding.getRoot()).navigate(action);
         });
 
         ladderAdapter.setOnItemBindListener((bind, position) -> {
 
             if (ladderList.size() > position && position >= 0) {
                 View v = bind.getRoot();
+
                 imgSave = v.findViewById(R.id.ivSave_ladder);
+
                 progressSave = v.findViewById(R.id.progress_save_ladder);
-                progressCompany = v.findViewById(R.id.progress_company);
+
                 progressCompany = v.findViewById(R.id.progress_company);
 
+
                 RelativeLayout cardCompany = v.findViewById(R.id.cardCompany);
-                if (ladderList.get(position).isSave())
+
+                if (ladderList.get(position).getIsSaved())
                     imgSave.setImageResource(R.drawable.ic_complete_bookmark);
                 else
                     imgSave.setImageResource(R.drawable.ic_bookmark);
 
-                ArrayList<Advertise> list = new ArrayList<>(ladderList);
-                CollectionUtils.filter(list, l -> l.getI().equals(ladderList.get(position).getId()));
-
 
                 imgSave.setOnClickListener(view13 -> {
-
                     progressSave = v.findViewById(R.id.progress_save_ladder);
                     imgSave = v.findViewById(R.id.ivSave_ladder);
                     progressSave.setVisibility(View.VISIBLE);
                     positionSelect = position;
-                    if (ladderList.get(position).isSave())
+                    if (ladderList.get(position).getIsSaved())
                         mainViewModel.deleteMyAdvertisement(account.getI(), ladderList.get(positionSelect).getI());
                     else
                         mainViewModel.addToMyAdvertisement(account.getI(), ladderList.get(positionSelect).getI());
                 });
+
 
                 cardCompany.setOnClickListener(view -> {
                     progressCompany = v.findViewById(R.id.progress_company);
@@ -568,7 +496,7 @@ public class AdvertiseFragment extends Fragment {
         ladderList.clear();
         limitList.clear();
 
-        binding.v1.setVisibility(View.GONE);
+        //  binding.v1.setVisibility(View.GONE);
         binding.v2.setVisibility(View.GONE);
         binding.layoutNotFound.setVisibility(View.GONE);
         try {
@@ -579,7 +507,7 @@ public class AdvertiseFragment extends Fragment {
         binding.cardSpecial.setVisibility(View.GONE);
         sliderList.clear();
         binding.animation.setVisibility(View.VISIBLE);
-        mainViewModel.getAllAdvertisement(doFilter.getAccountFilter(), "", pageMain);
+        // mainViewModel.getBillboardAdvs(doFilter.getAccountFilter(), "", pageMain);
     }
 
     private void initSnackBar() {
@@ -595,15 +523,48 @@ public class AdvertiseFragment extends Fragment {
         oldSizeLadderList = ladderList.size();
         pageMain++;
         binding.progressBar22.setVisibility(View.VISIBLE);
-        mainViewModel.getAllAdvertisement(doFilter.getAccountFilter(), "", pageMain);
+        mainViewModel.getSimpleAdvertisements(doFilter.getAccountFilter(), Constant.APPLICATION_ID, account.getI(), pageMain);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-       // mainViewModel.clearRequest();
+        // mainViewModel.clearRequest();
     }
 
+    private void saveValueInSharedPrefrence(String name, int position) {
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        hashMap.put(name, position);
+        Gson gson = new Gson();
+        String storeHashMap = gson.toJson(hashMap);
+        sharedPreferences.edit().putString("storeHashMap", storeHashMap).apply();
+    }
+
+    private void useDataToSetInList(String storedHashMap) {
+        Gson gson = new Gson();
+        java.lang.reflect.Type type = new TypeToken<HashMap<String, Integer>>() {
+        }.getType();
+        HashMap<String, Integer> hashMap = gson.fromJson(storedHashMap, type);
+
+
+        if (hashMap.get("ladder") != null) {
+            int position = hashMap.get("ladder");
+            int count = sharedPreferences.getInt("view", ladderList.get(position).getCount());
+            boolean save = sharedPreferences.getBoolean("save", ladderList.get(position).getIsSaved());
+            ladderList.get(position).setCount(count);
+            ladderList.get(position).setIsSaved(save);
+            ladderAdapter.notifyItemChanged(position);
+            return;
+        }
+
+
+        int position = hashMap.get("slider");
+        int count = sharedPreferences.getInt("view", sliderList.get(position).getCount());
+        boolean save = sharedPreferences.getBoolean("save", sliderList.get(position).getIsSaved());
+        sliderList.get(position).setCount(count);
+        sliderList.get(position).setIsSaved(save);
+
+    }
 
     //endregion Method
 }

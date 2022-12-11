@@ -1,11 +1,13 @@
 package ir.kitgroup.inskuappb.ui.launcher.homeItem.tab1Advertise;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
@@ -16,14 +18,18 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.orm.query.Select;
 
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import ir.kitgroup.inskuappb.BR;
@@ -45,6 +51,8 @@ import ir.kitgroup.inskuappb.util.Constant;
 public class CompanyAdvertiseFragment extends Fragment {
 
     //region Parameter
+    @Inject
+    SharedPreferences sharedPreferences;
     private CompanyAdvertiseFragmentBinding binding;
     private MainViewModel mainViewModel;
 
@@ -65,6 +73,9 @@ public class CompanyAdvertiseFragment extends Fragment {
     private final List<String> companiesId = new ArrayList<>();
     private int oldSizeLadderList = 0;
     private EndlessParentScrollListener endlessParentScrollListener;
+
+    private boolean firstSync;
+    private String advGuid;
 
 
     //endregion Parameter
@@ -95,15 +106,26 @@ public class CompanyAdvertiseFragment extends Fragment {
 
         mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
         mainViewModel.getResultMessage().setValue(null);
+        mainViewModel.getResultCompanyAdvertisement().setValue(null);
+        mainViewModel.getResultMyAdvertisement().setValue(null);
+        mainViewModel.getResultAddMyAdvertisement().setValue(null);
+        mainViewModel.getResultDeleteMyAdvertisement().setValue(null);
+        mainViewModel.getResultCompany().setValue(null);
 
 
-        binding.progress.setVisibility(View.VISIBLE);
-
-        if (pageMain * 10 > advertiseList.size() && companiesId.size()>0)
-            mainViewModel.getCompanyAdvertisement(companiesId, pageMain);
-        else if (companiesId.size()==0)
-            mainViewModel.getMyAdvertisement(account.getI());
-
+        if (!firstSync) {
+            binding.progress.setVisibility(View.VISIBLE);
+            if (companiesId.size() > 0)
+                mainViewModel.getCompanyAdvertisement(companiesId, pageMain, Constant.APPLICATION_ID, account.getI());
+            else
+                mainViewModel.getMyAdvertisement(account.getI());
+        } else {
+            String storedHashMap = sharedPreferences.getString("storeAdvertiseHashMap", "");
+            if (!storedHashMap.equals("")) {
+                sharedPreferences.edit().remove("storeAdvertiseHashMap").apply();
+                useDataToSetInList(storedHashMap);
+            }
+        }
 
 
         mainViewModel.getResultMessage().observe(getViewLifecycleOwner(), result -> {
@@ -127,6 +149,7 @@ public class CompanyAdvertiseFragment extends Fragment {
         mainViewModel.getResultCompanyAdvertisement().observe(getViewLifecycleOwner(), result -> {
             if (result == null)
                 return;
+
             mainViewModel.getResultCompanyAdvertisement().setValue(null);
 
             binding.progressBar22.setVisibility(View.VISIBLE);
@@ -134,56 +157,60 @@ public class CompanyAdvertiseFragment extends Fragment {
                 advertiseList.clear();
 
             if (result.size() > 0) {
-                advertiseList.addAll(result);
-                mainViewModel.getMyAdvertisement(account.getI());
+
+                if (!advGuid.equals("") && !firstSync) {
+                    ArrayList<Advertise> res = new ArrayList<>(result);
+                    CollectionUtils.filter(res, r -> r.getI().equals(advGuid));
+                    if (res.size()>0)
+                    {
+                        res.get(0).setSpeacial(true);
+                        advertiseList.add(0,res.get(0));
+                        CollectionUtils.filter(result, r -> !r.getI().equals(advGuid));
+                        advertiseList.addAll(1,result);
+                    }
+                }
+
+                else
+                    advertiseList.addAll(result);
+
+                if (pageMain == 1)
+                    adapter.notifyDataSetChanged();
+                else
+                    adapter.notifyItemRangeChanged(oldSizeLadderList, advertiseList.size());
             }
-            else if (result.size() == 0 && advertiseList.size() > 0) {
+
+            else if (result.size() == 0 && advertiseList.size() > 0)
                 binding.progressBar22.setVisibility(View.GONE);
-            }
-            else {
-                binding.progress.setVisibility(View.GONE);
-                binding.layoutNotFound.setVisibility(View.VISIBLE);
-            }
 
-        });
-        mainViewModel.getResultMyAdvertisement().observe(getViewLifecycleOwner(), rst -> {
-            if (rst == null)
-                return;
-
-            if (companiesId.size()==0) {
-                advertiseList.clear();
-                advertiseList.addAll(rst);
-
-                 if (rst.size() == 0 && advertiseList.size() > 0) {
-                    binding.progressBar22.setVisibility(View.GONE);
-                }
-                else {
-                    binding.progress.setVisibility(View.GONE);
-                    binding.layoutNotFound.setVisibility(View.VISIBLE);
-                }
-            }
-
-            binding.progressBar22.setVisibility(View.GONE);
-
-            mainViewModel.getResultMyAdvertisement().setValue(null);
-
-            if (rst != null) {
-                for (int i = 0; i < rst.size(); i++) {
-                    ArrayList<Advertise> result = new ArrayList<>(advertiseList);
-                    int finalI = i;
-                    CollectionUtils.filter(result, r -> r.getI().equals(rst.get(finalI).getI()));
-                    if (result.size() > 0)
-                        advertiseList.get(advertiseList.indexOf(result.get(0))).setSave(true);
-                }
-            }
-
-            if (pageMain == 1)
-                adapter.notifyDataSetChanged();
             else
-                adapter.notifyItemRangeChanged(oldSizeLadderList, advertiseList.size());
+                binding.layoutNotFound.setVisibility(View.VISIBLE);
 
 
             binding.progress.setVisibility(View.GONE);
+            firstSync = true;
+        });
+
+
+        mainViewModel.getResultMyAdvertisement().observe(getViewLifecycleOwner(), rst -> {
+            if (rst == null)
+                return;
+            firstSync = true;
+            mainViewModel.getResultMyAdvertisement().setValue(null);
+
+            advertiseList.clear();
+
+            binding.progress.setVisibility(View.GONE);
+            binding.progressBar22.setVisibility(View.GONE);
+
+            if (advertiseList.size() > 0) {
+                advertiseList.addAll(rst);
+                binding.layoutNotFound.setVisibility(View.GONE);
+            } else {
+                binding.layoutNotFound.setVisibility(View.VISIBLE);
+            }
+
+            adapter.notifyDataSetChanged();
+
 
         });
         mainViewModel.getResultAddMyAdvertisement().observe(getViewLifecycleOwner(), result -> {
@@ -194,7 +221,7 @@ public class CompanyAdvertiseFragment extends Fragment {
             progressSave.setVisibility(View.GONE);
             mainViewModel.getResultAddMyAdvertisement().setValue(null);
             if (result.get(0).getMessage() == 1) {
-                advertiseList.get(positionSelect).setSave(true);
+                advertiseList.get(positionSelect).setIsSaved(true);
                 imgSave.setImageResource(R.drawable.ic_complete_bookmark);
 
             } else
@@ -210,7 +237,7 @@ public class CompanyAdvertiseFragment extends Fragment {
             progressSave.setVisibility(View.GONE);
             mainViewModel.getResultDeleteMyAdvertisement().setValue(null);
             if (result.get(0).getMessage() == 1) {
-                advertiseList.get(positionSelect).setSave(false);
+                advertiseList.get(positionSelect).setIsSaved(false);
                 imgSave.setImageResource(R.drawable.ic_bookmark);
 
             } else
@@ -248,10 +275,11 @@ public class CompanyAdvertiseFragment extends Fragment {
     private void getArgument() {
         String companyId = CompanyAdvertiseFragmentArgs.fromBundle(getArguments()).getCompanyId();
         companyName = CompanyAdvertiseFragmentArgs.fromBundle(getArguments()).getCompanyName();
+        advGuid = CompanyAdvertiseFragmentArgs.fromBundle(getArguments()).getGuid();
 
         companiesId.clear();
         if (!companyId.equals(""))
-        companiesId.add(companyId);
+            companiesId.add(companyId);
 
         binding.tvToolbar.setText("طرح های " + companyName);
     }
@@ -270,7 +298,7 @@ public class CompanyAdvertiseFragment extends Fragment {
         GridLayoutManager gridLayoutManager;
 
 
-        if (Constant.screenInches > 7 ) {
+        if (Constant.screenInches > 7) {
             gridLayoutManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
             if (endlessParentScrollListener == null)
                 if (endlessParentScrollListener == null) {
@@ -284,8 +312,7 @@ public class CompanyAdvertiseFragment extends Fragment {
                     };
                 }
             binding.recyclerCompanyAdvertise.setLayoutManager(gridLayoutManager);
-        }
-        else {
+        } else {
 
             linearManger = new LinearLayoutManager(getActivity());
             if (endlessParentScrollListener == null) {
@@ -303,7 +330,7 @@ public class CompanyAdvertiseFragment extends Fragment {
         }
 
 
-        if (companiesId.size()>0)
+        if (companiesId.size() > 0)
             binding.nested.setOnScrollChangeListener(endlessParentScrollListener);
 
         adapter = new UniversalAdapter2(R.layout.ladder_advertise_item, advertiseList, BR.ladder);
@@ -311,9 +338,10 @@ public class CompanyAdvertiseFragment extends Fragment {
 
 
         adapter.setOnItemClickListener((bin, position) -> {
+            saveValueInSharedPrefrence("advertiseList", position);
             Bundle bundle = new Bundle();
             bundle.putString("Guid", advertiseList.get(position).getI());
-            bundle.putBoolean("save", advertiseList.get(position).isSave());
+            bundle.putBoolean("save", advertiseList.get(position).getIsSaved());
             Navigation.findNavController(getView()).navigate(R.id.DetailAdvertiseFragment, bundle);
         });
 
@@ -324,20 +352,26 @@ public class CompanyAdvertiseFragment extends Fragment {
             imgSave = v.findViewById(R.id.ivSave_ladder);
             progressSave = v.findViewById(R.id.progress_save_ladder);
             progressCompany = v.findViewById(R.id.progress_company);
+            LinearLayout cardAdvertisement = v.findViewById(R.id.cardAdvertisement);
             RelativeLayout cardCompany = v.findViewById(R.id.cardCompany);
 
-            if (advertiseList.get(position).isSave())
+            if (advertiseList.get(position).getIsSaved())
                 imgSave.setImageResource(R.drawable.ic_complete_bookmark);
             else
                 imgSave.setImageResource(R.drawable.ic_bookmark);
 
+
+            if (advertiseList.get(position).isSpeacial())
+                cardAdvertisement.setBackgroundResource(R.drawable.special_background);
+            else
+                cardAdvertisement.setBackgroundResource(R.color.white);
 
             imgSave.setOnClickListener(view13 -> {
                 progressSave = v.findViewById(R.id.progress_save_ladder);
                 imgSave = v.findViewById(R.id.ivSave_ladder);
                 progressSave.setVisibility(View.VISIBLE);
                 positionSelect = position;
-                if (advertiseList.get(position).isSave())
+                if (advertiseList.get(position).getIsSaved())
                     mainViewModel.deleteMyAdvertisement(account.getI(), advertiseList.get(positionSelect).getI());
                 else
                     mainViewModel.addToMyAdvertisement(account.getI(), advertiseList.get(positionSelect).getI());
@@ -360,8 +394,8 @@ public class CompanyAdvertiseFragment extends Fragment {
         oldSizeLadderList = advertiseList.size();
         binding.progressBar22.setVisibility(View.VISIBLE);
         pageMain++;
-        if (companiesId.size()>0)
-        mainViewModel.getCompanyAdvertisement(companiesId, pageMain);
+        if (companiesId.size() > 0)
+            mainViewModel.getCompanyAdvertisement(companiesId, pageMain, Constant.APPLICATION_ID, account.getI());
         else
             mainViewModel.getMyAdvertisement(account.getI());
 
@@ -375,10 +409,34 @@ public class CompanyAdvertiseFragment extends Fragment {
 
     }
 
+    private void saveValueInSharedPrefrence(String name, int position) {
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        hashMap.put(name, position);
+        Gson gson = new Gson();
+        String storeHashMap = gson.toJson(hashMap);
+        sharedPreferences.edit().putString("storeAdvertiseHashMap", storeHashMap).apply();
+    }
+
+    private void useDataToSetInList(String storedHashMap) {
+        Gson gson = new Gson();
+        java.lang.reflect.Type type = new TypeToken<HashMap<String, Integer>>() {
+        }.getType();
+        HashMap<String, Integer> hashMap = gson.fromJson(storedHashMap, type);
+
+        int position = hashMap.get("advertiseList");
+        int count = sharedPreferences.getInt("view", advertiseList.get(position).getCount());
+        boolean save = sharedPreferences.getBoolean("save", advertiseList.get(position).getIsSaved());
+        advertiseList.get(position).setCount(count);
+        advertiseList.get(position).setIsSaved(save);
+        adapter.notifyItemChanged(position);
+
+
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mainViewModel.clearRequest();
+        // mainViewModel.clearRequest();
     }
 
 

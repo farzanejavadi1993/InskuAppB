@@ -6,100 +6,110 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.orm.SugarRecord;
 
-import ir.kitgroup.inskuappb.model.DShowIn;
-import ir.kitgroup.inskuappb.model.DType;
-
 @Keep
-public class Advertise  extends SugarRecord {
+public class Advertise {
+
+    public String getId() {
+        return id;
+    }
+
     @SerializedName("Id")
     @Expose
-    private String I;
+    private String id;
+
     @SerializedName("CompanyId")
     @Expose
     private String companyId;
+
     @SerializedName("CompanyName")
     @Expose
     private String companyName;
+
     @SerializedName("Title")
     @Expose
     private String title;
-    @SerializedName("Link")
-    @Expose
-    private String link;
-    @SerializedName("Phone")
-    @Expose
-    private String phone;
+
     @SerializedName("Description")
     @Expose
     private String description;
+
     @SerializedName("IsActive")
     @Expose
     private Boolean isActive;
+
     @SerializedName("StartDate")
     @Expose
     private String startDate;
+
     @SerializedName("ExpirationDate")
     @Expose
     private String expirationDate;
-    @SerializedName("DShowIn")
-    @Expose
-    private DShowIn dShowIn;
-    @SerializedName("ShowIn")
-    @Expose
-    private Integer showIn;
-    @SerializedName("DType")
-    @Expose
-    private DType dType;
 
-    @SerializedName("Type")
+    @SerializedName("IsSaved")
     @Expose
-    private Integer type;
-    @SerializedName("File")
+    private boolean isSaved;
+
+    @SerializedName("DTypeText")
     @Expose
-    private Object file;
+    public String dTypeText;
+
     @SerializedName("Count")
     @Expose
-    private int count;
+    private Integer count;
 
-    public int getCount() {
-        return count;
+    @SerializedName("Phone")
+    @Expose
+    private String phone;
+
+    @SerializedName("Link")
+    @Expose
+    private String link;
+
+
+    public boolean isSpeacial() {
+        return speacial;
     }
 
-    public void setCount(int count) {
-        this.count = count;
-    }
-    public String getLink() {
-        return link;
+    public void setSpeacial(boolean speacial) {
+        this.speacial = speacial;
     }
 
-    public void setLink(String link) {
-        this.link = link;
-    }
+    private boolean speacial;
 
     public String getPhone() {
-        return phone;
+        String tel="";
+        if (!phone.equals(""))
+            tel=phone;
+
+        return tel;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public boolean isSave() {
-        return save;
+    public String getLink() {
+        String l="";
+        if (!link.equals(""))
+            l=link;
+
+        return l;
     }
 
-    public void setSave(boolean save) {
-        this.save = save;
+    public void setLink(String link) {
+        this.link = link;
     }
 
-    private boolean save;
+
+
+
 
     public String getI() {
-        return I;
+        return id;
     }
 
     public void setId(String id) {
-        this.I = id;
+        this.id = id;
     }
 
     public String getCompanyId() {
@@ -134,12 +144,12 @@ public class Advertise  extends SugarRecord {
         this.description = description;
     }
 
-    public Boolean getIsActive() {
+    public Boolean getActive() {
         return isActive;
     }
 
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 
     public String getStartDate() {
@@ -158,45 +168,30 @@ public class Advertise  extends SugarRecord {
         this.expirationDate = expirationDate;
     }
 
-    public DShowIn getDShowIn() {
-        return dShowIn;
+    public boolean getIsSaved() {
+        return isSaved;
     }
-
-    public void setDShowIn(DShowIn dShowIn) {
-        this.dShowIn = dShowIn;
-    }
-
-    public Integer getShowIn() {
-        return showIn;
-    }
-
-    public void setShowIn(Integer showIn) {
-        this.showIn = showIn;
-    }
-
-    public DType getDType() {
-        return dType;
+    public void setIsSaved(boolean isSaved) {
+        this.isSaved = isSaved;
     }
 
 
-    public void setDType(DType dType) {
-        this.dType = dType;
+
+    public String getdTypeText() {
+        return dTypeText;
     }
 
-    public Integer getType() {
-        return type;
+    public void setdTypeText(String dTypeText) {
+        this.dTypeText = dTypeText;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public Integer getCount() {
+        return count;
     }
 
-    public Object getFile() {
-        return file;
+    public void setCount(Integer count) {
+        this.count = count;
     }
-
-    public void setFile(Object file) {
-        this.file = file;
-    }
-
 }
+
+

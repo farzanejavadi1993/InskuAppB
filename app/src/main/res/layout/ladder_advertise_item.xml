@@ -3,27 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
-
         <variable
             name="ladder"
             type="ir.kitgroup.inskuappb.model.Advertise" />
     </data>
 
+
     <LinearLayout
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:orientation="vertical">
-
-
-        <LinearLayout
+        android:id="@+id/cardAdvertisement"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="15dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -87,7 +80,6 @@
                 android:layout_marginTop="10dp">
 
                 <TextView
-                    tools:text=""
                     android:id="@+id/tvTitleAd"
                     style="@style/H7Right"
                     android:layout_width="wrap_content"
@@ -102,21 +94,22 @@
                     android:textStyle="bold" />
 
                 <TextView
-
+                    android:gravity="right"
                     android:id="@+id/tvTypeAd"
-                    textInclude="@{ladder.dType.get1()!=null?ladder.dType.get1():ladder.dType.get2()!=null?ladder.dType.get2():ladder.dType.get3()!=null?ladder.dType.get3():ladder.dType.get4()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginStart="70dp"
                     android:layout_marginLeft="12dp"
-                    android:layout_marginRight="12dp"
+                    android:layout_marginRight="5dp"
                     android:layout_toLeftOf="@+id/tvTitleAd"
+                    android:layout_toEndOf="@+id/tvView"
                     android:singleLine="true"
+                    android:text="@{ladder.dTypeText}"
                     android:textColor="@color/selected_item_color"
                     android:textSize="@dimen/small_size"
-                    tools:ignore="SpUsage" />
-
-
+                    tools:ignore="SpUsage"
+                   />
 
                 <ImageView
                     android:id="@+id/ivSave_ladder"
@@ -142,7 +135,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="12dp"
+                    android:layout_marginLeft="4dp"
                     android:layout_toRightOf="@+id/viewC"
                     android:textColor="@color/normal_color"
                     android:textSize="@dimen/very_small_size" />
@@ -190,17 +183,13 @@
                 android:textColor="#838383"
                 android:textSize="@dimen/small_size" />
 
+            <View
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:background="#B8B8B8" />
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="35dp"
-            android:background="#B8B8B8" />
-
-
-    </LinearLayout>
-
 
 </layout>
