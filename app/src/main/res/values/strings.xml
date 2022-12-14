@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">پخش یاب</string>
 
+
+        <string name="csr_text_state_normal">در حال بارگیری</string>
+        <string name="csr_text_state_ready">در حال بارگیری</string>
+        <string name="csr_text_state_refresh">در حال بارگیری</string>
+        <string name="csr_text_state_complete">بروز رسانی انجام شد.</string>
+
+
+
+
     <string name="tv_Counting_intro">از 3</string>
     <string name="tv_page_intro">صفحه</string>
     <string name="tv_next_intro">بعدی</string>

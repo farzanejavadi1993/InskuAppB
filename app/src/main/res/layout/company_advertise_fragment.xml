@@ -151,7 +151,7 @@
                             android:layout_height="wrap_content"
                             android:nestedScrollingEnabled="false"
                             tools:itemCount="1"
-                            tools:listitem="@layout/ladder_advertise_item" />
+                            tools:listitem="@layout/simple_advertise_item" />
                     </RelativeLayout>
 
                     <com.airbnb.lottie.LottieAnimationView

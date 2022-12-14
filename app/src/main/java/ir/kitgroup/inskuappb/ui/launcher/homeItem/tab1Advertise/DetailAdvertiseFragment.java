@@ -8,7 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.method.LinkMovementMethod;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +23,6 @@ import androidx.navigation.Navigation;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.orm.query.Select;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -33,6 +32,7 @@ import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 import ir.kitgroup.inskuappb.ConnectServer.MainViewModel;
 import ir.kitgroup.inskuappb.R;
+import ir.kitgroup.inskuappb.classes.SharedPrefrenceValue;
 import ir.kitgroup.inskuappb.classes.dialog.CustomSnackBar;
 import ir.kitgroup.inskuappb.classes.filterr.Filters;
 import ir.kitgroup.inskuappb.classes.socialMedia.WebSite;
@@ -49,6 +49,11 @@ public class DetailAdvertiseFragment extends Fragment {
     //region Parameter
     @Inject
     SharedPreferences sharedPreferences;
+
+    @Inject
+    SharedPrefrenceValue sharedPrefrenceValue;
+
+
     private DetailAdvertiseFragmentBinding binding;
     private MainViewModel mainViewModel;
     private String advGuid = "";
@@ -57,6 +62,7 @@ public class DetailAdvertiseFragment extends Fragment {
     private Account account;
     private CustomSnackBar snackBar;
     private ArrayList<Advertise> advertises;
+    private int count = 0;
     private Filters doFilter;
     private WebSite webSite;
     private String guidCompany;
@@ -88,28 +94,22 @@ public class DetailAdvertiseFragment extends Fragment {
 
         mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
-        mainViewModel.getResultMessage().setValue(null);
-        mainViewModel.getResultAdvertisementStatus().setValue(null);
-        mainViewModel.getResultSetAdvertisementStatus().setValue(null);
-        mainViewModel.getResultAdvertisement().setValue(null);
-        mainViewModel.getResultCreateVisitAdvertise().setValue(null);
-        mainViewModel.getResultCompany().setValue(null);
-        mainViewModel.getResultAddMyAdvertisement().setValue(null);
-        mainViewModel.getResultDeleteMyAdvertisement().setValue(null);
-
+        nullTheMutable();
 
         binding.progressBar.setVisibility(View.VISIBLE);
-        mainViewModel.getAdvertisement(advGuid);
+
+        mainViewModel.getAdvertisement(advGuid, account.getI());
         mainViewModel.getWannaAdvertisementStatus(account.getI(), advGuid);
 
 
         mainViewModel.getResultMessage().observe(getViewLifecycleOwner(), result -> {
             if (result == null)
                 return;
-            binding.tvWant.setEnabled(true);
+
             binding.progressWant.setVisibility(View.GONE);
             binding.progressBar.setVisibility(View.GONE);
             binding.progressCompany.setVisibility(View.GONE);
+
             if (result.getCode() == 1) {
                 binding.tvError3.setText(result.getDescription());
                 binding.cardError3.setVisibility(View.VISIBLE);
@@ -119,13 +119,16 @@ public class DetailAdvertiseFragment extends Fragment {
             if (result.getCode() == 12)
                 binding.tvViewS.setText(String.valueOf(advertises.get(0).getCount()));
 
-            binding.save.setEnabled(true);
 
+            binding.save.setEnabled(true);
+            binding.tvWant.setEnabled(true);
         });
 
         mainViewModel.getResultAdvertisementStatus().observe(getViewLifecycleOwner(), result -> {
+
             if (result == null)
                 return;
+
             mainViewModel.getResultAdvertisementStatus().setValue(null);
 
             binding.vi1.setVisibility(View.VISIBLE);
@@ -136,15 +139,16 @@ public class DetailAdvertiseFragment extends Fragment {
                 binding.tvWant.setBackgroundResource(R.drawable.deactive_button);
                 binding.tvWant.setText("نمیخوام");
             }
-
         });
 
         mainViewModel.getResultSetAdvertisementStatus().observe(getViewLifecycleOwner(), result -> {
+
             if (result == null)
                 return;
-            binding.progressWant.setVisibility(View.GONE);
+
             mainViewModel.getResultSetAdvertisementStatus().setValue(null);
 
+            binding.progressWant.setVisibility(View.GONE);
             binding.tvWant.setEnabled(true);
             if (result.size() > 0) {
                 if (result.get(0).getStatuswana()) {
@@ -156,11 +160,8 @@ public class DetailAdvertiseFragment extends Fragment {
                     want = false;
                     binding.tvWant.setBackgroundResource(R.drawable.green_button);
                     binding.tvWant.setText("میخوام");
-
                 }
-
             }
-
         });
 
         mainViewModel.getResultAdvertisement().observe(getViewLifecycleOwner(), result -> {
@@ -183,6 +184,10 @@ public class DetailAdvertiseFragment extends Fragment {
                 String expirationDate = advertises.get(0).getExpirationDate();
                 String phone = advertises.get(0).getPhone();
                 String linkAdv = advertises.get(0).getLink();
+                save = advertises.get(0).getIsSaved();
+
+                if (save)
+                    binding.ivSave.setImageResource(R.drawable.ic_complete_bookmark);
 
                 if (dType.equals(""))
                     binding.tvType.setVisibility(View.GONE);
@@ -195,7 +200,6 @@ public class DetailAdvertiseFragment extends Fragment {
                 binding.tvDescription.setText(description);
                 binding.tvStart.setText("تاریخ شروع : " + startDate);
                 binding.tvExpire.setText("تاریخ انقضا : " + expirationDate);
-
 
 
                 if (!phone.equals("")) {
@@ -211,13 +215,6 @@ public class DetailAdvertiseFragment extends Fragment {
                     binding.cardLink.setVisibility(View.VISIBLE);
                     link = linkAdv;
                 }
-
-//                Picasso.get()
-//                        .load("http://" + Constant.Main_URL_IMAGE + "/GetCompanyImage?id=" +
-//                                companyId + "&width=120&height=120")
-//                        .error(R.drawable.loading)
-//                        .placeholder(R.drawable.loading)
-//                        .into(binding.ivCompanyAd);
 
                 binding.mainLayout.setVisibility(View.VISIBLE);
 
@@ -245,46 +242,32 @@ public class DetailAdvertiseFragment extends Fragment {
 
             mainViewModel.getResultCreateVisitAdvertise().setValue(null);
 
-            int count = advertises.get(0).getCount();
-
+            count = advertises.get(0).getCount();
             if (result.size() > 0 && result.get(0).getMessage() == 1) {
                 count = count + 1;
-                sharedPreferences.edit().putInt("view", count).apply();
+                sharedPrefrenceValue.saveValueInSharedPrefrence(advGuid, save, count);
             }
-
             binding.tvViewS.setText(String.valueOf(count));
         });
 
         mainViewModel.getResultCompany().observe(getViewLifecycleOwner(), result -> {
             if (result == null)
                 return;
-
-            binding.progressCompany.setVisibility(View.GONE);
             mainViewModel.getResultCompany().setValue(null);
 
-            if (result.size() > 0) {
+            binding.progressCompany.setVisibility(View.GONE);
 
-
-                Company.deleteAll(Company.class);
-                Company.saveInTx(result.get(0));
-                Files.deleteAll(Files.class);
-                Files.saveInTx(result.get(0).getFiles());
-                Navigation.findNavController(getView()).navigate(R.id.DetailCompanyFragment);
-
-
-            }
-
-
+            if (result.size() > 0)
+                navigateToDetailCompany(result.get(0));
         });
 
         mainViewModel.getResultAddMyAdvertisement().observe(getViewLifecycleOwner(), result -> {
             if (result == null)
                 return;
             mainViewModel.getResultAddMyAdvertisement().setValue(null);
-
             if (result.get(0).getMessage() == 1) {
-                sharedPreferences.edit().putBoolean("save", true).apply();
                 save = true;
+                sharedPrefrenceValue.saveValueInSharedPrefrence(advGuid, save, count);
                 binding.ivSave.setImageResource(R.drawable.ic_complete_bookmark);
             } else
                 ShowMessageWarning("خطا در ذخیره آگهی");
@@ -294,20 +277,19 @@ public class DetailAdvertiseFragment extends Fragment {
         });
 
         mainViewModel.getResultDeleteMyAdvertisement().observe(getViewLifecycleOwner(), result -> {
-
-            if (result == null) return;
+            if (result == null)
+                return;
             mainViewModel.getResultDeleteMyAdvertisement().setValue(null);
+
             if (result.get(0).getMessage() == 1) {
-                sharedPreferences.edit().putBoolean("save", false).apply();
                 save = false;
+                sharedPrefrenceValue.saveValueInSharedPrefrence(advGuid, save, count);
                 binding.ivSave.setImageResource(R.drawable.ic_bookmark);
             } else
                 ShowMessageWarning("خطا در حذف آگهی");
 
             binding.save.setEnabled(true);
             binding.progressSave.setVisibility(View.GONE);
-
-
         });
     }
 
@@ -321,23 +303,15 @@ public class DetailAdvertiseFragment extends Fragment {
     //region Custom Method
     private void getBundle() {
         advGuid = DetailAdvertiseFragmentArgs.fromBundle(getArguments()).getGuid();
-        save = DetailAdvertiseFragmentArgs.fromBundle(getArguments()).getSave();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     private void init() {
-
-        sharedPreferences.edit().remove("view").apply();
-        sharedPreferences.edit().remove("save").apply();
-
         advertises = new ArrayList<>();
         snackBar = new CustomSnackBar();
         doFilter = new Filters();
         webSite = new WebSite();
         account = Select.from(Account.class).first();
-
-        if (save)
-            binding.ivSave.setImageResource(R.drawable.ic_complete_bookmark);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             binding.tvDescription.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
@@ -367,7 +341,8 @@ public class DetailAdvertiseFragment extends Fragment {
                 try {
                     webSite.check(getActivity(), link);
                     sharedPreferences.edit().putBoolean("loginSuccess", false).apply();
-                } catch (Exception ignored) {}
+                } catch (Exception ignored) {
+                }
             }
         });
 
@@ -400,14 +375,32 @@ public class DetailAdvertiseFragment extends Fragment {
         } catch (Exception ignored) {
         }
         snackBar.showSnack(getActivity(), binding.getRoot(), error);
-
     }
 
     private void reloadDetail() {
         binding.progressBar.setVisibility(View.VISIBLE);
         binding.mainLayout.setVisibility(View.GONE);
         binding.cardError3.setVisibility(View.GONE);
-        mainViewModel.getAdvertisement(advGuid);
+        mainViewModel.getAdvertisement(advGuid, account.getI());
+    }
+
+    private void nullTheMutable() {
+        mainViewModel.getResultMessage().setValue(null);
+        mainViewModel.getResultAdvertisementStatus().setValue(null);
+        mainViewModel.getResultSetAdvertisementStatus().setValue(null);
+        mainViewModel.getResultAdvertisement().setValue(null);
+        mainViewModel.getResultCreateVisitAdvertise().setValue(null);
+        mainViewModel.getResultCompany().setValue(null);
+        mainViewModel.getResultAddMyAdvertisement().setValue(null);
+        mainViewModel.getResultDeleteMyAdvertisement().setValue(null);
+    }
+
+    private void navigateToDetailCompany(Company company) {
+        Company.deleteAll(Company.class);
+        Company.saveInTx(company);
+        Files.deleteAll(Files.class);
+        Files.saveInTx(company.getFiles());
+        Navigation.findNavController(getView()).navigate(R.id.DetailCompanyFragment);
     }
     //endregion Custom Method
 

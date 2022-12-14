@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="ladder"
+            name="simple"
             type="ir.kitgroup.inskuappb.model.Advertise" />
     </data>
 
@@ -35,7 +35,7 @@
 
                 <com.github.siyamed.shapeimageview.CircularImageView
                     android:id="@+id/ivCompanyAd"
-                    setImageView="@{ladder.companyId}"
+                    setImageView="@{simple.companyId}"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_alignParentRight="true"
@@ -49,7 +49,7 @@
 
                 <TextView
                     android:id="@+id/nameCompany"
-                    text="@{ladder.companyName}"
+                    text="@{simple.companyName}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -63,7 +63,7 @@
 
             <ImageView
                 android:id="@+id/ivLadder"
-                setImageViewAdvertise="@{ladder.i}"
+                setImageViewAdvertise="@{simple.i}"
                 android:layout_width="match_parent"
                 android:layout_height="260dp"
                 android:layout_marginTop="7dp"
@@ -88,7 +88,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="12dp"
                     android:singleLine="true"
-                    android:text="@{ladder.title}"
+                    android:text="@{simple.title}"
                     android:textColor="@color/normal_color"
                     android:textSize="@dimen/less_normal_size"
                     android:textStyle="bold" />
@@ -105,14 +105,14 @@
                     android:layout_toLeftOf="@+id/tvTitleAd"
                     android:layout_toEndOf="@+id/tvView"
                     android:singleLine="true"
-                    android:text="@{ladder.dTypeText}"
+                    android:text="@{simple.dTypeText}"
                     android:textColor="@color/selected_item_color"
                     android:textSize="@dimen/small_size"
                     tools:ignore="SpUsage"
                    />
 
                 <ImageView
-                    android:id="@+id/ivSave_ladder"
+                    android:id="@+id/ivSave_simple"
                     android:layout_width="19dp"
                     android:layout_height="19dp"
                     android:layout_alignParentLeft="true"
@@ -126,12 +126,12 @@
                     android:layout_height="16dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="12dp"
-                    android:layout_toRightOf="@+id/ivSave_ladder"
+                    android:layout_toRightOf="@+id/ivSave_simple"
                     app:srcCompat="@drawable/view" />
 
                 <TextView
                     android:id="@+id/tvView"
-                    textChangeInt="@{ladder.count}"
+                    textChangeInt="@{simple.count}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -142,7 +142,7 @@
 
                 <ProgressBar
                     android:visibility="gone"
-                    android:id="@+id/progress_save_ladder"
+                    android:id="@+id/progress_save_simple"
                     android:layout_marginLeft="15dp"
                     android:layout_toRightOf="@+id/tvView"
                     android:layout_width="20dp"
@@ -153,7 +153,7 @@
             <TextView
 
                 style="@style/H7Right"
-                textExpire="@{ladder.expirationDate}"
+                textExpire="@{simple.expirationDate}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -166,7 +166,7 @@
                 android:textSize="@dimen/small_size" />
 
             <TextView
-                textEmpty="@{ladder.description}"
+                textEmpty="@{simple.description}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|top"

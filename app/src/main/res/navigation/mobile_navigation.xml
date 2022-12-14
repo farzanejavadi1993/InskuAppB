@@ -122,9 +122,7 @@
         <argument
             android:name="Guid"
             app:argType="string" />
-        <argument
-            android:name="save"
-            app:argType="boolean" />
+
 
         <action
             android:id="@+id/actionGoToDetailFragment"
@@ -135,7 +133,7 @@
     </fragment>
     <fragment
         android:id="@+id/SearchAdvertiseFragment"
-        android:name="ir.kitgroup.inskuappb.ui.launcher.homeItem.SearchAdvertiseFragment"
+        android:name="ir.kitgroup.inskuappb.ui.launcher.homeItem.tab1Advertise.SearchAdvertiseFragment"
         tools:layout="@layout/detail_advertise_fragment" >
         <action
             android:id="@+id/actionGoToDetailAdvertiseFragment"

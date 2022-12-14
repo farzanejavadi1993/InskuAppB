@@ -21,7 +21,6 @@ import ir.kitgroup.inskuappb.model.AdvertisementStatus;
 import ir.kitgroup.inskuappb.model.AppDetail;
 import ir.kitgroup.inskuappb.model.CompanyStatus;
 import ir.kitgroup.inskuappb.model.Log;
-import ir.kitgroup.inskuappb.util.Constant;
 import retrofit2.http.Body;
 
 public class MainRepository {
@@ -77,6 +76,11 @@ public class MainRepository {
         return api.getBillboardAdvs(accountFilter,appId,customerId);
     }
 
+    public Observable<List<Advertise>> getSearchAdvertisement(AccountFilter accountFilter, String appId, String customerId, String text, int page) {
+        return api.getSearchAdvertisement(accountFilter,appId,customerId,text,page);
+    }
+
+
     public Observable<List<Advertise>> getVipAdvertisements(AccountFilter accountFilter,String appId) {
         return api.getVipAdvertisements(accountFilter,appId);
     }
@@ -91,16 +95,16 @@ public class MainRepository {
         return api.getCompanyAdvertisement(companiesId, page,appId,customerId);
     }
 
-    public Observable<List<Advertise>> getAdvertisement(String advertisementId) {
-        return api.getAdvertisement(advertisementId);
+    public Observable<List<Advertise>> getAdvertisement(String advertisementId,String customerId) {
+        return api.getAdvertisement(advertisementId,customerId);
     }
 
     public Observable<List<Company>> getMyAccount(String customerId,String appId) {
         return api.getMyCompany(customerId,appId);
     }
 
-    public Observable<List<Advertise>> getMyAdvertisement(String customerId) {
-        return api.getMyAdvertisement(customerId);
+    public Observable<List<Advertise>> getMyAdvertisement(String customerId,String appId) {
+        return api.getMyAdvertisement(customerId,appId);
     }
 
     public Observable<List<Log>> setFirebaseToken(String appId, String customerId, String imei, String token) {

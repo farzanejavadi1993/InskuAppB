@@ -26,14 +26,14 @@ import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.orm.query.Select;
 
+import org.apache.commons.collections4.CollectionUtils;
+
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
-import java.util.Set;
+import java.util.Scanner;
 
 import javax.inject.Inject;
 
@@ -44,44 +44,45 @@ import ir.kitgroup.inskuappb.R;
 import ir.kitgroup.inskuappb.adapter.SliderAdapter;
 import ir.kitgroup.inskuappb.adapter.UniversalAdapter2;
 import ir.kitgroup.inskuappb.classes.EndlessParentScrollListener;
+import ir.kitgroup.inskuappb.classes.SharedPrefrenceValue;
 import ir.kitgroup.inskuappb.classes.dialog.CustomSnackBar;
 import ir.kitgroup.inskuappb.classes.filterr.Filters;
 import ir.kitgroup.inskuappb.dataBase.Account;
 import ir.kitgroup.inskuappb.dataBase.Company;
 import ir.kitgroup.inskuappb.dataBase.Files;
+import ir.kitgroup.inskuappb.dataBase.StoreChangeAdvertise;
 import ir.kitgroup.inskuappb.databinding.AdvertiseFragmentBinding;
 import ir.kitgroup.inskuappb.model.Advertise;
 import ir.kitgroup.inskuappb.util.Constant;
 
-
 @AndroidEntryPoint
 public class AdvertiseFragment extends Fragment {
 
+    //region Parameter
     @Inject
     SharedPreferences sharedPreferences;
+
+    @Inject
+    SharedPrefrenceValue sharedPrefrenceValue;
+
     private AdvertiseFragmentBinding binding;
     private MainViewModel mainViewModel;
 
 
-    private final ArrayList<Advertise> allAdvertisement = new ArrayList<>();
-
-
-    private SliderAdapter adapterSlider;
-
-    private final ArrayList<Advertise> sliderList = new ArrayList<>();
+    private SliderAdapter adapterBanner;
+    private final ArrayList<Advertise> bannerList = new ArrayList<>();
     private int height;
 
 
-    private UniversalAdapter2 limitAdapter;
-    private final ArrayList<Advertise> limitList = new ArrayList<>();
+    private UniversalAdapter2 vipAdapter;
+    private final ArrayList<Advertise> vipList = new ArrayList<>();
 
 
     private EndlessParentScrollListener endlessParentScrollListener;
-    private UniversalAdapter2 ladderAdapter;
-    private final ArrayList<Advertise> ladderList = new ArrayList<>();
+    private UniversalAdapter2 simpleAdapter;
+    private final ArrayList<Advertise> simpleList = new ArrayList<>();
     private int pageMain = 1;
     private ImageView imgSave;
-    private final int request = 0;
     private ProgressBar progressSave;
     private ProgressBar progressCompany;
     private Filters doFilter;
@@ -91,23 +92,16 @@ public class AdvertiseFragment extends Fragment {
 
     private CustomSnackBar snackBar;
     private Account account;
-    private final boolean requset = false;
 
     private boolean firstSync = false;
+    private boolean bannerSync = false;
+    private boolean vipSync = false;
+    private boolean sampleSync = false;
 
+    private boolean savingAdv;
+    //endregion Parameter
 
- /*   @SuppressLint("NotifyDataSetChanged")
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && !LauncherFragment.fragment.equals("advertise")) {
-            if (mainViewModel != null) {
-
-            }
-        }
-    }*/
-
-
+    //region Override Method
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -123,189 +117,162 @@ public class AdvertiseFragment extends Fragment {
         init();
         initAnimation();
         initSpecial();
-        initLimit();
-        initLadder();
+        initVip();
+        initSimple();
     }
 
     @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        try {
-            mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
-            mainViewModel.getResultMessage().setValue(null);
+
+        mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+
+
+        getFirstRequest();
+
+        mainViewModel.getResultMessage().observe(getViewLifecycleOwner(), result -> {
+            if (result == null)
+                return;
+
+            binding.animation.setVisibility(View.GONE);
+            binding.progressBar22.setVisibility(View.GONE);
+
+            if (result.getCode() == 1) {
+                binding.tvError2.setText(result.getDescription());
+                binding.cardError2.setVisibility(View.VISIBLE);
+            } else
+                ShowMessageWarning(result.getDescription());
+
+            savingAdv=false;
+        });
+
+        mainViewModel.getResultBillboardAdvs().observe(getViewLifecycleOwner(), result -> {
+            if (result == null)
+                return;
+            mainViewModel.getResultBillboardAdvs().setValue(null);
+
+            bannerSync = true;
+
+            bannerList.clear();
+
+            if (result.size() > 0) {
+                binding.cardSpecial.setVisibility(View.VISIBLE);
+                int random = new Random(System.nanoTime()).nextInt(result.size());
+
+                for (int i = random; i < result.size(); i++) {
+                    bannerList.add(result.get(i));
+                }
+
+                for (int j = 0; j < random; j++) {
+                    bannerList.add(result.get(j));
+                }
+            }
+
+            adapterBanner.notifyDataSetChanged();
+            binding.slider.setSliderAdapter(adapterBanner);
+
+            completeSync();
+        });
+
+        mainViewModel.getResultVipAdvertisements().observe(getViewLifecycleOwner(), result -> {
+            if (result == null)
+                return;
+
+            mainViewModel.getResultVipAdvertisements().setValue(null);
+            vipSync = true;
+
+            vipList.clear();
+            if (result.size() > 0)
+                vipList.addAll(result);
+
+            vipAdapter.notifyDataSetChanged();
+            completeSync();
+
+        });
+
+        mainViewModel.getResultSimpleAdvertisements().observe(getViewLifecycleOwner(), result -> {
+
+            if (result == null)
+                return;
+
             mainViewModel.getResultSimpleAdvertisements().setValue(null);
-
-            if (!firstSync) {
-                binding.animation.setVisibility(View.VISIBLE);
-                mainViewModel.getResultSimpleAdvertisements().setValue(null);
-                mainViewModel.getBillboardAdvs(doFilter.getAccountFilter(), Constant.APPLICATION_ID, account.getI());
-                mainViewModel.getVipAdvertisements(doFilter.getAccountFilter(), Constant.APPLICATION_ID);
-                mainViewModel.getSimpleAdvertisements(doFilter.getAccountFilter(), Constant.APPLICATION_ID, account.getI(), pageMain);
-            }
-            else {
-                String storedHashMap = sharedPreferences.getString("storeHashMap", "");
-                if (!storedHashMap.equals("")) {
-                    sharedPreferences.edit().remove("storeHashMap").apply();
-                    useDataToSetInList(storedHashMap);
-                }
-            }
+            sampleSync = true;
 
 
-            mainViewModel.getResultMessage().observe(getViewLifecycleOwner(), result -> {
-                if (result == null)
-                    return;
-                binding.animation.setVisibility(View.GONE);
-                binding.progressBar22.setVisibility(View.GONE);
+            if (pageMain == 1)
+                simpleList.clear();
 
-                if (result.getCode() == 1) {
-                    binding.tvError2.setText(result.getDescription());
-                    binding.cardError2.setVisibility(View.VISIBLE);
-                } else
-                    ShowMessageWarning(result.getDescription());
-            });
+            binding.progressBar22.setVisibility(View.VISIBLE);
+            binding.layoutNotFound.setVisibility(View.GONE);
 
+            if (result.size() > 0)
+                simpleList.addAll(result);
 
-            mainViewModel.getResultBillboardAdvs().observe(getViewLifecycleOwner(), result -> {
-                if (result == null)
-                    return;
-
-                firstSync = true;
-                mainViewModel.getResultBillboardAdvs().setValue(null);
-
-                sliderList.clear();
-
-                if (result.size() > 0) {
-                    binding.cardSpecial.setVisibility(View.VISIBLE);
-                    int random = new Random(System.nanoTime()).nextInt(result.size());
-
-                    for (int i = random; i < result.size(); i++) {
-                        sliderList.add(result.get(i));
-                    }
-
-                    for (int j = 0; j < random; j++) {
-                        sliderList.add(result.get(j));
-                    }
-                }
-
-                adapterSlider.notifyDataSetChanged();
-                binding.slider.setSliderAdapter(adapterSlider);
-            });
-
-            mainViewModel.getResultVipAdvertisements().observe(getViewLifecycleOwner(), result -> {
-                if (result == null)
-                    return;
-
-                firstSync = true;
-                mainViewModel.getResultVipAdvertisements().setValue(null);
-
-                limitList.clear();
-
-                if (result.size() > 0)
-                    limitList.addAll(result);
-
-                limitAdapter.notifyDataSetChanged();
-
-            });
-
-            mainViewModel.getResultSimpleAdvertisements().observe(getViewLifecycleOwner(), result -> {
-
-                if (result == null)
-                    return;
-                firstSync = true;
-                mainViewModel.getResultSimpleAdvertisements().setValue(null);
-
-                if (pageMain == 1)
-                    ladderList.clear();
+            else if (result.size() == 0 && simpleList.size() == 0 && vipList.size() == 0 && bannerList.size() == 0)
+                binding.layoutNotFound.setVisibility(View.VISIBLE);
 
 
-                if (result.size() > 0) {
-                    ladderList.addAll(result);
-                } else if (result.size() == 0 && ladderList.size() == 0 && limitList.size() == 0 && sliderList.size() == 0) {
-                    binding.progressBar22.setVisibility(View.GONE);
-                    binding.animation.setVisibility(View.GONE);
-                    binding.layoutNotFound.setVisibility(View.VISIBLE);
-                } else if (result.size() == 0)
-                    binding.progressBar22.setVisibility(View.GONE);
 
+            visibleView();
 
-                if (ladderList.size() > 0 && limitList.size() > 0)
-                    binding.v2.setVisibility(View.VISIBLE);
+            if (pageMain == 1)
+                simpleAdapter.notifyDataSetChanged();
+            else if (oldSizeLadderList <= simpleList.size())
+                simpleAdapter.notifyItemRangeInserted(oldSizeLadderList, simpleList.size() - 1);
 
-                if (pageMain == 1)
-                    ladderAdapter.notifyDataSetChanged();
-                else if (oldSizeLadderList <= ladderList.size())
-                    ladderAdapter.notifyItemRangeInserted(oldSizeLadderList, ladderList.size() - 1);
+            binding.progressBar22.setVisibility(View.GONE);
+            completeSync();
+        });
 
-            });
+        mainViewModel.getResultAddMyAdvertisement().observe(getViewLifecycleOwner(), result -> {
+            if (result == null)
+                return;
 
-            mainViewModel.getResultAddMyAdvertisement().observe(getViewLifecycleOwner(), result -> {
+            mainViewModel.getResultAddMyAdvertisement().setValue(null);
 
-                if (result == null)
-                    return;
+            progressSave.setVisibility(View.GONE);
+            progressCompany.setVisibility(View.GONE);
 
-                progressSave.setVisibility(View.GONE);
-                progressCompany.setVisibility(View.GONE);
-                mainViewModel.getResultAddMyAdvertisement().setValue(null);
-                if (result.get(0).getMessage() == 1) {
-                    ladderList.get(positionSelect).setIsSaved(true);
-                    imgSave.setImageResource(R.drawable.ic_complete_bookmark);
+            if (result.get(0).getMessage() == 1) {
+                simpleList.get(positionSelect).setIsSaved(true);
+                imgSave.setImageResource(R.drawable.ic_complete_bookmark);
+            } else
+                ShowMessageWarning("خطا در ذخیره آگهی");
 
-                } else
-                    ShowMessageWarning("خطا در ذخیره آگهی");
+            savingAdv=false;
 
+        });
+        mainViewModel.getResultDeleteMyAdvertisement().observe(getViewLifecycleOwner(), result -> {
 
-            });
+            if (result == null)
+                return;
+            mainViewModel.getResultDeleteMyAdvertisement().setValue(null);
 
-            mainViewModel.getResultDeleteMyAdvertisement().observe(getViewLifecycleOwner(), result -> {
+            if (result.get(0).getMessage() == 1) {
+                simpleList.get(positionSelect).setIsSaved(false);
+                imgSave.setImageResource(R.drawable.ic_bookmark);
+            } else
+                ShowMessageWarning("خطا در حذف آگهی");
 
-                if (result == null)
-                    return;
+            progressSave.setVisibility(View.GONE);
+            savingAdv=false;
+        });
 
-                mainViewModel.getResultDeleteMyAdvertisement().setValue(null);
-                if (result.get(0).getMessage() == 1) {
-                    ladderList.get(positionSelect).setIsSaved(false);
-                    imgSave.setImageResource(R.drawable.ic_bookmark);
+        mainViewModel.getResultCompany().observe(getViewLifecycleOwner(), result -> {
+            if (result == null)
+                return;
 
-                } else
-                    ShowMessageWarning("خطا در حذف آگهی");
+            mainViewModel.getResultCompany().setValue(null);
 
-                progressSave.setVisibility(View.GONE);
-
-
-            });
-
-            mainViewModel.getResultCompany().observe(getViewLifecycleOwner(), result -> {
-
-                if (result == null)
-                    return;
-
-
-                progressCompany.setVisibility(View.GONE);
-                mainViewModel.getResultCompany().setValue(null);
-
-                if (result.size() > 0) {
-                    Company.deleteAll(Company.class);
-                    Company.saveInTx(result.get(0));
-                    Files.deleteAll(Files.class);
-                    Files.saveInTx(result.get(0).getFiles());
-                    Navigation.findNavController(getView()).navigate(R.id.DetailCompanyFragment);
-
-                }
-
-
-            });
-
-        } catch (Exception ignored) {
-        }
-
+            progressCompany.setVisibility(View.GONE);
+            if (result.size() > 0)
+                navigateToDetailCompany(result.get(0));
+        });
     }
-
+    //endregion Override Method
 
     //region Method
-
-
-    //region Config AnimationView
     private void initAnimation() {
         binding.animation.setAnimation("animation.json");
         binding.animation.loop(true);
@@ -319,37 +286,27 @@ public class AdvertiseFragment extends Fragment {
         binding.progressBar22.playAnimation();
 
     }
-    //endregion Config AnimationView
-
-
     private void initSpecial() {
-        // binding.cardSpecial.getLayoutParams().height = (int) (Constant.width * .544);
-        adapterSlider = new SliderAdapter(getActivity(), sliderList);
+        binding.cardSpecial.getLayoutParams().height = (int) (Constant.width * .544);
 
-        adapterSlider.setOnClickListener((advertise, position) -> {
-            saveValueInSharedPrefrence("slider", position);
-            String id = advertise.getI();
-            boolean save = advertise.getIsSaved();
-            NavDirections action = AdvertiseFragmentDirections.actionGoToDetailAdvertiseFragment(id, save);
+        adapterBanner = new SliderAdapter(getActivity(), bannerList);
+
+        adapterBanner.setOnClickListener((advertise, position) -> {
+            NavDirections action = AdvertiseFragmentDirections.actionGoToDetailAdvertiseFragment(advertise.getI());
             Navigation.findNavController(binding.getRoot()).navigate(action);
         });
 
-
-        binding.slider.setSliderAdapter(adapterSlider);
+        binding.slider.setSliderAdapter(adapterBanner);
         binding.slider.setScrollTimeInSec(3);
         binding.slider.setIndicatorEnabled(true);
         binding.slider.setAutoCycle(true);
         binding.slider.startAutoCycle();
 
-        if (sliderList.size() > 0)
+        if (bannerList.size() > 0)
             binding.cardSpecial.setVisibility(View.VISIBLE);
-
     }
-
-    private void initLimit() {
-
-
-        limitAdapter = new UniversalAdapter2(R.layout.limit_advertise_item, limitList, BR.limit);
+    private void initVip() {
+        vipAdapter = new UniversalAdapter2(R.layout.vip_advertise_item, vipList, BR.vip);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         manager.setReverseLayout(true);
@@ -359,23 +316,19 @@ public class AdvertiseFragment extends Fragment {
         flexboxLayoutManager.setJustifyContent(JustifyContent.CENTER);
         flexboxLayoutManager.setAlignItems(AlignItems.BASELINE);
 
+        binding.recycleVipAdvertise.setLayoutManager(flexboxLayoutManager);
+        binding.recycleVipAdvertise.setAdapter(vipAdapter);
 
-        binding.recycleLimitAdvertise.setLayoutManager(flexboxLayoutManager);
-        binding.recycleLimitAdvertise.setAdapter(limitAdapter);
-
-
-        limitAdapter.setOnItemClickListener((binding, position) -> {
+        vipAdapter.setOnItemClickListener((binding, position) -> {
             Bundle bundle = new Bundle();
-            bundle.putString("guid", limitList.get(position).getI());
-            bundle.putString("companyId", limitList.get(position).getCompanyId());
-            bundle.putString("companyName", limitList.get(position).getCompanyName());
+            bundle.putString("guid", vipList.get(position).getI());
+            bundle.putString("companyId", vipList.get(position).getCompanyId());
+            bundle.putString("companyName", vipList.get(position).getCompanyName());
             Navigation.findNavController(getView()).navigate(R.id.CompanyAdvertise, bundle);
         });
     }
-
-
     @SuppressLint("SetTextI18n")
-    private void initLadder() {
+    private void initSimple() {
         if (Constant.screenInches < 7) {
             LinearLayoutManager linearManger = new LinearLayoutManager(getActivity());
 
@@ -389,10 +342,7 @@ public class AdvertiseFragment extends Fragment {
                     }
                 };
             }
-
-            binding.nested.setOnScrollChangeListener(endlessParentScrollListener);
-            binding.recycleLadderAdvertise.setLayoutManager(linearManger);
-
+            binding.recycleSimpleAdvertise.setLayoutManager(linearManger);
         } else {
             GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
 
@@ -406,110 +356,106 @@ public class AdvertiseFragment extends Fragment {
                     }
                 };
             }
-
-
-            binding.nested.setOnScrollChangeListener(endlessParentScrollListener);
-            binding.recycleLadderAdvertise.setLayoutManager(gridLayoutManager);
+            binding.recycleSimpleAdvertise.setLayoutManager(gridLayoutManager);
         }
 
-        ladderAdapter = new UniversalAdapter2(R.layout.ladder_advertise_item, ladderList, BR.ladder);
-        binding.recycleLadderAdvertise.setAdapter(ladderAdapter);
+        binding.nested.setOnScrollChangeListener(endlessParentScrollListener);
 
-        ladderAdapter.setOnItemClickListener((bin, position) -> {
+        simpleAdapter = new UniversalAdapter2(R.layout.simple_advertise_item, simpleList, BR.simple);
 
-            saveValueInSharedPrefrence("ladder", position);
-            String id = ladderList.get(position).getI();
-            boolean save = ladderList.get(position).getIsSaved();
-            NavDirections action = AdvertiseFragmentDirections.actionGoToDetailAdvertiseFragment(id, save);
+        binding.recycleSimpleAdvertise.setAdapter(simpleAdapter);
+
+        simpleAdapter.setOnItemClickListener((bin, position) -> {
+            sharedPrefrenceValue.saveValueInSharedPrefrence(simpleList.get(position).getI(), simpleList.get(position).getIsSaved(), simpleList.get(position).getCount());
+
+            NavDirections action = AdvertiseFragmentDirections.actionGoToDetailAdvertiseFragment(simpleList.get(position).getI());
             Navigation.findNavController(binding.getRoot()).navigate(action);
         });
 
-        ladderAdapter.setOnItemBindListener((bind, position) -> {
-
-            if (ladderList.size() > position && position >= 0) {
+        simpleAdapter.setOnItemBindListener((bind, position) -> {
+            if (simpleList.size() > position && position >= 0) {
                 View v = bind.getRoot();
 
-                imgSave = v.findViewById(R.id.ivSave_ladder);
-
-                progressSave = v.findViewById(R.id.progress_save_ladder);
-
+                imgSave = v.findViewById(R.id.ivSave_simple);
+                progressSave = v.findViewById(R.id.progress_save_simple);
                 progressCompany = v.findViewById(R.id.progress_company);
-
-
                 RelativeLayout cardCompany = v.findViewById(R.id.cardCompany);
 
-                if (ladderList.get(position).getIsSaved())
+                if (simpleList.get(position).getIsSaved())
                     imgSave.setImageResource(R.drawable.ic_complete_bookmark);
                 else
                     imgSave.setImageResource(R.drawable.ic_bookmark);
 
-
                 imgSave.setOnClickListener(view13 -> {
-                    progressSave = v.findViewById(R.id.progress_save_ladder);
-                    imgSave = v.findViewById(R.id.ivSave_ladder);
-                    progressSave.setVisibility(View.VISIBLE);
-                    positionSelect = position;
-                    if (ladderList.get(position).getIsSaved())
-                        mainViewModel.deleteMyAdvertisement(account.getI(), ladderList.get(positionSelect).getI());
-                    else
-                        mainViewModel.addToMyAdvertisement(account.getI(), ladderList.get(positionSelect).getI());
+                    if (!savingAdv){
+                        savingAdv=true;
+                        progressSave = v.findViewById(R.id.progress_save_simple);
+                        imgSave = v.findViewById(R.id.ivSave_simple);
+                        progressSave.setVisibility(View.VISIBLE);
+
+                        positionSelect = position;
+                        if (simpleList.get(position).getIsSaved())
+                            mainViewModel.deleteMyAdvertisement(account.getI(), simpleList.get(positionSelect).getI());
+                        else
+                            mainViewModel.addToMyAdvertisement(account.getI(), simpleList.get(positionSelect).getI());
+                    }
+
                 });
 
 
                 cardCompany.setOnClickListener(view -> {
                     progressCompany = v.findViewById(R.id.progress_company);
                     progressCompany.setVisibility(View.VISIBLE);
-                    mainViewModel.getCompany(ladderList.get(position).getCompanyId());
+                    mainViewModel.getCompany(simpleList.get(position).getCompanyId());
                 });
             }
-
         });
-
-
     }
-
-
     private void ShowMessageWarning(String error) {
         try {
             snackBar.hide();
         } catch (Exception ignored) {
         }
         snackBar.showSnack(getActivity(), binding.getRoot(), error);
-
     }
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint("SetTextI18n")
     private void init() {
+        savingAdv=false;
         height = (Constant.width / 3) * 2;
         doFilter = new Filters();
         account = Select.from(Account.class).first();
 
         initSnackBar();
-        binding.cardError2.setOnClickListener(view -> reloadAdvertisement());
-    }
 
+        binding.cardError2.setOnClickListener(view -> reloadAdvertisement());
+
+        binding.ISwipe.setOnRefreshListener(this::reloadAdvertisement);
+    }
     @SuppressLint("NotifyDataSetChanged")
     private void reloadAdvertisement() {
+        bannerSync = false;
+        sampleSync = false;
+        vipSync = false;
         pageMain = 1;
         binding.cardError2.setVisibility(View.GONE);
-        ladderList.clear();
-        limitList.clear();
+        simpleList.clear();
+        vipList.clear();
 
-        //  binding.v1.setVisibility(View.GONE);
         binding.v2.setVisibility(View.GONE);
         binding.layoutNotFound.setVisibility(View.GONE);
         try {
-            limitAdapter.notifyDataSetChanged();
-            ladderAdapter.notifyDataSetChanged();
+            vipAdapter.notifyDataSetChanged();
+            simpleAdapter.notifyDataSetChanged();
         } catch (Exception ignored) {
         }
         binding.cardSpecial.setVisibility(View.GONE);
-        sliderList.clear();
+        bannerList.clear();
         binding.animation.setVisibility(View.VISIBLE);
-        // mainViewModel.getBillboardAdvs(doFilter.getAccountFilter(), "", pageMain);
+        mainViewModel.getBillboardAdvs(doFilter.getAccountFilter(), Constant.APPLICATION_ID, account.getI());
+        mainViewModel.getVipAdvertisements(doFilter.getAccountFilter(), Constant.APPLICATION_ID);
+        mainViewModel.getSimpleAdvertisements(doFilter.getAccountFilter(), Constant.APPLICATION_ID, account.getI(), pageMain);
     }
-
     private void initSnackBar() {
         snackBar = new CustomSnackBar();
         try {
@@ -518,53 +464,75 @@ public class AdvertiseFragment extends Fragment {
         }
 
     }
-
     private void loadMore() {
-        oldSizeLadderList = ladderList.size();
+        oldSizeLadderList = simpleList.size();
         pageMain++;
         binding.progressBar22.setVisibility(View.VISIBLE);
         mainViewModel.getSimpleAdvertisements(doFilter.getAccountFilter(), Constant.APPLICATION_ID, account.getI(), pageMain);
     }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        // mainViewModel.clearRequest();
-    }
-
-    private void saveValueInSharedPrefrence(String name, int position) {
-        HashMap<String, Integer> hashMap = new HashMap<>();
-        hashMap.put(name, position);
-        Gson gson = new Gson();
-        String storeHashMap = gson.toJson(hashMap);
-        sharedPreferences.edit().putString("storeHashMap", storeHashMap).apply();
-    }
-
     private void useDataToSetInList(String storedHashMap) {
-        Gson gson = new Gson();
-        java.lang.reflect.Type type = new TypeToken<HashMap<String, Integer>>() {
-        }.getType();
-        HashMap<String, Integer> hashMap = gson.fromJson(storedHashMap, type);
-
-
-        if (hashMap.get("ladder") != null) {
-            int position = hashMap.get("ladder");
-            int count = sharedPreferences.getInt("view", ladderList.get(position).getCount());
-            boolean save = sharedPreferences.getBoolean("save", ladderList.get(position).getIsSaved());
-            ladderList.get(position).setCount(count);
-            ladderList.get(position).setIsSaved(save);
-            ladderAdapter.notifyItemChanged(position);
-            return;
+        List<StoreChangeAdvertise> storeChangeAdvertises = sharedPrefrenceValue.useDataToSetInList(storedHashMap);
+        for (int i = 0; i < storeChangeAdvertises.size(); i++) {
+            int finalI = i;
+            int count = storeChangeAdvertises.get(finalI).getCount();
+            boolean save = storeChangeAdvertises.get(finalI).isSave();
+            ArrayList<Advertise> advertises = new ArrayList<>(simpleList);
+            CollectionUtils.filter(advertises, a -> a.getI().equals(storeChangeAdvertises.get(finalI).getI()));
+            if (advertises.size() > 0) {
+                simpleList.get(simpleList.indexOf(advertises.get(0))).setIsSaved(save);
+                simpleList.get(simpleList.indexOf(advertises.get(0))).setCount(count);
+                simpleAdapter.notifyItemChanged(simpleList.indexOf(advertises.get(0)));
+            }
         }
-
-
-        int position = hashMap.get("slider");
-        int count = sharedPreferences.getInt("view", sliderList.get(position).getCount());
-        boolean save = sharedPreferences.getBoolean("save", sliderList.get(position).getIsSaved());
-        sliderList.get(position).setCount(count);
-        sliderList.get(position).setIsSaved(save);
-
     }
 
+    private void completeSync() {
+        if (bannerSync && sampleSync && vipSync) {
+            firstSync = true;
+            binding.animation.setVisibility(View.GONE);
+            binding.ISwipe.refreshComplete();
+        }
+    }
+    private void visibleView(){
+        if (simpleList.size() > 0 && vipList.size() > 0)
+            binding.v2.setVisibility(View.VISIBLE);
+    }
+    private void nullTheMutable(){
+        mainViewModel.getResultMessage().setValue(null);
+        mainViewModel.getResultBillboardAdvs().setValue(null);
+        mainViewModel.getResultVipAdvertisements().setValue(null);
+        mainViewModel.getResultSimpleAdvertisements().setValue(null);
+        mainViewModel.getResultAddMyAdvertisement().setValue(null);
+        mainViewModel.getResultDeleteMyAdvertisement().setValue(null);
+        mainViewModel.getResultCompany().setValue(null);
+    }
+    private void getFirstRequest(){
+        if (!firstSync) {
+            nullTheMutable();
+
+            pageMain = 1;
+            binding.animation.setVisibility(View.VISIBLE);
+
+            mainViewModel.getBillboardAdvs(doFilter.getAccountFilter(), Constant.APPLICATION_ID, account.getI());
+            mainViewModel.getVipAdvertisements(doFilter.getAccountFilter(), Constant.APPLICATION_ID);
+            mainViewModel.getSimpleAdvertisements(doFilter.getAccountFilter(), Constant.APPLICATION_ID, account.getI(), pageMain);
+        }
+        else {
+            visibleView();
+
+            String storedHashMap = sharedPreferences.getString("storeHashMap", "");
+            if (!storedHashMap.equals("")) {
+                sharedPreferences.edit().remove("storeHashMap").apply();
+                useDataToSetInList(storedHashMap);
+            }
+        }
+    }
+    private void navigateToDetailCompany(Company company){
+        Company.deleteAll(Company.class);
+        Company.saveInTx(company);
+        Files.deleteAll(Files.class);
+        Files.saveInTx(company.getFiles());
+        Navigation.findNavController(getView()).navigate(R.id.DetailCompanyFragment);
+    }
     //endregion Method
 }

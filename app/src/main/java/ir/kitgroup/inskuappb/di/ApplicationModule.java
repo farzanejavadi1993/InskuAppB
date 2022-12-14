@@ -23,6 +23,7 @@ import ir.kitgroup.inskuappb.ConnectServer.APICompany;
 import ir.kitgroup.inskuappb.ConnectServer.APIDood;
 import ir.kitgroup.inskuappb.ConnectServer.APIMain;
 import ir.kitgroup.inskuappb.ConnectServer.HostSelectionInterceptor;
+import ir.kitgroup.inskuappb.classes.SharedPrefrenceValue;
 import ir.kitgroup.inskuappb.util.Constant;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
@@ -50,6 +51,13 @@ public class ApplicationModule {
     @Singleton
     public HostSelectionInterceptor provideHostSelectionInterceptor(SharedPreferences preferenceHelper) {
         return new HostSelectionInterceptor(preferenceHelper);
+    }
+
+
+    @Provides
+    @Singleton
+    public SharedPrefrenceValue provideSharedPrefrenceValue(SharedPreferences preferenceHelper) {
+        return new SharedPrefrenceValue(preferenceHelper);
     }
 
 

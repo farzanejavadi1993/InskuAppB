@@ -71,6 +71,7 @@ public class MainViewModel extends ViewModel {
     private final MutableLiveData<List<State>> resultState = new MutableLiveData<>();
     private final MutableLiveData<List<City>> resultCity = new MutableLiveData<>();
     private final MutableLiveData<List<Advertise>> resultBillboardAdvertisement = new MutableLiveData<>();
+    private final MutableLiveData<List<Advertise>> resultSearchAdvertisement = new MutableLiveData<>();
     private final MutableLiveData<List<Advertise>> resultVipAdvertisement = new MutableLiveData<>();
     private final MutableLiveData<List<Advertise>> resultSimpleAdvertisement = new MutableLiveData<>();
 
@@ -244,6 +245,35 @@ public class MainViewModel extends ViewModel {
     }
 
 
+    public void getSearchAdv(AccountFilter accountFilter,String appId, String customerId,String text,int page) {
+        compositeDisposable.clear();
+        Gson gson = new Gson();
+        Type typeAccount = new TypeToken<AccountFilter>() {
+        }.getType();
+        gson.toJson(accountFilter, typeAccount);
+
+        compositeDisposable.add(
+                myRepository.getSearchAdvertisement(accountFilter,appId,customerId,text,page)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnSubscribe(disposable -> {
+                        })
+                        .subscribe(
+                                resultSearchAdvertisement::setValue,
+                                throwable ->
+                                {
+                                    if (!networkHelper.isNetworkConnected1())
+                                        eMessage.setValue(new Message(3, "", "خطا در اتصال اینترنت"));
+                                    else
+                                        eMessage.setValue(new Message(1, "", "خطا در دریافت آگهی "));
+                                }
+                        ));
+    }
+
+    public MutableLiveData<List<Advertise>> getResultSearchAdvs() {
+        return resultSearchAdvertisement;
+    }
+
     public void getVipAdvertisements(AccountFilter accountFilter,String appId) {
         compositeDisposable.add(
                 myRepository.getVipAdvertisements(accountFilter,appId)
@@ -321,10 +351,10 @@ public class MainViewModel extends ViewModel {
     }
 
 
-    public void getAdvertisement(String advertisementId) {
+    public void getAdvertisement(String advertisementId,String customerId) {
 
         compositeDisposable.add(
-                myRepository.getAdvertisement(advertisementId)
+                myRepository.getAdvertisement(advertisementId,customerId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe(disposable -> {
@@ -352,17 +382,17 @@ public class MainViewModel extends ViewModel {
 
 
 
-    public void getMyAdvertisement(String customerId) {
+    public void getMyAdvertisement(String customerId,String appId) {
         compositeDisposable.clear();
         compositeDisposable.add(
-                myRepository.getMyAdvertisement(customerId)
+                myRepository.getMyAdvertisement(customerId,appId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe(disposable -> {
                         })
                         .subscribe(
-                                resultMyAdvertisement::setValue,
-                                throwable ->
+                                jsonElement -> resultMyAdvertisement.setValue(jsonElement)
+                              ,  throwable ->
                                 {
                                     if (!networkHelper.isNetworkConnected1())
                                         eMessage.setValue(new Message(1, "", "خطا در اتصال اینترنت"));
