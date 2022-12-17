@@ -215,7 +215,6 @@
 
     </fragment>
     <fragment
-
         android:id="@+id/ProfileFragment"
         android:name="ir.kitgroup.inskuappb.ui.launcher.profileitem.ProfileFragment"
         tools:layout="@layout/more_fragment" >
@@ -223,7 +222,6 @@
             android:id="@+id/actionGoAdvertiseFragment"
             app:destination="@id/AdvertiseFragment"
             />
-
         <action
             android:id="@+id/actionGoToContactUsFragment"
             app:destination="@id/ContactUsFragment"
@@ -233,7 +231,23 @@
             android:id="@+id/actionGoToFilterFragment"
             app:destination="@id/FilterFragment"
             />
+        <action
+            android:id="@+id/actionGoToUserRequests"
+            app:destination="@id/CallMeRequest"
+            />
     </fragment>
+    <fragment
+        android:id="@+id/CallMeRequest"
+        android:name="ir.kitgroup.inskuappb.ui.launcher.profileitem.CallMeRequsetFragment"
+        tools:layout="@layout/call_me_requset_fragment">
+        <action
+            android:id="@+id/actionGoToDetailFragment"
+            app:destination="@id/DetailCompanyFragment"
+            />
+
+
+    </fragment>
+
     <fragment
         android:id="@+id/AllMessageFragment"
         android:name="ir.kitgroup.inskuappb.ui.launcher.messageItem.AllMessageFragment"

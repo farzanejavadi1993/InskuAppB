@@ -86,6 +86,7 @@
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/rectangle1.xml" value="0.1" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/search_layout_background.xml" value="0.1" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/shape_indicator.xml" value="0.1" />
+        <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/special_background.xml" value="0.181" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/tab_radus.xml" value="0.1" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/view.xml" value="0.1955" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout-v21/message_detail_item.xml" value="0.109375" />
@@ -95,6 +96,8 @@
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/advertise_fragment.xml" value="0.1" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/all_company_fragment.xml" value="0.1" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/all_company_message.xml" value="0.18072916666666666" />
+        <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/call_me_request_item.xml" value="0.1875" />
+        <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/call_me_requset_fragment.xml" value="0.203125" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/catalog_activity.xml" value="0.1265625" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/city_item.xml" value="0.1875" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/company_advertise_fragment.xml" value="0.25" />
@@ -102,6 +105,7 @@
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/create_city_dialog.xml" value="0.11413043478260869" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/create_city_state.xml" value="0.16485507246376813" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/custom_dialog.xml" value="0.16485507246376813" />
+        <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/default_swiperefresh_head_layout.xml" value="0.1875" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/detail_advertise_fragment.xml" value="0.203125" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/detail_company_fragment.xml" value="0.25" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/detail_message_fragment.xml" value="0.1265625" />
@@ -114,7 +118,7 @@
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/home_fake.xml" value="0.17481884057971014" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/home_fragment.xml" value="0.22" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/item_requset_call.xml" value="0.1" />
-        <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/ladder_advertise_item.xml" value="0.11096014492753623" />
+        <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/ladder_advertise_item.xml" value="0.25" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/limit_advertise_item.xml" value="0.20244565217391305" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/login_fragment.xml" value="0.19895833333333332" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/message_detail_item.xml" value="0.4426002766251729" />
@@ -128,6 +132,7 @@
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/register_fragment.xml" value="0.1" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/request_user_fragment.xml" value="0.12552083333333333" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/row_recycler_company.xml" value="0.2834170854271357" />
+        <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/sample_advertise_item.xml" value="0.10052083333333334" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/search_advertise_fragment.xml" value="0.14855072463768115" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/search_company_fragment.xml" value="0.203125" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/second_intro_fragment.xml" value="0.14583333333333334" />
@@ -137,6 +142,7 @@
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/survey_item.xml" value="0.203125" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/third_intro_fragment.xml" value="0.12" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/verify_code_fragment.xml" value="0.15677083333333333" />
+        <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/vip_advertise_item.xml" value="0.12708333333333333" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
         <entry key="..\:/InskAppB/InskuAppB/app/src/main/res/drawable-mdpi/ic_profile.xml" value="0.1735" />
         <entry key="..\:/InskAppB/InskuAppB/app/src/main/res/drawable-v21/background_item_white.xml" value="0.181" />

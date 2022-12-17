@@ -72,6 +72,7 @@ import ir.kitgroup.inskuappb.dataBase.ModelCatalog;
 import ir.kitgroup.inskuappb.databinding.DetailCompanyFragmentBinding;
 import ir.kitgroup.inskuappb.model.CustomerCatalog;
 import ir.kitgroup.inskuappb.model.ModelSetting;
+import ir.kitgroup.inskuappb.ui.launcher.homeItem.tab1Advertise.DetailAdvertiseFragmentArgs;
 import ir.kitgroup.inskuappb.util.Constant;
 
 
@@ -130,7 +131,7 @@ public class DetailCompanyFragment extends Fragment {
     private String urlInstagram = "";
     private Instagram instagram;
 
-    private boolean call=false;
+    private boolean call = false;
 
 
     //endregion Parameter
@@ -147,13 +148,10 @@ public class DetailCompanyFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        init();
+        connectToServe();
+        initRecycle();
 
-        try {
-            init();
-            connectToServe();
-            initRecycle();
-        } catch (Exception ignored) {
-        }
 
     }
 
@@ -237,13 +235,13 @@ public class DetailCompanyFragment extends Fragment {
             binding.progressCall.setVisibility(View.GONE);
 
             binding.tvCall.setEnabled(true);
-            if (result.size() > 0  ) {
-                if (result.get(0).isCallStatus()){
+            if (result.size() > 0) {
+                if (result.get(0).isCallStatus()) {
                     call = true;
                     binding.tvCall.setBackgroundResource(R.drawable.deactive_button);
                     binding.tvCall.setText("انصراف از تماس");
 
-                }else {
+                } else {
                     call = false;
                     binding.tvCall.setBackgroundResource(R.drawable.green_button);
                     binding.tvCall.setText("با من تماس بگیر");
@@ -368,7 +366,6 @@ public class DetailCompanyFragment extends Fragment {
     @SuppressLint("SetTextI18n")
     private void init() {
 
-        company = new Company();
         installWatsApp = new InstallWatsApp();
         watsApp = new WatsApp();
         email = new Email();
@@ -396,6 +393,7 @@ public class DetailCompanyFragment extends Fragment {
         customOrderDialog = CustomOrderDialog.getInstance();
         customOrderDialog.hideDialog();
 
+        company = Select.from(Company.class).first();
 
         company = Select.from(Company.class).first();
         account = Select.from(Account.class).first();
@@ -440,9 +438,6 @@ public class DetailCompanyFragment extends Fragment {
         });
 
 
-
-
-
         if (company.getAc_area() == 1)
             binding.txtGeo.setText("فعالیت این پخش سراسری می باشد.");
 
@@ -456,13 +451,11 @@ public class DetailCompanyFragment extends Fragment {
             binding.txtGeo.setText("فعالیت این پخش محلی می باشد.");
 
 
-
-
         if (company.getDesc().equals(""))
             binding.txtTitleCompany.setVisibility(View.GONE);
 
 
-        binding.txtTitleCompany.setText(!company.getAbus().equals("")?company.getAbus():"درباره شرکت");
+        binding.txtTitleCompany.setText(!company.getAbus().equals("") ? company.getAbus() : "درباره شرکت");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             binding.txtDescription.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
@@ -608,7 +601,7 @@ public class DetailCompanyFragment extends Fragment {
             Navigation.findNavController(binding.getRoot()).navigate(action);
         });
         binding.cardGift.setOnClickListener(view14 -> {
-            NavDirections action = DetailCompanyFragmentDirections.actionGoToCompanyAdvertise(company.getI(), company.getN());
+            NavDirections action = DetailCompanyFragmentDirections.actionGoToCompanyAdvertise("", company.getI(), company.getN());
             Navigation.findNavController(binding.getRoot()).navigate(action);
         });
         binding.cardMessage.setOnClickListener(view14 -> {
@@ -741,6 +734,6 @@ public class DetailCompanyFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        sharedPreferences.edit().putBoolean("loginSuccess",true).apply();
+        sharedPreferences.edit().putBoolean("loginSuccess", true).apply();
     }
 }

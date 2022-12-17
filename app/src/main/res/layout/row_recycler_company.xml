@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
 
         <variable
@@ -10,27 +10,17 @@
             type="ir.kitgroup.inskuappb.dataBase.Company" />
     </data>
 
-    <RelativeLayout
-        android:id="@+id/cardCompany"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:paddingLeft="12dp"
-        android:paddingTop="3dp"
-        android:paddingRight="12dp"
-        android:paddingBottom="3dp">
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/l_Company"
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:paddingLeft="12dp"
+            android:paddingTop="3dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
             android:layout_marginTop="3dp"
             android:layout_marginRight="6dp"
-            android:layout_marginBottom="3dp"
-            android:clickable="true"
-            android:focusable="true">
+            android:layout_marginBottom="3dp">
 
             <com.github.siyamed.shapeimageview.CircularImageView
                 android:id="@+id/ivCompany"
@@ -361,6 +351,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/l_Company"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
@@ -371,21 +362,14 @@
                 android:textColor="@color/teal_200"
                 android:textSize="12dp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/information_layout"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/information_layout">
+               >
 
-                <ImageView
-                    android:id="@+id/ivCircle"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="8dp" />
+
 
 
                 <LinearLayout
-
                     android:id="@+id/tv_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -419,81 +403,54 @@
                 </LinearLayout>
 
 
+
+
                 <RelativeLayout
-                    android:id="@+id/viewDetail"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+
+                    android:visibility="gone"
+                    android:id="@+id/private_application"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="12dp"
                     android:layout_toLeftOf="@+id/pdf"
+                    app:srcCompat="@drawable/ic_basket"
                     android:background="@drawable/background_item_white"
                     android:elevation="4dp">
-
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_centerInParent="true"
-                        app:srcCompat="@drawable/ic_basket" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:visibility="gone"
-                    android:id="@+id/private_application"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="12dp"
-                    android:layout_toLeftOf="@+id/viewDetail"
-                    android:background="@drawable/background_item_white"
-                    android:elevation="4dp">
-
                     <ImageView
                         android:id="@+id/ivPrivate_app"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
                         android:layout_centerInParent="true"
                         />
                 </RelativeLayout>
 
+
+
                 <RelativeLayout
+                    android:visibility="gone"
                     android:id="@+id/pdf"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="12dp"
-                    android:layout_toLeftOf="@+id/share"
-                    android:background="@drawable/background_item_white"
-                    android:elevation="4dp">
-
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_centerInParent="true"
-                        app:srcCompat="@drawable/ic_pdf" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/share"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="12dp"
                     android:layout_toLeftOf="@+id/save"
                     android:background="@drawable/background_item_white"
                     android:elevation="4dp"
-                    android:visibility="gone">
-
+                   >
                     <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
                         android:layout_centerInParent="true"
-                        app:srcCompat="@drawable/ic_share" />
+                        app:srcCompat="@drawable/ic_pdf" />
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:focusable="true"
+                    android:clickable="true"
                     android:id="@+id/save"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="8dp"
@@ -502,8 +459,8 @@
 
                     <ImageView
                         android:id="@+id/ivSave"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
                         android:layout_centerInParent="true"
                         app:srcCompat="@drawable/ic_bookmark" />
 
@@ -517,6 +474,17 @@
 
             </RelativeLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.75dp"
+                android:layout_below="@+id/l_Company"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:background="#ccc"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintTop_toBottomOf="@+id/l_Company" />
 
             <ProgressBar
                 android:id="@+id/progress"
@@ -530,18 +498,5 @@
                 app:layout_constraintTop_toTopOf="@+id/tv_1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.75dp"
-            android:layout_below="@+id/l_Company"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:background="#ccc"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAbout" />
-    </RelativeLayout>
-
 
 </layout>

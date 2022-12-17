@@ -29,7 +29,7 @@
             android:value="InSkuDB.db" />
         <meta-data
             android:name="VERSION"
-            android:value="74" /> <!-- DO NOT FORGET UPDATE VERSION IN DBHelper -->
+            android:value="86" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />

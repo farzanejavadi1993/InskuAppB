@@ -11,6 +11,34 @@ public class CompanyStatus {
     @Expose
     private String companyId;
 
+    @SerializedName("Type")
+    @Expose
+    private Integer type;
+    //        جدید = 0
+    //        درحالبررسی = 1
+    //        تکمیلشده = 2
+    //        انصراف از درخواست = 4
+    //        لغوشده = 23
+    @SerializedName("Name")
+    @Expose
+    private String name;
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getCustomerId() {
         return customerId;
     }

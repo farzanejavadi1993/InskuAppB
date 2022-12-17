@@ -32,6 +32,7 @@ import ir.kitgroup.inskuappb.dataBase.State;
 import ir.kitgroup.inskuappb.model.Advertise;
 import ir.kitgroup.inskuappb.model.AdvertisementStatus;
 import ir.kitgroup.inskuappb.model.AppDetail;
+import ir.kitgroup.inskuappb.model.CallMe;
 import ir.kitgroup.inskuappb.model.CompanyMessage;
 import ir.kitgroup.inskuappb.model.CompanyStatus;
 import ir.kitgroup.inskuappb.model.ContactId;
@@ -90,6 +91,7 @@ public class MainViewModel extends ViewModel {
     private final MutableLiveData<List<AdvertisementStatus>> resultAdvertisementStatus = new MutableLiveData<>();
     private final MutableLiveData<List<AdvertisementStatus>> resultSetAdvertisementStatus = new MutableLiveData<>();
     private final MutableLiveData<List<CompanyStatus>> resultCompanyStatus = new MutableLiveData<>();
+    private final MutableLiveData<List<CallMe>> resultCallMe = new MutableLiveData<>();
     private final MutableLiveData<List<CompanyStatus>> resultSetCompanyStatus = new MutableLiveData<>();
     private final MutableLiveData<List<Log>> resultAddCity = new MutableLiveData<>();
     private final MutableLiveData<List<CompanyMessage>> resultGetAllMessage = new MutableLiveData<>();
@@ -801,7 +803,6 @@ public class MainViewModel extends ViewModel {
 
 
     public void getCallMeStatus(String customerId, String companyId) {
-
         compositeDisposable.add(
                 myRepository.getCallMeStatus(customerId, companyId)
                         .subscribeOn(Schedulers.io())
@@ -816,6 +817,26 @@ public class MainViewModel extends ViewModel {
     }
     public  MutableLiveData<List<CompanyStatus>> getResultCallMeStatus(){
         return resultCompanyStatus;
+    }
+
+
+
+    public void getCustomerCallRequest(String customerId) {
+        compositeDisposable.add(
+                myRepository.getCustomerCallRequest(customerId)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnSubscribe(disposable -> {})
+                        .subscribe(jsonElement ->
+                                resultCallMe.setValue(jsonElement),
+                                throwable ->{
+                                    if (!networkHelper.isNetworkConnected1())
+                                        eMessage.setValue(new Message(3, "", "خطا در اتصال اینترنت"));
+                                    else
+                                        eMessage.setValue(new Message(3, "", "خطا در دریافت اطلاعات"));
+                                }));
+    }
+    public  MutableLiveData<List<CallMe>> getResultCustomerCallRequest(){return resultCallMe;
     }
 
 

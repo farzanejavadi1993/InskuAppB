@@ -97,6 +97,8 @@ public class AllMessageFragment extends Fragment {
         doodViewModel.getResultMessage().setValue(null);
         mainViewModel.getResultMessage().setValue(null);
 
+        mainViewModel.clearRequest();
+
 
 
         try {
@@ -226,6 +228,7 @@ public class AllMessageFragment extends Fragment {
     }
 
     private void init() {
+        sharedPreferences.edit().putBoolean("loginSuccess", true).apply();
         setSearchViewConfig(binding.searchViewMessage);
         binding.ivBack.setOnClickListener(view1 -> Navigation.findNavController(binding.getRoot()).popBackStack());
         binding.cardError4.setOnClickListener(view12 -> reloadMessages());

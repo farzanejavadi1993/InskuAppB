@@ -162,9 +162,9 @@ public class BindingAdapter {
     @SuppressLint("SetTextI18n")
     @androidx.databinding.BindingAdapter("textInclude")
     public static void textInclude(TextView textView, String text) {
+
         if (textView != null && text != null) {
             textView.setText("(" + text + ")");
-
         } else
             textView.setVisibility(View.GONE);
     }

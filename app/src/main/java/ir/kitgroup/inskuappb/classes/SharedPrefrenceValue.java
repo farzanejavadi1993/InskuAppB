@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 
+import ir.kitgroup.inskuappb.dataBase.Company;
 import ir.kitgroup.inskuappb.dataBase.StoreChangeAdvertise;
 
 
@@ -74,7 +75,6 @@ public class SharedPrefrenceValue {
     }
 
     public ArrayList<StoreChangeAdvertise> useDataToSetInList(String storedHashMap) {
-
         Gson gson = new Gson();
         java.lang.reflect.Type type = new TypeToken<HashMap<String, ArrayList<StoreChangeAdvertise>>>() {
         }.getType();
@@ -82,5 +82,69 @@ public class SharedPrefrenceValue {
 
         ArrayList<StoreChangeAdvertise> storeChangeAdvertises = hashMap.get("simpleChange");
         return storeChangeAdvertises;
+    }
+
+    public void addToMyAccount(Company company) {
+        String storeCompany = sharedPreferences.getString("storeCompany", "");
+
+        ArrayList<Company> storeChangeCompany = null;
+        Gson gson = new Gson();
+
+        if (!storeCompany.equals("")) {
+            java.lang.reflect.Type type = new TypeToken<HashMap<String, ArrayList<Company>>>() {
+            }.getType();
+            HashMap<String, ArrayList<Company>> hashMap = gson.fromJson(storeCompany, type);
+
+            storeChangeCompany = hashMap.get("changeCompany");
+            company.setSave(true);
+            storeChangeCompany.add(company);
+        }
+        HashMap<String, ArrayList<Company>> hashMapStore = new HashMap<>();
+        hashMapStore.put("changeCompany", storeChangeCompany);
+        String storeHashMap = gson.toJson(hashMapStore);
+        sharedPreferences.edit().putString("storeCompany", storeHashMap).apply();
+    }
+
+    public void deleteFromMyCompany(String id) {
+        String storeCompany = sharedPreferences.getString("storeCompany", "");
+
+        ArrayList<Company> storeChangeCompany = null;
+        Gson gson = new Gson();
+
+        if (!storeCompany.equals("")) {
+            java.lang.reflect.Type type = new TypeToken<HashMap<String, ArrayList<Company>>>() {
+            }.getType();
+            HashMap<String, ArrayList<Company>> hashMap = gson.fromJson(storeCompany, type);
+
+            storeChangeCompany = hashMap.get("changeCompany");
+
+            ArrayList<Company> res = new ArrayList<>(storeChangeCompany);
+            CollectionUtils.filter(res, s -> s.getI().equals(id));
+
+            if (res.size() > 0)
+                storeChangeCompany.remove(res.get(0));
+
+
+        }
+        HashMap<String, ArrayList<Company>> hashMapStore = new HashMap<>();
+        hashMapStore.put("changeCompany", storeChangeCompany);
+        String storeHashMap = gson.toJson(hashMapStore);
+        sharedPreferences.edit().putString("storeCompany", storeHashMap).apply();
+    }
+
+
+    public ArrayList<Company> getListFromSharedPrefrence() {
+        String storeCompany = sharedPreferences.getString("storeCompany", "");
+        ArrayList<Company> changeCompany = new ArrayList<>();
+
+        if (!storeCompany.equals("")) {
+            Gson gson = new Gson();
+            java.lang.reflect.Type type = new TypeToken<HashMap<String, ArrayList<Company>>>() {
+            }.getType();
+            HashMap<String, ArrayList<Company>> hashMap = gson.fromJson(storeCompany, type);
+            changeCompany = hashMap.get("changeCompany");
+
+        }
+        return changeCompany;
     }
 }

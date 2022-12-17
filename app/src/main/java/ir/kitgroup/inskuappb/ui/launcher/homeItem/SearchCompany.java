@@ -1,8 +1,6 @@
 package ir.kitgroup.inskuappb.ui.launcher.homeItem;
 
 import android.annotation.SuppressLint;
-
-import android.app.DownloadManager;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -45,6 +43,7 @@ import ir.kitgroup.inskuappb.R;
 import ir.kitgroup.inskuappb.adapter.UniversalAdapter2;
 import ir.kitgroup.inskuappb.classes.CustomDialogOpenWith;
 import ir.kitgroup.inskuappb.classes.EndlessParentScrollListener;
+import ir.kitgroup.inskuappb.classes.SharedPrefrenceValue;
 import ir.kitgroup.inskuappb.classes.dialog.CustomSnackBar;
 import ir.kitgroup.inskuappb.classes.filterr.Filters;
 import ir.kitgroup.inskuappb.classes.itent.OpenWith;
@@ -54,6 +53,7 @@ import ir.kitgroup.inskuappb.dataBase.Company;
 import ir.kitgroup.inskuappb.dataBase.Files;
 
 import ir.kitgroup.inskuappb.databinding.SearchCompanyFragmentBinding;
+import ir.kitgroup.inskuappb.ui.launcher.homeItem.tab1Advertise.DetailAdvertiseFragmentDirections;
 import ir.kitgroup.inskuappb.util.Constant;
 
 @AndroidEntryPoint
@@ -61,6 +61,10 @@ public class SearchCompany extends Fragment {
 
     @Inject
     SharedPreferences sharedPreferences;
+
+    @Inject
+    SharedPrefrenceValue sharedPrefrenceValue;
+
     private SearchCompanyFragmentBinding binding;
     private MainViewModel myViewModel;
     private CustomDialogOpenWith customDialogOpenWith;
@@ -83,6 +87,8 @@ public class SearchCompany extends Fragment {
 
     private EndlessParentScrollListener endlessParentScrollListener;
     private int oldSizeLadderList = 0;
+    private boolean saving;
+    private boolean firstSync;
 
     @Nullable
     @Override
@@ -109,16 +115,15 @@ public class SearchCompany extends Fragment {
         myViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         myViewModel.getResultMessage().setValue(null);
 
-        /*if (pageMain * 10 > companies.size() && pageMain == 1) {
-            binding.progress.setVisibility(View.VISIBLE);
-            myViewModel.getAllCompany("", pageMain, doFilter.getAccountFilter());
-        }*/
+//        if (!firstSync) {
+//            binding.progress.setVisibility(View.VISIBLE);
+//            myViewModel.getAllCompany(doFilter.getAccountFilter(), "", Constant.APPLICATION_ID, account.getI(), pageMain);
+//        }
 
         myViewModel.getResultMessage().observe(getViewLifecycleOwner(), result -> {
 
             if (result == null)
                 return;
-
 
             binding.cardError.setVisibility(View.GONE);
             if (result.getCode() == 10) {
@@ -127,6 +132,7 @@ public class SearchCompany extends Fragment {
             }
 
             binding.progress.setVisibility(View.GONE);
+            saving=false;
             ShowMessageWarning(result.getDescription());
         });
 
@@ -140,57 +146,38 @@ public class SearchCompany extends Fragment {
             if (result.size() > 0) {
                 if (pageMain == 1)
                     companies.clear();
+
                 companies.addAll(result);
-                myViewModel.getMyCompany(account.getI());
-            } else if (result.size() == 0 ) {
-                binding.progressBar22.setVisibility(View.GONE);
-                binding.progress.setVisibility(View.GONE);
-                binding.progressSearch.setVisibility(View.GONE);
-                if (companies.size() == 0) {
-                  //  binding.searchViewCompany.setQuery("",true);
+
+
+                if (pageMain == 1)
+                    adapter2.notifyDataSetChanged();
+                else if (oldSizeLadderList <= companies.size())
+                    adapter2.notifyItemRangeChanged(oldSizeLadderList, companies.size() - 1);
+            }
+            else if (result.size() == 0 ) {
+
+                if (companies.size() == 0)
                     binding.layoutNotFound.setVisibility(View.VISIBLE);
-                }
                 else
                     binding.layoutNotFound.setVisibility(View.GONE);
             }
-
-
-        });
-
-
-        myViewModel.getResultMyCompany().observe(getViewLifecycleOwner(), result -> {
-            if (result == null)
-                return;
-
-            myViewModel.getResultMyCompany().setValue(null);
-            for (int i = 0; i < result.size(); i++) {
-
-                ArrayList<Company> res = new ArrayList<>(companies);
-                int finalI = i;
-                CollectionUtils.filter(res, r -> r.getI().equals(result.get(finalI).getI()));
-                if (res.size() > 0)
-                    res.get(0).setSave(true);
-            }
-
-
-            if (pageMain == 1)
-                adapter2.notifyDataSetChanged();
-            else if (oldSizeLadderList <= companies.size())
-                adapter2.notifyItemRangeChanged(oldSizeLadderList, companies.size() - 1);
-
 
             binding.progress.setVisibility(View.GONE);
             binding.progressSearch.setVisibility(View.GONE);
             binding.progressBar22.setVisibility(View.GONE);
 
+
         });
+
+
         myViewModel.getResultAddMyCompany().observe(getViewLifecycleOwner(), result -> {
             if (result != null) {
                 myViewModel.getResultAddMyCompany().setValue(null);
-                if (result.get(0).getMessage() == 1) {
+                if (result.get(0).getMessage() == 4) {
+                    sharedPrefrenceValue.addToMyAccount(companies.get(positionSelect));
                     companies.get(positionSelect).setCount(companies.get(positionSelect).getCount() + 1);
                     tvCount.setText(String.valueOf(companies.get(positionSelect).getCount()));
-
                     companies.get(positionSelect).setSave(true);
                     imgSave.setImageResource(R.drawable.ic_complete_bookmark);
 
@@ -200,15 +187,17 @@ public class SearchCompany extends Fragment {
 
             }
             progressSave.setVisibility(View.GONE);
+            saving=false;
         });
         myViewModel.getResultDeleteMyAccount().observe(getViewLifecycleOwner(), result -> {
 
             if (result != null) {
                 myViewModel.getResultDeleteMyAccount().setValue(null);
-                if (result.get(0).getMessage() == 1) {
+                if (result.get(0).getMessage() == 4) {
+                    sharedPrefrenceValue.deleteFromMyCompany(companies.get(positionSelect).getI());
+
                     companies.get(positionSelect).setCount(companies.get(positionSelect).getCount() - 1);
                     tvCount.setText(String.valueOf(companies.get(positionSelect).getCount()));
-
                     companies.get(positionSelect).setSave(false);
                     imgSave.setImageResource(R.drawable.ic_bookmark);
 
@@ -216,7 +205,7 @@ public class SearchCompany extends Fragment {
                     ShowMessageWarning("خطا در حذف شرکت");
 
                 progressSave.setVisibility(View.GONE);
-
+                saving=false;
             }
         });
     }
@@ -231,10 +220,6 @@ public class SearchCompany extends Fragment {
             searchView.setBackgroundColor(Color.TRANSPARENT);
             searchView.setQuery("", false);
             searchView.clearFocus();
-
-
-            // @SuppressLint("UseCompatLoadingForDrawables")
-            // Drawable drawColor = getResources().getDrawable(R.drawable.white_radius);
             searchView.setBackground(null);
 
             LinearLayout linearLayout1 = (LinearLayout) searchView.getChildAt(0);
@@ -274,7 +259,6 @@ public class SearchCompany extends Fragment {
     }
 
     private void setUpTabView() {
-
         LinearLayoutManager managerParent = new LinearLayoutManager(getActivity());
         if (endlessParentScrollListener == null) {
             endlessParentScrollListener = new EndlessParentScrollListener(managerParent) {
@@ -294,39 +278,25 @@ public class SearchCompany extends Fragment {
 
 
         adapter2.setOnItemBindListener((binding, position) -> {
-
+            saving=false;
             View view = binding.getRoot();
             RelativeLayout btnSave = view.findViewById(R.id.save);
             progressSave = view.findViewById(R.id.progressSave);
             progressSave.setVisibility(View.GONE);
 
             imgSave = view.findViewById(R.id.ivSave);
-            RelativeLayout btnShare = view.findViewById(R.id.share);
+
             RelativeLayout btnPdf = view.findViewById(R.id.pdf);
-            RelativeLayout onlineShop = view.findViewById(R.id.viewDetail);
-            ImageView ivCircle = view.findViewById(R.id.ivCircle);
-            ivCircle.setVisibility(View.GONE);
+
+
             RelativeLayout private_application = view.findViewById(R.id.private_application);
             ImageView imgPrivateApp = view.findViewById(R.id.ivPrivate_app);
-            if (!companies.get(position).getInskId().equals("")) {
+            if (!companies.get(position).getInskId().equals(""))
                 private_application.setVisibility(View.VISIBLE);
-                Picasso.get()
-                        .load("http://" + Constant.Main_URL_IMAGE + "/GetCompanyImage?id=" +
-                                companies.get(position).getI() + "&width=120&height=120")
-                        .error(R.drawable.loading)
-                        .placeholder(R.drawable.loading)
-                        .into(imgPrivateApp);
-            }
             else
                 private_application.setVisibility(View.GONE);
 
-            onlineShop.setOnClickListener(view12 -> {
-                Company.deleteAll(Company.class);
-                Company.saveInTx(companies.get(position));
-                Files.deleteAll(Files.class);
-                Files.saveInTx(companies.get(position).getFiles());
-                Navigation.findNavController(getView()).navigate(R.id.DetailCompanyFragment);
-            });
+
 
             private_application.setOnClickListener(view1 -> {
                 String pkg = companies.get(position).getInskId();
@@ -344,17 +314,19 @@ public class SearchCompany extends Fragment {
             });
 
 
-          /*  if (companies.get(position).getAc_area() == 1)
-                ivCircle.setImageResource(R.drawable.four);
+            /*ArrayList<Company> objects = new ArrayList<>(sharedPrefrenceValue.getListFromSharedPrefrence());
+            CollectionUtils.filter(objects, s -> s.getI().equals(companies.get(position).getI()));
 
-            else if (companies.get(position).getAc_area() == 2)
-                ivCircle.setImageResource(R.drawable.three);
+            if (objects.size() == 0 )
+                companies.get(position).setSave(false);
 
-            else if (companies.get(position).getAc_area() == 3)
-                ivCircle.setImageResource(R.drawable.two);
+            else if (!objects.get(0).issaved) {
+                companies.get(position).setSave(false);
+                sharedPrefrenceValue.deleteFromMyCompany(companies.get(position).getI());
+            } else
+                companies.get(position).setSave(true);*/
 
-            else if (companies.get(position).getAc_area() == 4)
-                ivCircle.setImageResource(R.drawable.one);*/
+
 
 
             if (companies.size() >= position && position >= 0) {
@@ -377,15 +349,20 @@ public class SearchCompany extends Fragment {
 
 
                 btnSave.setOnClickListener(view13 -> {
-                    tvCount = view.findViewById(R.id.tvCount);
-                    progressSave = view.findViewById(R.id.progressSave);
-                    imgSave = view.findViewById(R.id.ivSave);
-                    progressSave.setVisibility(View.VISIBLE);
-                    positionSelect = position;
-                    if (companies.get(position).isSave())
-                        myViewModel.deleteMyAccount(account.getI(), companies.get(positionSelect).getI());
-                    else
-                        myViewModel.addMyCompany(account.getI(), companies.get(positionSelect).getI());
+                    if (!saving)
+                    {
+                        saving=true;
+                        tvCount = view.findViewById(R.id.tvCount);
+                        progressSave = view.findViewById(R.id.progressSave);
+                        imgSave = view.findViewById(R.id.ivSave);
+                        progressSave.setVisibility(View.VISIBLE);
+                        positionSelect = position;
+                        if (companies.get(position).isSave())
+                            myViewModel.deleteMyAccount(account.getI(), companies.get(positionSelect).getI(),Constant.APPLICATION_ID);
+                        else
+                            myViewModel.addMyCompany(account.getI(), companies.get(positionSelect).getI(),Constant.APPLICATION_ID);
+                    }
+
                 });
                 btnPdf.setOnClickListener(view15 -> {
                     ArrayList<Files> fileList = new ArrayList<>(companies.get(position).getFiles());
@@ -402,6 +379,14 @@ public class SearchCompany extends Fragment {
             }
         });
 
+        adapter2.setOnItemClickListener((binding, position) -> {
+               Company.deleteAll(Company.class);
+            Company.saveInTx(companies.get(position));
+            Files.deleteAll(Files.class);
+            Files.saveInTx(companies.get(position).getFiles());
+            Navigation.findNavController(getView()).navigate(R.id.DetailCompanyFragment);
+
+        });
 
     }
 
@@ -412,7 +397,7 @@ public class SearchCompany extends Fragment {
         customDialogOpenWith = CustomDialogOpenWith.getInstance();
         account = Select.from(Account.class).first();
 
-        Company.deleteAll(Company.class);
+       // Company.deleteAll(Company.class);
         pdfTools = new PdfTools();
         openWith = new OpenWith(sharedPreferences, getActivity());
 
@@ -487,7 +472,7 @@ public class SearchCompany extends Fragment {
         binding.progressBar22.setVisibility(View.VISIBLE);
         oldSizeLadderList = companies.size();
         pageMain++;
-        myViewModel.getAllCompany(wordSearch, pageMain, doFilter.getAccountFilter());
+        myViewModel.getAllCompany(doFilter.getAccountFilter(),wordSearch,Constant.APPLICATION_ID,account.getI() ,pageMain);
     }
 
     private void initAnimation() {
@@ -504,12 +489,14 @@ public class SearchCompany extends Fragment {
         oldSizeLadderList = 0;
         binding.layoutNotFound.setVisibility(View.GONE);
         companies.clear();
+        firstSync=false;
+        saving=false;
         adapter2.notifyDataSetChanged();
         binding.progress.setVisibility(View.VISIBLE);
         binding.progressSearch.setVisibility(View.VISIBLE);
         pageMain = 1;
         if (!wordSearch.trim().equals(""))
-        myViewModel.getAllCompany(wordSearch, pageMain, doFilter.getAccountFilter());
+            myViewModel.getAllCompany(doFilter.getAccountFilter(),wordSearch,Constant.APPLICATION_ID,account.getI(),pageMain);
 
     }
 

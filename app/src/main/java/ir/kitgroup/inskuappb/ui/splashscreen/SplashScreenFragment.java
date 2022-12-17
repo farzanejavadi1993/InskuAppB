@@ -295,6 +295,7 @@ public class SplashScreenFragment extends Fragment {
     }
 
     private void init() {
+        sharedPreferences.edit().remove("storeCompany").apply();
         Company.deleteAll(Company.class);
         account = Select.from(Account.class).first();
 
