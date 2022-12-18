@@ -44,7 +44,6 @@ import ir.kitgroup.inskuappb.dataBase.Ord;
 import ir.kitgroup.inskuappb.dataBase.OrdDetail;
 import ir.kitgroup.inskuappb.dataBase.State;
 import ir.kitgroup.inskuappb.databinding.MoreFragmentBinding;
-import ir.kitgroup.inskuappb.ui.launcher.homeItem.LauncherFragmentDirections;
 import ir.kitgroup.inskuappb.util.Constant;
 
 
@@ -108,6 +107,16 @@ public class ProfileFragment extends Fragment {
             Navigation.findNavController(getView()).navigate(R.id.CompanyAdvertise, bundle);
         });
 
+
+        binding.cardRequestCall.setOnClickListener(view15 -> {
+            Bundle bundle=new Bundle();
+            Navigation.findNavController(getView()).navigate(R.id.CallMeRequest);
+        });
+
+        binding.cardRequestAdvertisement.setOnClickListener(view15 -> {
+            Bundle bundle=new Bundle();
+            Navigation.findNavController(getView()).navigate(R.id.WantAdvFragment);
+        });
 
 
         binding.cardpower.setOnClickListener(view12 -> {

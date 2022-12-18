@@ -1,5 +1,7 @@
 package ir.kitgroup.inskuappb.ui.launcher.profileitem;
 
+
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -26,26 +29,25 @@ import ir.kitgroup.inskuappb.R;
 import ir.kitgroup.inskuappb.adapter.UniversalAdapter2;
 import ir.kitgroup.inskuappb.classes.dialog.CustomSnackBar;
 import ir.kitgroup.inskuappb.dataBase.Account;
-import ir.kitgroup.inskuappb.dataBase.Company;
-import ir.kitgroup.inskuappb.dataBase.Files;
-import ir.kitgroup.inskuappb.databinding.CallMeRequsetFragmentBinding;
-import ir.kitgroup.inskuappb.model.CallMe;
+import ir.kitgroup.inskuappb.databinding.WantAdvertisementFragmentBinding;
+import ir.kitgroup.inskuappb.model.WantAdvertisement;
+import ir.kitgroup.inskuappb.ui.launcher.homeItem.tab1Advertise.AdvertiseFragmentDirections;
 
 @AndroidEntryPoint
-public class CallMeRequsetFragment extends Fragment {
+public class WantAdvertisementFragment extends Fragment {
 
     private MainViewModel mainViewModel;
-    private CallMeRequsetFragmentBinding binding;
+    private WantAdvertisementFragmentBinding binding;
 
     private UniversalAdapter2 adapter;
-    private final ArrayList<CallMe> callMeRequests = new ArrayList<>();
+    private final ArrayList<WantAdvertisement> wantAdvertisements = new ArrayList<>();
 
     private Account account;
 
 
     private ProgressBar progressBarCompany;
 
-    private boolean goCompany;
+
     private TextView tvRequest;
 
     private CustomSnackBar snackBar;
@@ -53,7 +55,7 @@ public class CallMeRequsetFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = CallMeRequsetFragmentBinding.inflate(getLayoutInflater());
+        binding = WantAdvertisementFragmentBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
 
@@ -90,11 +92,9 @@ public class CallMeRequsetFragment extends Fragment {
             } else
                 ShowMessageWarning(result.getDescription());
 
-            goCompany = false;
-
 
         });
-        mainViewModel.getResultCustomerCallRequest().observe(getViewLifecycleOwner(), result -> {
+        mainViewModel.getResultCustomerWantAdv().observe(getViewLifecycleOwner(), result -> {
             if (result == null)
                 return;
             binding.progress.setVisibility(View.GONE);
@@ -102,10 +102,10 @@ public class CallMeRequsetFragment extends Fragment {
             mainViewModel.getResultCustomerCallRequest().setValue(null);
 
 
-            callMeRequests.clear();
+            wantAdvertisements.clear();
 
             if (result.size() > 0) {
-                callMeRequests.addAll(result);
+                wantAdvertisements.addAll(result);
                 binding.layoutNotFound.setVisibility(View.GONE);
             } else
                 binding.layoutNotFound.setVisibility(View.VISIBLE);
@@ -114,24 +114,13 @@ public class CallMeRequsetFragment extends Fragment {
             adapter.notifyDataSetChanged();
 
         });
-        mainViewModel.getResultCompany().observe(getViewLifecycleOwner(), result -> {
-            if (result == null)
-                return;
-            progressBarCompany.setVisibility(View.GONE);
-            mainViewModel.getResultCompany().setValue(null);
 
-
-            goCompany = false;
-            if (result.size() > 0)
-                navigateToDetailCompany(result.get(0));
-
-        });
 
 
     }
 
     private void init() {
-        goCompany = false;
+
         account = Select.from(Account.class).first();
         binding.ivBack.setOnClickListener(view -> Navigation.findNavController(binding.getRoot()).popBackStack());
     }
@@ -139,7 +128,7 @@ public class CallMeRequsetFragment extends Fragment {
     private void initRecyclerView() {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        adapter = new UniversalAdapter2(R.layout.call_me_request_item, callMeRequests, BR.callMe);
+        adapter = new UniversalAdapter2(R.layout.want_advertisement_item, wantAdvertisements, BR.wantAdv);
 
         binding.recyclerView.setAdapter(adapter);
 
@@ -151,8 +140,10 @@ public class CallMeRequsetFragment extends Fragment {
 
             tvRequest = view.findViewById(R.id.tv_request);
 
-            int type = callMeRequests.get(position).getCallMeStatusMobile().getType();
+            int type = wantAdvertisements.get(position).getCallMeStatusMobile().getType();
+            String name = wantAdvertisements.get(position).getCallMeStatusMobile().getName();
 
+            tvRequest.setText(name);
             if (type == 0)
                 tvRequest.setTextColor(getActivity().getResources().getColor(R.color.green_button));
              else if (type == 1)
@@ -162,24 +153,20 @@ public class CallMeRequsetFragment extends Fragment {
             else if (type == 3)
                 tvRequest.setTextColor(getActivity().getResources().getColor(R.color.red));
             else if (type == 4)
-                tvRequest.setTextColor(getActivity().getResources().getColor(R.color.gray_button));
+                tvRequest.setTextColor(getActivity().getResources().getColor(R.color.gray_button_full));
 
 
         });
 
         adapter.setOnItemClickListener((binding, position) -> {
             progressBarCompany = binding.getRoot().findViewById(R.id.progress_company);
-            if (!goCompany) {
-                goCompany = true;
-                progressBarCompany.setVisibility(View.VISIBLE);
-                mainViewModel.getCompany(callMeRequests.get(position).getCompanyId());
-            }
+            navigateToDetailAdvertisement(wantAdvertisements.get(position).getAdvertisementId());
         });
     }
 
     private void getFirstRequest() {
         binding.progress.setVisibility(View.VISIBLE);
-        mainViewModel.getCustomerCallRequest(account.getI());
+        mainViewModel.getCustomerWantAdv(account.getI());
     }
 
 
@@ -203,14 +190,11 @@ public class CallMeRequsetFragment extends Fragment {
     private void nullTheMutable() {
         mainViewModel.getResultMessage().setValue(null);
         mainViewModel.getResultCustomerCallRequest().setValue(null);
-        mainViewModel.getResultCompany().setValue(null);
+
     }
 
-    private void navigateToDetailCompany(Company company) {
-        Company.deleteAll(Company.class);
-        Company.saveInTx(company);
-        Files.deleteAll(Files.class);
-        Files.saveInTx(company.getFiles());
-        Navigation.findNavController(getView()).navigate(R.id.DetailCompanyFragment);
+    private void navigateToDetailAdvertisement(String id) {
+        NavDirections action = AdvertiseFragmentDirections.actionGoToDetailAdvertiseFragment(id);
+        Navigation.findNavController(binding.getRoot()).navigate(action);
     }
 }

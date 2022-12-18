@@ -136,7 +136,7 @@ public class DetailAdvertiseFragment extends Fragment {
 
             if (result.size() > 0 && result.get(0).getStatuswana()) {
                 want = true;
-                binding.tvWant.setBackgroundResource(R.drawable.deactive_button);
+                binding.tvWant.setBackgroundResource(R.drawable.gray_button);
                 binding.tvWant.setText("نمیخوام");
             }
         });
@@ -153,7 +153,7 @@ public class DetailAdvertiseFragment extends Fragment {
             if (result.size() > 0) {
                 if (result.get(0).getStatuswana()) {
                     want = true;
-                    binding.tvWant.setBackgroundResource(R.drawable.deactive_button);
+                    binding.tvWant.setBackgroundResource(R.drawable.gray_button);
                     binding.tvWant.setText("نمیخوام");
 
                 } else {

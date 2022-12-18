@@ -282,15 +282,10 @@ public class AllCompanyFragment extends Fragment {
 
             RelativeLayout private_application = view.findViewById(R.id.private_application);
             ImageView imgPrivateApp = view.findViewById(R.id.ivPrivate_app);
-            if (!companies.get(position).getInskId().equals("")) {
+            if (!companies.get(position).getInskId().equals(""))
                 private_application.setVisibility(View.VISIBLE);
-                Picasso.get()
-                        .load("http://" + Constant.Main_URL_IMAGE + "/GetCompanyImage?id=" +
-                                companies.get(position).getI() + "&width=120&height=120")
-                        .error(R.drawable.loading)
-                        .placeholder(R.drawable.loading)
-                        .into(imgPrivateApp);
-            } else
+
+             else
                 private_application.setVisibility(View.GONE);
 
 

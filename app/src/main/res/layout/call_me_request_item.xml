@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="callMe"
+            type="ir.kitgroup.inskuappb.model.CallMe" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@color/white">
+
+
+        <com.github.siyamed.shapeimageview.CircularImageView
+            android:id="@+id/img_profile_chat"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp"
+            setImageView="@{callMe.companyId}"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_alignParentRight="true"
+            app:siBorderColor="#ccc" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/img_profile_chat"
+            android:gravity="right"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="10dp"
+                android:gravity="right"
+                android:text="@{callMe.companyName}"
+                android:textColor="#000"
+                android:textSize="@dimen/less_normal_size"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/img_profile_chat"
+                app:layout_constraintTop_toTopOf="@+id/img_profile_chat"
+                tools:ignore="SpUsage"
+                tools:text="شرکت کیت گروپ" />
+
+            <TextView
+                android:id="@+id/tv_request"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:gravity="right"
+                android:text="@{callMe.callMeStatusMobile.name}"
+                android:textColor="@color/red"
+                android:textSize="@dimen/small_size"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/img_profile_chat"
+                app:layout_constraintEnd_toStartOf="@+id/img_profile_chat"
+                tools:text="salam" />
+        </LinearLayout>
+
+
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/progress_company"
+            android:layout_width="50dp"
+            android:layout_height="12dp"
+           android:layout_toRightOf="@+id/more"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp" />
+        <ImageView
+            android:id="@+id/more"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:padding="5dp"
+            app:srcCompat="@drawable/ic_fi_rr_angle_small_left" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/img_profile_chat"
+
+            android:background="#ccc"
+            />
+
+
+    </RelativeLayout>
+</layout>

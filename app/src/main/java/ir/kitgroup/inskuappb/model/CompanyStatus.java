@@ -4,39 +4,43 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class CompanyStatus {
+    @SerializedName("CallRequestId")
+    @Expose
+    private String callRequestId;
     @SerializedName("CustomerId")
     @Expose
     private String customerId;
-    @SerializedName("CompanyIdId")
+    @SerializedName("CompanyId")
     @Expose
     private String companyId;
-
-    @SerializedName("Type")
+    @SerializedName("CustomerName")
     @Expose
-    private Integer type;
-    //        جدید = 0
-    //        درحالبررسی = 1
-    //        تکمیلشده = 2
-    //        انصراف از درخواست = 4
-    //        لغوشده = 23
-    @SerializedName("Name")
+    private Object customerName;
+    @SerializedName("CompanyName")
     @Expose
-    private String name;
+    private Object companyName;
+    @SerializedName("CustomerMobile")
+    @Expose
+    private Object customerMobile;
+    @SerializedName("CallRequestStatus")
+    @Expose
+    private Object callRequestStatus;
+    @SerializedName("CreatedDate")
+    @Expose
+    private Object createdDate;
+    @SerializedName("CallMeStatusMobile")
+    @Expose
+    private CallMeStatusMobile callMeStatusMobile;
+    @SerializedName("CallStatus")
+    @Expose
+    private Boolean callStatus;
 
-    public Integer getType() {
-        return type;
+    public String getCallRequestId() {
+        return callRequestId;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setCallRequestId(String callRequestId) {
+        this.callRequestId = callRequestId;
     }
 
     public String getCustomerId() {
@@ -55,17 +59,62 @@ public class CompanyStatus {
         this.companyId = companyId;
     }
 
-    public boolean isCallStatus() {
+    public Object getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(Object customerName) {
+        this.customerName = customerName;
+    }
+
+    public Object getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(Object companyName) {
+        this.companyName = companyName;
+    }
+
+    public Object getCustomerMobile() {
+        return customerMobile;
+    }
+
+    public void setCustomerMobile(Object customerMobile) {
+        this.customerMobile = customerMobile;
+    }
+
+    public Object getCallRequestStatus() {
+        return callRequestStatus;
+    }
+
+    public void setCallRequestStatus(Object callRequestStatus) {
+        this.callRequestStatus = callRequestStatus;
+    }
+
+    public Object getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Object createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public CallMeStatusMobile getCallMeStatusMobile() {
+        return callMeStatusMobile;
+    }
+
+    public void setCallMeStatusMobile(CallMeStatusMobile callMeStatusMobile) {
+        this.callMeStatusMobile = callMeStatusMobile;
+    }
+
+    public Boolean getCallStatus() {
         return callStatus;
     }
 
-    public void setCallStatus(boolean callStatus) {
+    public void setCallStatus(Boolean callStatus) {
         this.callStatus = callStatus;
     }
 
-    @SerializedName("CallStatus")
-    @Expose
-    private boolean callStatus;
 
 
 }

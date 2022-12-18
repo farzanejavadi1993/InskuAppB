@@ -165,8 +165,7 @@ public class FilterFragment extends Fragment implements Filterable {
             initStateRecyclerView();
             initCityRecyclerView();
             initBusinessRelationRecyclerView();
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
 
 
     }
@@ -179,15 +178,17 @@ public class FilterFragment extends Fragment implements Filterable {
 
         myViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
+        nullTheMutable();
+
+
         myViewModel.getGuild();
         myViewModel.getState();
-
 
         if (from.equals("home"))
             myViewModel.getBusinessRelations(getAccountFilter());
 
 
-        myViewModel.getResultMessage().setValue(null);
+
         myViewModel.getResultMessage().observe(getViewLifecycleOwner(), result -> {
 
             if (result == null)
@@ -210,8 +211,6 @@ public class FilterFragment extends Fragment implements Filterable {
 
 
         });
-
-
         myViewModel.getResultAddCity().observe(getViewLifecycleOwner(), result -> {
 
             if (result == null)
@@ -388,64 +387,7 @@ public class FilterFragment extends Fragment implements Filterable {
             } else
                 Toasty.error(requireActivity(), result.get(0).getMessage(), Toast.LENGTH_SHORT, true).show();
         });
-        binding.txtDeleteAll.setOnClickListener(view -> {
 
-            BusinessR.deleteAll(BusinessR.class);
-            chooseBusinessRs.clear();
-            for (BusinessR b : allBusinessRs) {
-                if (b.isSave())
-                    b.setSave(false);
-            }
-            try {
-                adapterBusinessR.notifyDataSetChanged();
-            } catch (Exception ignored) {
-            }
-
-            Guild.deleteAll(Guild.class);
-            choseGuilds.clear();
-            guilds.clear();
-            try {
-                adapterGuild.notifyDataSetChanged();
-            } catch (Exception ignored) {
-            }
-
-
-            State.deleteAll(State.class);
-            chooseStates.clear();
-            states.clear();
-            try {
-                adapterState.notifyDataSetChanged();
-            } catch (Exception ignored) {
-            }
-
-
-            City.deleteAll(City.class);
-            chooseCities.clear();
-            cities.clear();
-            try {
-                adapterState.notifyDataSetChanged();
-            } catch (Exception ignored) {
-            }
-
-
-            Guild guild = new Guild();
-            guild.setI(accountList.get(0).getGuildId());
-            guild.setName(accountList.get(0).getGuildName());
-            guild.save();
-            choseGuilds.add(guild);
-
-            State state = new State();
-            state.setI(accountList.get(0).getStateId());
-            state.setName(accountList.get(0).getStateName());
-            state.save();
-
-            chooseStates.add(state);
-
-
-            Toasty.success(requireActivity(), "با موفقیت حذف شد.", Toast.LENGTH_SHORT, true).show();
-
-
-        });
 
 
     }
@@ -523,7 +465,15 @@ public class FilterFragment extends Fragment implements Filterable {
 
     //region Method
 
-
+    private void nullTheMutable() {
+        myViewModel.getResultMessage().setValue(null);
+        myViewModel.getResultAddCity().setValue(null);
+        myViewModel.getResultGuild().setValue(null);
+        myViewModel.getResultState().setValue(null);
+        myViewModel.getResultBusinessRelations().setValue(null);
+        myViewModel.getResultCity().setValue(null);
+        myViewModel.getResultAddAccount().setValue(null);
+    }
     //region BusinessR Method
     private void setSaveBussines(int position, boolean save) {
         for (BusinessR m : chooseBusinessRs) {
@@ -913,6 +863,64 @@ public class FilterFragment extends Fragment implements Filterable {
             }
         });
         binding.ivBack.setOnClickListener(view14 -> Navigation.findNavController(binding.getRoot()).popBackStack());
+        binding.txtDeleteAll.setOnClickListener(view -> {
+
+            BusinessR.deleteAll(BusinessR.class);
+            chooseBusinessRs.clear();
+            for (BusinessR b : allBusinessRs) {
+                if (b.isSave())
+                    b.setSave(false);
+            }
+            try {
+                adapterBusinessR.notifyDataSetChanged();
+            } catch (Exception ignored) {
+            }
+
+            Guild.deleteAll(Guild.class);
+            choseGuilds.clear();
+            guilds.clear();
+            try {
+                adapterGuild.notifyDataSetChanged();
+            } catch (Exception ignored) {
+            }
+
+
+            State.deleteAll(State.class);
+            chooseStates.clear();
+            states.clear();
+            try {
+                adapterState.notifyDataSetChanged();
+            } catch (Exception ignored) {
+            }
+
+
+            City.deleteAll(City.class);
+            chooseCities.clear();
+            cities.clear();
+            try {
+                adapterState.notifyDataSetChanged();
+            } catch (Exception ignored) {
+            }
+
+
+            Guild guild = new Guild();
+            guild.setI(accountList.get(0).getGuildId());
+            guild.setName(accountList.get(0).getGuildName());
+            guild.save();
+            choseGuilds.add(guild);
+
+            State state = new State();
+            state.setI(accountList.get(0).getStateId());
+            state.setName(accountList.get(0).getStateName());
+            state.save();
+
+            chooseStates.add(state);
+
+
+            Toasty.success(requireActivity(), "با موفقیت حذف شد.", Toast.LENGTH_SHORT, true).show();
+
+
+        });
     }
 
     private void initCreateCityDialog() {
@@ -934,7 +942,6 @@ public class FilterFragment extends Fragment implements Filterable {
     }
 
     private void getBundle() {
-
         phoneNumber = FilterFragmentArgs.fromBundle(getArguments()).getPhoneNumber();
         from = FilterFragmentArgs.fromBundle(getArguments()).getFrom();
 
@@ -1409,13 +1416,11 @@ public class FilterFragment extends Fragment implements Filterable {
 
     @SuppressLint("NotifyDataSetChanged")
     private void resetCity() {
-
         binding.cardCity1.setBackgroundResource(R.drawable.background_card);
         binding.edtCity.removeTextChangedListener(textWatcherCity);
         binding.edtCity.setText("");
         binding.edtCity.addTextChangedListener(textWatcherCity);
         cities.clear();
-
     }
 
     //endregion Method

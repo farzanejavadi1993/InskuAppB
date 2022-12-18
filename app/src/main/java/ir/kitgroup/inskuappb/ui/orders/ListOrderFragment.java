@@ -122,12 +122,12 @@ public class ListOrderFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         myViewModel = new ViewModelProvider(this).get(CompanyViewModel.class);
-        myViewModel.getResultMessage().setValue(null);
 
+
+        nullTheMutable();
 
         binding.progressBar.setVisibility(View.VISIBLE);
         myViewModel.getOrder(userName, passWord, sharedPreferences.getString("contactId", ""), getActivity());
-
 
         myViewModel.getResultMessage().observe(getViewLifecycleOwner(), result -> {
 
@@ -238,6 +238,11 @@ public class ListOrderFragment extends Fragment {
         }
         snackBar.showSnack(getActivity(), binding.getRoot(), error);
 
+    }
+
+    private void nullTheMutable(){
+        myViewModel.getResultMessage().setValue(null);
+        myViewModel.getResultOrder().setValue(null);
     }
     //endregion Method
 

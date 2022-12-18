@@ -30,7 +30,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import com.orm.query.Select;
 import com.smarteist.autoimageslider.SliderView;
-import com.squareup.picasso.Picasso;
 
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -51,12 +50,10 @@ import ir.kitgroup.inskuappb.R;
 
 import ir.kitgroup.inskuappb.adapter.SliderImageAdapter;
 import ir.kitgroup.inskuappb.adapter.UniversalAdapter2;
-import ir.kitgroup.inskuappb.classes.CustomDialogOpenWith;
 import ir.kitgroup.inskuappb.classes.CustomOrderDialog;
 import ir.kitgroup.inskuappb.classes.CustomRecycleDialog;
 import ir.kitgroup.inskuappb.classes.SliderImage;
 import ir.kitgroup.inskuappb.classes.dialog.CustomSnackBar;
-import ir.kitgroup.inskuappb.classes.itent.OpenWith;
 import ir.kitgroup.inskuappb.classes.pdf.PdfTools;
 import ir.kitgroup.inskuappb.classes.socialMedia.Email;
 import ir.kitgroup.inskuappb.classes.socialMedia.Instagram;
@@ -72,7 +69,6 @@ import ir.kitgroup.inskuappb.dataBase.ModelCatalog;
 import ir.kitgroup.inskuappb.databinding.DetailCompanyFragmentBinding;
 import ir.kitgroup.inskuappb.model.CustomerCatalog;
 import ir.kitgroup.inskuappb.model.ModelSetting;
-import ir.kitgroup.inskuappb.ui.launcher.homeItem.tab1Advertise.DetailAdvertiseFragmentArgs;
 import ir.kitgroup.inskuappb.util.Constant;
 
 
@@ -132,6 +128,7 @@ public class DetailCompanyFragment extends Fragment {
     private Instagram instagram;
 
     private boolean call = false;
+    private int typeRequest;
 
 
     //endregion Parameter
@@ -151,8 +148,6 @@ public class DetailCompanyFragment extends Fragment {
         init();
         connectToServe();
         initRecycle();
-
-
     }
 
 
@@ -164,10 +159,13 @@ public class DetailCompanyFragment extends Fragment {
 
         companyViewModel = new ViewModelProvider(this).get(CompanyViewModel.class);
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        companyViewModel.getResultMessage().setValue(null);
-        mainViewModel.getResultMessage().setValue(null);
+
+        nullTheMutable();
 
         binding.progress.setVisibility(View.VISIBLE);
+        mainViewModel.getCallMeStatus(account.getI(), company.getI());
+        companyViewModel.getCustomerList(userName, passWord, account.getM(), getActivity());
+
         companyViewModel.getResultMessage().observe(getViewLifecycleOwner(), result -> {
             if (result == null)
                 return;
@@ -199,10 +197,6 @@ public class DetailCompanyFragment extends Fragment {
             binding.cardError15.setVisibility(View.VISIBLE);
 
         });
-
-
-        mainViewModel.getCallMeStatus(account.getI(), company.getI());
-
         mainViewModel.getResultMessage().observe(getViewLifecycleOwner(), result -> {
             if (result == null)
                 return;
@@ -211,6 +205,7 @@ public class DetailCompanyFragment extends Fragment {
             ShowMessageWarning(result.getDescription());
 
         });
+
         mainViewModel.getResultCallMeStatus().observe(getViewLifecycleOwner(), result -> {
             if (result == null)
                 return;
@@ -219,10 +214,27 @@ public class DetailCompanyFragment extends Fragment {
 
             binding.cardCall.setVisibility(View.VISIBLE);
 
-            if (result.size() > 0 && result.get(0).isCallStatus()) {
-                call = true;
-                binding.tvCall.setBackgroundResource(R.drawable.deactive_button);
-                binding.tvCall.setText("انصراف از تماس");
+            if (result.size() > 0) {
+                typeRequest = result.get(0).getCallMeStatusMobile().getType();
+                binding.tvCall.setText(result.get(0).getCallMeStatusMobile().getName());
+                if (typeRequest == 0) {
+                    call = true;
+                    binding.tvCall.setBackgroundResource(R.drawable.gray_button);
+                    binding.tvCall.setText("انصراف از تماس");
+                } else if (typeRequest == 1)
+                    binding.tvCall.setBackgroundResource(R.drawable.porple_button);
+
+                else if (typeRequest == 2)
+                    binding.tvCall.setBackgroundResource(R.drawable.blue_button);
+
+                else if (typeRequest == 3)
+                    binding.tvCall.setBackgroundResource(R.drawable.red_button);
+
+                else if (typeRequest == 4) {
+                    call = false;
+                    binding.tvCall.setBackgroundResource(R.drawable.green_button);
+                    binding.tvCall.setText("با من تماس بگیر");
+                }
             }
 
         });
@@ -236,9 +248,9 @@ public class DetailCompanyFragment extends Fragment {
 
             binding.tvCall.setEnabled(true);
             if (result.size() > 0) {
-                if (result.get(0).isCallStatus()) {
+                if (result.get(0).getCallStatus()) {
                     call = true;
-                    binding.tvCall.setBackgroundResource(R.drawable.deactive_button);
+                    binding.tvCall.setBackgroundResource(R.drawable.gray_button);
                     binding.tvCall.setText("انصراف از تماس");
 
                 } else {
@@ -249,8 +261,6 @@ public class DetailCompanyFragment extends Fragment {
             }
         });
 
-
-        companyViewModel.getCustomerList(userName, passWord, account.getM(), getActivity());
         companyViewModel.getResultCustomerList().observe(getViewLifecycleOwner(), result -> {
 
             if (result == null)
@@ -365,7 +375,7 @@ public class DetailCompanyFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @SuppressLint("SetTextI18n")
     private void init() {
-
+        typeRequest = 4;
         installWatsApp = new InstallWatsApp();
         watsApp = new WatsApp();
         email = new Email();
@@ -395,7 +405,6 @@ public class DetailCompanyFragment extends Fragment {
 
         company = Select.from(Company.class).first();
 
-        company = Select.from(Company.class).first();
         account = Select.from(Account.class).first();
         userName = company.getUser();
         passWord = company.getPass();
@@ -612,11 +621,13 @@ public class DetailCompanyFragment extends Fragment {
 
 
         binding.tvCall.setOnClickListener(view16 -> {
-                    binding.progressCall.setVisibility(View.VISIBLE);
-                    binding.tvCall.setEnabled(false);
-                    mainViewModel.setStatusCompany(account.getI(), company.getI(), !call);
-                }
-        );
+            if (typeRequest == 0 || typeRequest == 4) {
+                binding.progressCall.setVisibility(View.VISIBLE);
+                binding.tvCall.setEnabled(false);
+                mainViewModel.setStatusCompany(account.getI(), company.getI(), !call);
+            }else
+                ShowMessageWarning("امکان تغییر وضعیت برای این درخواست وجود ندارد.");
+        });
     }
 
     private void setSetting(ModelSetting settings) {
@@ -704,7 +715,16 @@ public class DetailCompanyFragment extends Fragment {
 
     }
 
-
+    private void nullTheMutable(){
+        companyViewModel.getResultMessage().setValue(null);
+        mainViewModel.getResultMessage().setValue(null);
+        mainViewModel.getResultCallMeStatus().setValue(null);
+        mainViewModel.getResultSetCompanyStatus().setValue(null);
+        companyViewModel.getResultCustomerList().setValue(null);
+        companyViewModel.getResultContactId().setValue(null);
+        companyViewModel.getResultSetting().setValue(null);
+        companyViewModel.getResultCatalog().setValue(null);
+    }
     //endregion Method
 
     @Override

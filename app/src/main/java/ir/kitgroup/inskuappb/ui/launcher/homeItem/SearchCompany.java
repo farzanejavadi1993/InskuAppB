@@ -113,7 +113,8 @@ public class SearchCompany extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         myViewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        myViewModel.getResultMessage().setValue(null);
+
+        nullTheMutable();
 
 //        if (!firstSync) {
 //            binding.progress.setVisibility(View.VISIBLE);
@@ -135,8 +136,6 @@ public class SearchCompany extends Fragment {
             saving=false;
             ShowMessageWarning(result.getDescription());
         });
-
-
         myViewModel.getResultAllCompany().observe(getViewLifecycleOwner(), result -> {
             if (result == null)
                 return;
@@ -169,8 +168,6 @@ public class SearchCompany extends Fragment {
 
 
         });
-
-
         myViewModel.getResultAddMyCompany().observe(getViewLifecycleOwner(), result -> {
             if (result != null) {
                 myViewModel.getResultAddMyCompany().setValue(null);
@@ -500,4 +497,11 @@ public class SearchCompany extends Fragment {
 
     }
 
+
+    private void nullTheMutable(){
+        myViewModel.getResultMessage().setValue(null);
+        myViewModel.getResultAllCompany().setValue(null);
+        myViewModel.getResultAddMyCompany().setValue(null);
+        myViewModel.getResultDeleteMyAccount().setValue(null);
+    }
 }

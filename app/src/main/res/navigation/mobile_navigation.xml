@@ -227,13 +227,17 @@
             app:destination="@id/ContactUsFragment"
             />
         <action
-
             android:id="@+id/actionGoToFilterFragment"
             app:destination="@id/FilterFragment"
             />
         <action
-            android:id="@+id/actionGoToUserRequests"
+            android:id="@+id/actionGoCallMeRequsetFragment"
             app:destination="@id/CallMeRequest"
+            />
+
+        <action
+            android:id="@+id/actionGoToWantAdvFragment"
+            app:destination="@id/WantAdvFragment"
             />
     </fragment>
     <fragment
@@ -243,6 +247,19 @@
         <action
             android:id="@+id/actionGoToDetailFragment"
             app:destination="@id/DetailCompanyFragment"
+            />
+
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/WantAdvFragment"
+        android:name="ir.kitgroup.inskuappb.ui.launcher.profileitem.WantAdvertisementFragment"
+        tools:layout="@layout/want_advertisement_fragment">
+        <action
+            android:id="@+id/actionGoToDetailAdvertiseFragment"
+            app:destination="@id/DetailAdvertiseFragment"
             />
 
 

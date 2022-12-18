@@ -1,17 +1,12 @@
 package ir.kitgroup.inskuappb.activities;
 
 import android.annotation.SuppressLint;
-import android.app.KeyguardManager;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.PowerManager;
 import android.view.View;
-import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -32,12 +27,10 @@ import ir.kitgroup.inskuappb.R;
 import ir.kitgroup.inskuappb.classes.CustomDialog;
 import ir.kitgroup.inskuappb.dataBase.Account;
 import ir.kitgroup.inskuappb.databinding.ActivityMainBinding;
-import ir.kitgroup.inskuappb.ui.launcher.homeItem.FilterFragment;
 
 import ir.kitgroup.inskuappb.ui.launcher.homeItem.LauncherFragment;
 import ir.kitgroup.inskuappb.ui.launcher.messageItem.AllMessageFragment;
 import ir.kitgroup.inskuappb.ui.launcher.profileitem.ProfileFragment;
-import ir.kitgroup.inskuappb.ui.logins.VerifyCodeFragment;
 
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
@@ -98,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.CompanyAdvertise:
                 case R.id.ContactUsFragment:
                 case R.id.SearchAdvertiseFragment:
+                case R.id.CallMeRequest:
+                case R.id.WantAdvFragment:
 
                     binding.navView.setVisibility(View.GONE);
                     exit = false;

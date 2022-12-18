@@ -17,6 +17,7 @@ import ir.kitgroup.inskuappb.model.AppDetail;
 import ir.kitgroup.inskuappb.model.CallMe;
 import ir.kitgroup.inskuappb.model.CompanyStatus;
 import ir.kitgroup.inskuappb.model.Log;
+import ir.kitgroup.inskuappb.model.WantAdvertisement;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -108,6 +109,9 @@ public interface APIMain {
     @GET("GetCustomerCallRequest")
     Observable<List<CallMe>> getCustomerCallRequest(@Query("CustomerId") String customerId);
 
+
+    @GET("GetCustomerWantAdv")
+    Observable<List<WantAdvertisement>> getCustomerWantAdv(@Query("CustomerId") String customerId);
 
     @POST("SetCallMeStatus")
     Observable<List<CompanyStatus>> setStatusCompany( @Query("CustomerId") String customerId, @Query("CompanyId") String CompanyId,@Query("StatusCallMe") boolean StatusCallMe);

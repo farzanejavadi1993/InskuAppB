@@ -67,6 +67,7 @@ public class AllMessageFragment extends Fragment {
 
 
     private String wordSearch="";
+    private boolean firstSync;
 
 
     @Nullable
@@ -94,33 +95,28 @@ public class AllMessageFragment extends Fragment {
         doodViewModel = new ViewModelProvider(this).get(DoodViewModel.class);
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
-        doodViewModel.getResultMessage().setValue(null);
-        mainViewModel.getResultMessage().setValue(null);
+        nullTheMutable();
 
-        mainViewModel.clearRequest();
-
-
-
-        try {
-            if (positionNavigate != -1 && DetailMessageFragment.countRead > 0) {
-                int amount = Math.max(messages.get(positionNavigate).getNewCount() - DetailMessageFragment.countRead, 0);
-                messages.get(positionNavigate).setNewCount(amount);
-
-                int counter = ((MainActivity) getActivity()).getCounter();
-                if (counter - DetailMessageFragment.countRead > 0)
-                    ((MainActivity) getActivity()).setCounterOrder(counter - DetailMessageFragment.countRead);
-                else
-                    ((MainActivity) getActivity()).setClearCounterOrder();
-
-
-                positionNavigate = -1;
-            }
-        } catch (Exception ignored) {}
-
-
-        if (pageMain * 10 > messages.size() && pageMain == 1) {
+        if (!firstSync) {
             binding.progressBar.setVisibility(View.VISIBLE);
             doodViewModel.getAllCompanyWithMessages(account.getI(), Constant.APPLICATION_ID, pageMain, 10);
+        }
+        else {
+            try {
+                if (positionNavigate != -1 && DetailMessageFragment.countRead > 0) {
+                    int amount = Math.max(messages.get(positionNavigate).getNewCount() - DetailMessageFragment.countRead, 0);
+                    messages.get(positionNavigate).setNewCount(amount);
+
+                    int counter = ((MainActivity) getActivity()).getCounter();
+                    if (counter - DetailMessageFragment.countRead > 0)
+                        ((MainActivity) getActivity()).setCounterOrder(counter - DetailMessageFragment.countRead);
+                    else
+                        ((MainActivity) getActivity()).setClearCounterOrder();
+
+
+                    positionNavigate = -1;
+                }
+            } catch (Exception ignored) {}
         }
 
         doodViewModel.getResultMessage().observe(getViewLifecycleOwner(), result -> {
@@ -147,6 +143,7 @@ public class AllMessageFragment extends Fragment {
             if (result == null)
                 return;
 
+            firstSync=true;
             doodViewModel.getResultAllMessage().setValue(null);
             binding.progressBar.setVisibility(View.GONE);
             binding.progressSearch.setVisibility(View.GONE);
@@ -351,6 +348,12 @@ public class AllMessageFragment extends Fragment {
         });
     }
 
+    private void nullTheMutable(){
+        doodViewModel.getResultMessage().setValue(null);
+        mainViewModel.getResultMessage().setValue(null);
+        doodViewModel.getResultAllMessage().setValue(null);
+        mainViewModel.getResultFilterMessage().setValue(null);
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     private void search(String text) {
@@ -372,8 +375,6 @@ public class AllMessageFragment extends Fragment {
             binding.progressSearch.setVisibility(View.VISIBLE);
             mainViewModel.getFilterMessage(wordSearch, account.getI(), Constant.APPLICATION_ID);
         }
-
-
 
     }
     //endregion Method

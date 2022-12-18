@@ -142,9 +142,8 @@ public class CatalogFragment extends Fragment implements Filterable {
         super.onViewCreated(view, savedInstanceState);
 
 
-
         closeKeyboard();
-        snackBar=new CustomSnackBar();
+        snackBar = new CustomSnackBar();
         fontIRANSANS = Typeface.createFromAsset(getActivity().getAssets(), "iransans.ttf");
         format = new DecimalFormat("###.###");
         formatter = new DecimalFormat("#,###,###,###");
@@ -241,7 +240,7 @@ public class CatalogFragment extends Fragment implements Filterable {
                 ShowPageWithNumber(currPosition, pageIdList.get(currPosition), false);
                 binding.catalogBottomInnerLayout.removeAllViews();
                 binding.progress.setVisibility(View.VISIBLE);
-                myViewModel.getCatalogPageItemList(userName, passWord, CatId, result.get(0).getP(),getActivity());
+                myViewModel.getCatalogPageItemList(userName, passWord, CatId, result.get(0).getP(), getActivity());
             }
             //getData(currPosition, getActivity());
 
@@ -310,8 +309,8 @@ public class CatalogFragment extends Fragment implements Filterable {
                 });
 
                 pageCountBuilder.show();
+            } catch (Exception es) {
             }
-            catch (Exception es) {}
         });
         //endregion
 
@@ -324,7 +323,7 @@ public class CatalogFragment extends Fragment implements Filterable {
         binding.cardError23.setOnClickListener(view13 -> {
             binding.cardError23.setVisibility(View.GONE);
             binding.progress.setVisibility(View.VISIBLE);
-            myViewModel.getCatalogPage(userName, passWord, CatId,getActivity());
+            myViewModel.getCatalogPage(userName, passWord, CatId, getActivity());
         });
     }
 
@@ -334,9 +333,10 @@ public class CatalogFragment extends Fragment implements Filterable {
         super.onActivityCreated(savedInstanceState);
 
         myViewModel = new ViewModelProvider(this).get(CompanyViewModel.class);
-        myViewModel.getResultMessage().setValue(null);
 
-        myViewModel.getCatalogPage(userName, passWord, CatId,getActivity());
+        nullTheMutable();
+
+        myViewModel.getCatalogPage(userName, passWord, CatId, getActivity());
         myViewModel.getResultCatalogPage().observe(getViewLifecycleOwner(), result -> {
 
             if (result == null)
@@ -414,7 +414,7 @@ public class CatalogFragment extends Fragment implements Filterable {
 
 
             binding.progress.setVisibility(View.VISIBLE);
-            myViewModel.getCatalogPageItemList(userName, passWord, CatId, pageIdList.get(currPosition),getActivity());
+            myViewModel.getCatalogPageItemList(userName, passWord, CatId, pageIdList.get(currPosition), getActivity());
             binding.counterAllCatalog.setText(String.valueOf(count));
             binding.counterCurrentCatalog.setText(String.valueOf(currPosition + 1));
             ImageView imageView1 = requireActivity().findViewById(0);
@@ -440,7 +440,7 @@ public class CatalogFragment extends Fragment implements Filterable {
         });
         myViewModel.getResultMessage().observe(getViewLifecycleOwner(), result -> {
             binding.progress.setVisibility(View.GONE);
-            if (result != null){
+            if (result != null) {
                 binding.cardError23.setVisibility(View.VISIBLE);
                 binding.tvError23.setText(result.getDescription());
 
@@ -513,13 +513,19 @@ public class CatalogFragment extends Fragment implements Filterable {
 
                 try {
                     searchDialog.notifyDataSetChanged();
-                }catch (Exception ignored){}
+                } catch (Exception ignored) {
+                }
 
 
             }
         };
     }
 
+    private void nullTheMutable() {
+        myViewModel.getResultMessage().setValue(null);
+        myViewModel.getResultCatalogPage().setValue(null);
+        myViewModel.getResultCatalogPageItemList().setValue(null);
+    }
 
     //endregion Override Method
 
@@ -556,7 +562,7 @@ public class CatalogFragment extends Fragment implements Filterable {
 
 
             binding.progress.setVisibility(View.VISIBLE);
-            myViewModel.getCatalogPageItemList(userName, passWord, CatId, pageIdList.get(currPosition),getActivity());
+            myViewModel.getCatalogPageItemList(userName, passWord, CatId, pageIdList.get(currPosition), getActivity());
             ShowPageWithNumber(currPosition, pageIdList.get(currPosition), false);
             binding.catalogBottomInnerLayout.removeAllViews();
 
@@ -638,7 +644,7 @@ public class CatalogFragment extends Fragment implements Filterable {
 
         if (getProduct) {
             binding.progress.setVisibility(View.VISIBLE);
-            myViewModel.getCatalogPageItemList(userName, passWord, CatId, pageIdList.get(currPosition),getActivity());
+            myViewModel.getCatalogPageItemList(userName, passWord, CatId, pageIdList.get(currPosition), getActivity());
         }
 
     }
@@ -767,8 +773,7 @@ public class CatalogFragment extends Fragment implements Filterable {
             if (!Constant.GetCheckAmountSt(sharedPreferences) && list.get(i).getInventory() <= 0) {
                 rowNumber.setBackgroundResource(R.color.red);
                 String description = list.get(i).getPn().trim() + " (" + "ناموجود" + ")";
-                Constant.setTextFontToSpecialPart(description, fontIRANSANS, 3, 10, Color.BLACK,  productName);
-
+                Constant.setTextFontToSpecialPart(description, fontIRANSANS, 3, 10, Color.BLACK, productName);
 
 
             } else if (list.get(i).getGiftAmount() > 0
@@ -1110,9 +1115,7 @@ public class CatalogFragment extends Fragment implements Filterable {
                                             amount = amount - list.get(finalI1).getSc();
                                         }
 
-                                    }
-
-                                    else
+                                    } else
                                         amount = amount - 1;
 
 
@@ -1201,9 +1204,7 @@ public class CatalogFragment extends Fragment implements Filterable {
     }
 
 
-
-    private void closeKeyboard()
-    {
+    private void closeKeyboard() {
         try {
             InputMethodManager manager
                     = (InputMethodManager)
@@ -1212,7 +1213,8 @@ public class CatalogFragment extends Fragment implements Filterable {
             manager
                     .hideSoftInputFromWindow(
                             binding.getRoot().getWindowToken(), 0);
-        }catch (Exception ignored){}
+        } catch (Exception ignored) {
+        }
 
 
     }

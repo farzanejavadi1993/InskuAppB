@@ -1,7 +1,5 @@
 package ir.kitgroup.inskuappb.ui.launcher.messageItem;
 
-import static com.google.android.flexbox.JustifyContent.FLEX_START;
-
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,7 +17,6 @@ import androidx.annotation.Nullable;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,16 +27,12 @@ import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
-import com.google.android.material.card.MaterialCardView;
 import com.orm.query.Select;
 import com.squareup.picasso.Picasso;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -94,6 +87,7 @@ public class DetailMessageFragment extends Fragment {
     public static int countRead;
     private CustomDialog customDialog;
     private String companyName = "";
+    private boolean firstSync;
 
 
     @Nullable
@@ -112,7 +106,6 @@ public class DetailMessageFragment extends Fragment {
         initAnimation();
         setUpDialog();
         setUpRecyclerView();
-
     }
 
 
@@ -124,11 +117,10 @@ public class DetailMessageFragment extends Fragment {
         pageMain = 1;
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         doodViewModel = new ViewModelProvider(this).get(DoodViewModel.class);
-        mainViewModel.getResultMessage().setValue(null);
-        doodViewModel.getResultMessage().setValue(null);
 
+        nullTheMutable();
 
-        if (pageMain * 10 > list.size() && pageMain == 1) {
+        if (!firstSync) {
             binding.progressBar.setVisibility(View.VISIBLE);
             doodViewModel.getCompanyMessages(account.getI(), Constant.APPLICATION_ID, companyGuid, pageMain, 10);
         }
@@ -146,14 +138,12 @@ public class DetailMessageFragment extends Fragment {
                 binding.tvError5.setText(result.getDescription());
                 binding.cardError5.setVisibility(View.VISIBLE);
             }
-
-
         });
         doodViewModel.getResultCompanyMessages().observe(getViewLifecycleOwner(), result -> {
             if (result == null)
                 return;
 
-
+            firstSync=true;
             binding.progressBar22.setVisibility(View.GONE);
             binding.progressBar.setVisibility(View.GONE);
             doodViewModel.getResultCompanyMessages().setValue(null);
@@ -168,17 +158,15 @@ public class DetailMessageFragment extends Fragment {
                 else
                     adapter2.notifyItemRangeChanged(oldSizeLadderList, list.size() - 1);
 
-
-
-
                 ArrayList<Messages> res = new ArrayList<>(list);
                 CollectionUtils.filter(res, r -> !r.getIsRead());
                 if (res.size() > 0) {
                     countRead = res.size();//it is dirty code
                     doodViewModel.ReadCompanyMessages(account.getI(), Constant.APPLICATION_ID, companyGuid, pageMain, 10);
                 }
+            }
 
-            } else {
+            else {
                 if (list.size() == 0)
                     binding.layoutNotFoundDetailMessage.setVisibility(View.VISIBLE);
                 else
@@ -190,7 +178,6 @@ public class DetailMessageFragment extends Fragment {
             if (result == null)
                 return;
             doodViewModel.getResultReadMessages().setValue(null);
-
         });
         doodViewModel.getResultSetRespond().observe(getViewLifecycleOwner(), result -> {
             if (result == null)
@@ -208,7 +195,6 @@ public class DetailMessageFragment extends Fragment {
 
         });
         mainViewModel.getResultCompany().observe(getViewLifecycleOwner(), result -> {
-
             binding.progressCompany.setVisibility(View.GONE);
             if (result != null) {
                 mainViewModel.getResultCompany().setValue(null);
@@ -219,13 +205,9 @@ public class DetailMessageFragment extends Fragment {
                     Company.saveInTx(result.get(0));
                     Files.deleteAll(Files.class);
                     Files.saveInTx(result.get(0).getFiles());
-                    NavDirections action = DetailMessageFragmentDirections.actionGoToDetailFragment();
-                    Navigation.findNavController(binding.getRoot()).navigate(action);
-
+                    Navigation.findNavController(getView()).navigate(R.id.DetailCompanyFragment);
                 }
-
             }
-
         });
     }
 
@@ -296,6 +278,7 @@ public class DetailMessageFragment extends Fragment {
         );
     }
 
+    @SuppressLint({"UseCompatLoadingForDrawables", "SetTextI18n"})
     private void setUpRecyclerView() {
         list = new ArrayList<>();
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
@@ -425,5 +408,27 @@ public class DetailMessageFragment extends Fragment {
         pageMain++;
         doodViewModel.getCompanyMessages(account.getI(), Constant.APPLICATION_ID, companyGuid, pageMain, 10);
     }
+    private void nullTheMutable(){
+        mainViewModel.getResultMessage().setValue(null);
+        doodViewModel.getResultMessage().setValue(null);
+        doodViewModel.getResultCompanyMessages().setValue(null);
+        doodViewModel.getResultReadMessages().setValue(null);
+        doodViewModel.getResultSetRespond().setValue(null);
+        mainViewModel.getResultCompany().setValue(null);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        sharedPreferences.edit().putBoolean("loginSuccess", true).apply();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        sharedPreferences.edit().putBoolean("loginSuccess", false).apply();
+    }
+
+
 
 }

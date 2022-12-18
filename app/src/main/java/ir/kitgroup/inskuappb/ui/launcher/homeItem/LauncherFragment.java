@@ -50,7 +50,7 @@ public class LauncherFragment extends Fragment {
     @Inject
     SharedPreferences sharedPreferences;
     public static String fragment = "";
-    public  String swipeFragment = "";
+
     private HomeFragmentBinding binding;
     private Account account;
     private DoodViewModel doodViewModel;
@@ -94,105 +94,36 @@ public class LauncherFragment extends Fragment {
                 public void onTabSelected(TabLayout.Tab tab) {
                     if (tab.getPosition() == 2) {
                         fragment = "advertise";
-                       swipeFragment="advertise";
                         binding.btnSearch.setVisibility(View.VISIBLE);
                     }
                     else if (tab.getPosition() == 1) {
                         fragment = "myCompany";
-                        swipeFragment="myCompany";
                         binding.btnSearch.setVisibility(View.GONE);
                     }
                     else {
-                        if (swipeFragment.equals("myCompany"))
-                            fragment="allCompany";
-                        else
-                        fragment = "";
-
-                        swipeFragment="";
+                        fragment = "allCompany";
                         binding.btnSearch.setVisibility(View.VISIBLE);
                     }
-
-
-//                  binding.viewpagerIntro.setCurrentItem(tab.getPosition());
-//
-//                  if (tab.getPosition() == 0) {
-
-//                      getFragmentManager().beginTransaction().detach(allCompanyFragment);
-//                      getFragmentManager().beginTransaction().attach(allCompanyFragment).commit();
-                    //getFragmentManager().beginTransaction().attach(allCompanyFragment).commit();
-//                      FragmentManager manager = getActivity().getSupportFragmentManager();
-//                      FragmentTransaction ft = manager.beginTransaction();
-//                      Fragment newFragment = allCompanyFragment;
-//                      allCompanyFragment.onDestroy();
-//                      ft.remove(allCompanyFragment);
-//                      ft.replace(binding.tabLayout.getId(), newFragment);
-//                      //container is the ViewGroup of current fragment
-//                      ft.addToBackStack(null);
-//                      ft.commit();
-//                  }
-
-//                  if (tab.getPosition() == 0) {
-//
-//                      LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(getContext());
-//                      Intent i = new Intent("TAG_REFRESH");
-//                      lbm.sendBroadcast(i);
-//                  }
-
-//                  if (tab.getText().equals("همه\u200Cپخش\u200Cها") && fragment.equals("")) {
-//                      if (allCompanyFragment != null) {
-//                          try {
-//                              getFragmentManager().beginTransaction().detach(allCompanyFragment);
-//                          }catch (Exception ignored){}
-//
-//                      }
-//                  }
-
                 }
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {}
 
                 @Override
-                public void onTabUnselected(TabLayout.Tab tab) {
-
-                }
-
-                @Override
-                public void onTabReselected(TabLayout.Tab tab) {
-
-                }
+                public void onTabReselected(TabLayout.Tab tab) {}
             });
 
-/*            binding.tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                @Override
-                public void onTabSelected(TabLayout.Tab tab) {
 
-                }
-
-                @Override
-                public void onTabUnselected(TabLayout.Tab tab) {
-
-                }
-
-                @Override
-                public void onTabReselected(TabLayout.Tab tab) {
-
-                }
-            });*/
             binding.filter.setOnClickListener(view1 -> {
-
-
                 NavDirections action =  LauncherFragmentDirections.actionGoToFilterFragment("","home");
                 Navigation.findNavController(binding.getRoot()).navigate(action);
             });
 
             binding.btnSearch.setOnClickListener(view1 -> {
-
                 if (fragment.equals("advertise"))
                     Navigation.findNavController(getView()).navigate(R.id.SearchAdvertiseFragment);
                 else
                     Navigation.findNavController(getView()).navigate(R.id.SearchCompany);
-
-
             });
-
 
             initTab();
 
@@ -200,31 +131,19 @@ public class LauncherFragment extends Fragment {
         }
         return binding.getRoot();
     }
-//
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//
-//        super.onViewCreated(view, savedInstanceState);
-//
-//
-//    }
-
 
     @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
         doodViewModel = new ViewModelProvider(this).get(DoodViewModel.class);
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         doodViewModel.getResultMessage().setValue(null);
         mainViewModel.getResultMessage().setValue(null);
 
-
         doodViewModel.getNewMessagesCount(account.getI(), Constant.APPLICATION_ID);
         doodViewModel.getResultNewMessagesCount().observe(getViewLifecycleOwner(), result -> {
-
             if (result != null) {
                 doodViewModel.getResultAllMessage().setValue(null);
 
@@ -234,16 +153,13 @@ public class LauncherFragment extends Fragment {
                     ((MainActivity) getActivity()).setClearCounterOrder();
 
             }
-
-
         });
+
         mainViewModel.getResultFirebaseToken().observe(getViewLifecycleOwner(), result -> {
             if (result == null)
                 return;
             mainViewModel.getResultFirebaseToken().setValue(null);
         });
-
-
     }
 
     //endregion Override Method

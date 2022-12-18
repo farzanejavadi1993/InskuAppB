@@ -518,6 +518,7 @@ public class AdvertiseFragment extends Fragment {
             mainViewModel.getSimpleAdvertisements(doFilter.getAccountFilter(), Constant.APPLICATION_ID, account.getI(), pageMain);
         }
         else {
+            binding.animation.setVisibility(View.GONE);
             visibleView();
 
             String storedHashMap = sharedPreferences.getString("storeHashMap", "");

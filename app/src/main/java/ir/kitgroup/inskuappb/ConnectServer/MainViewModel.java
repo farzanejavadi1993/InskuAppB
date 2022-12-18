@@ -43,6 +43,7 @@ import ir.kitgroup.inskuappb.dataBase.ModelCatalog;
 import ir.kitgroup.inskuappb.model.ModelCatalogPage;
 import ir.kitgroup.inskuappb.dataBase.ModelCatalogPageItem;
 import ir.kitgroup.inskuappb.model.ModelSetting;
+import ir.kitgroup.inskuappb.model.WantAdvertisement;
 import ir.kitgroup.inskuappb.util.Constant;
 
 
@@ -92,6 +93,7 @@ public class MainViewModel extends ViewModel {
     private final MutableLiveData<List<AdvertisementStatus>> resultSetAdvertisementStatus = new MutableLiveData<>();
     private final MutableLiveData<List<CompanyStatus>> resultCompanyStatus = new MutableLiveData<>();
     private final MutableLiveData<List<CallMe>> resultCallMe = new MutableLiveData<>();
+    private final MutableLiveData<List<WantAdvertisement>> resultWantAdvertisement = new MutableLiveData<>();
     private final MutableLiveData<List<CompanyStatus>> resultSetCompanyStatus = new MutableLiveData<>();
     private final MutableLiveData<List<Log>> resultAddCity = new MutableLiveData<>();
     private final MutableLiveData<List<CompanyMessage>> resultGetAllMessage = new MutableLiveData<>();
@@ -839,6 +841,23 @@ public class MainViewModel extends ViewModel {
     public  MutableLiveData<List<CallMe>> getResultCustomerCallRequest(){return resultCallMe;
     }
 
+
+    public void getCustomerWantAdv(String customerId) {
+        compositeDisposable.add(
+                myRepository.getCustomerWantAdv(customerId)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnSubscribe(disposable -> {})
+                        .subscribe(jsonElement ->
+                                        resultWantAdvertisement.setValue(jsonElement),
+                                throwable ->{
+                                    if (!networkHelper.isNetworkConnected1())
+                                        eMessage.setValue(new Message(3, "", "خطا در اتصال اینترنت"));
+                                    else
+                                        eMessage.setValue(new Message(3, "", "خطا در دریافت اطلاعات"));
+                                }));
+    }
+    public  MutableLiveData<List<WantAdvertisement>> getResultCustomerWantAdv(){return resultWantAdvertisement;}
 
 
     public void setStatusCompany(String customerId, String companyId,boolean StatusCallMe) {

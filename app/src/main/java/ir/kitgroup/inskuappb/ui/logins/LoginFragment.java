@@ -50,8 +50,6 @@ public class LoginFragment extends Fragment {
     private String phoneNumber = "";
     private VerifyMobileNumber verifyMobileNumber;
 
-
-
     private CustomSnackBar snackbar;
 
     //endregion Parameter
@@ -61,10 +59,6 @@ public class LoginFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-//        AppSignatureHelper appSignature = new AppSignatureHelper(getContext());
-//        String signature = appSignature.getAppSignatures().get(0);
-
         binding = LoginFragmentBinding.inflate(getLayoutInflater());
         return binding.getRoot();
 

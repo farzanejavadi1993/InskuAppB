@@ -42,5 +42,13 @@
     <color name="black_l">#6C6C6C</color>
     <color name="blue">#2196F3</color>
     <color name="black_light">#2f2f2f</color>
-    <color name="green_button_enabled">#ff58cc02</color>
+    <color name="green_button">#ff58cc02</color>
+    <color name="green_button_full">#58A700</color>
+    <color name="gray_button">#ccc</color>
+    <color name="gray_button_full">#8A8A8A</color>
+    <color name="red_button">#FA2819</color>
+    <color name="red_button_full">#CC0E00</color>
+    <color name="purple_button">#673AB7</color>
+    <color name="purple_button_full">#4300BA</color>
+
 </resources>

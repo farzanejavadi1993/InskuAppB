@@ -82,10 +82,10 @@ public class VerifyCodeFragment extends Fragment {
     private void initBroadCast() {
 
         appSMSBroadcastReceiver = new AppSMSBroadcastReceiver();
-
         appSMSBroadcastReceiver.setOnSmsReceiveListener(code -> {
 
             binding.etOtp.setText(code);
+
             new android.os.Handler(Looper.getMainLooper()).postDelayed(
                     () -> binding.btnEnter.performClick(),
                     600);

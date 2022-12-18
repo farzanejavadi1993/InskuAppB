@@ -29,6 +29,7 @@
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/bg_filter_icon.xml" value="0.177" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/bg_tabview1.xml" value="0.177" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/bg_tabview2.xml" value="0.177" />
+        <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/blue_button.xml" value="0.1905" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/bookmark_black.xml" value="0.165" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/border_clear.xml" value="0.177" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/border_deactive.xml" value="0.1965" />
@@ -40,6 +41,7 @@
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/deactive_button.xml" value="0.1125" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/detail_layout_shape.xml" value="0.1" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/dialog_search_background.xml" value="0.1" />
+        <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/gray_button.xml" value="0.167" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/green_button.xml" value="0.1935" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/ic_add_user.xml" value="0.1" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/ic_arrow.xml" value="0.1" />
@@ -82,13 +84,17 @@
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/message_answer_background.xml" value="0.1965" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/message_answer_background_full.xml" value="0.192" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/navigation_view_colored.xml" value="0.1" />
+        <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/orange_button.xml" value="0.167" />
+        <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/porple_button.xml" value="0.1795" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/profile.xml" value="0.1" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/rectangle1.xml" value="0.1" />
+        <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/red_button.xml" value="0.1785" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/search_layout_background.xml" value="0.1" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/shape_indicator.xml" value="0.1" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/special_background.xml" value="0.181" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/tab_radus.xml" value="0.1" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/view.xml" value="0.1955" />
+        <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/drawable/yellow_button.xml" value="0.167" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout-v21/message_detail_item.xml" value="0.109375" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/about_item.xml" value="0.1171875" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/activity_main.xml" value="0.1171875" />
@@ -136,6 +142,7 @@
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/search_advertise_fragment.xml" value="0.14855072463768115" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/search_company_fragment.xml" value="0.203125" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/second_intro_fragment.xml" value="0.14583333333333334" />
+        <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/simple_advertise_item.xml" value="0.203125" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/slider_layout.xml" value="0.11096014492753623" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/slider_layout_image.xml" value="0.19895833333333332" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/state_item.xml" value="0.1875" />
@@ -143,6 +150,8 @@
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/third_intro_fragment.xml" value="0.12" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/verify_code_fragment.xml" value="0.15677083333333333" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/vip_advertise_item.xml" value="0.12708333333333333" />
+        <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/want_advertisement_fragment.xml" value="0.203125" />
+        <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/layout/want_advertisement_item.xml" value="0.203125" />
         <entry key="..\:/InskAppB/InskuAppB/InskuAppB/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
         <entry key="..\:/InskAppB/InskuAppB/app/src/main/res/drawable-mdpi/ic_profile.xml" value="0.1735" />
         <entry key="..\:/InskAppB/InskuAppB/app/src/main/res/drawable-v21/background_item_white.xml" value="0.181" />
