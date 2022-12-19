@@ -406,7 +406,6 @@
 
 
                 <RelativeLayout
-
                     android:visibility="gone"
                     android:id="@+id/private_application"
                     android:layout_width="36dp"
@@ -414,10 +413,11 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="12dp"
                     android:layout_toLeftOf="@+id/pdf"
-                    app:srcCompat="@drawable/ic_basket"
+
                     android:background="@drawable/background_item_white"
                     android:elevation="4dp">
                     <ImageView
+                        app:srcCompat="@drawable/ic_basket"
                         android:id="@+id/ivPrivate_app"
                         android:layout_width="17dp"
                         android:layout_height="17dp"

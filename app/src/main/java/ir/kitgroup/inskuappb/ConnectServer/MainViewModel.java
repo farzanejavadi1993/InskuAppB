@@ -249,7 +249,7 @@ public class MainViewModel extends ViewModel {
     }
 
 
-    public void getSearchAdv(AccountFilter accountFilter,String appId, String customerId,String text,int page) {
+    public void searchAdvertisement(AccountFilter accountFilter, String appId, String customerId, String text, int page) {
         compositeDisposable.clear();
         Gson gson = new Gson();
         Type typeAccount = new TypeToken<AccountFilter>() {
@@ -257,7 +257,7 @@ public class MainViewModel extends ViewModel {
         gson.toJson(accountFilter, typeAccount);
 
         compositeDisposable.add(
-                myRepository.getSearchAdvertisement(accountFilter,appId,customerId,text,page)
+                myRepository.searchAdvertisement(accountFilter,appId,customerId,text,page)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe(disposable -> {
@@ -329,10 +329,10 @@ public class MainViewModel extends ViewModel {
 
 
 
-    public void getCompanyAdvertisement(List<String> companiesId,int page,String appId,String customerId) {
+    public void getAdvsByCompanyId(List<String> companiesId, int page, String appId, String customerId) {
 //        compositeDisposable.clear();
         compositeDisposable.add(
-                myRepository.getCompanyAdvertisement(companiesId,page,appId,customerId)
+                myRepository.getAdvsByCompanyId(companiesId,page,appId,customerId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe(disposable -> {
@@ -355,10 +355,10 @@ public class MainViewModel extends ViewModel {
     }
 
 
-    public void getAdvertisement(String advertisementId,String customerId) {
+    public void getAdvertisementById(String advertisementId, String customerId) {
 
         compositeDisposable.add(
-                myRepository.getAdvertisement(advertisementId,customerId)
+                myRepository.getAdvertisementById(advertisementId,customerId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe(disposable -> {
@@ -386,10 +386,10 @@ public class MainViewModel extends ViewModel {
 
 
 
-    public void getMyAdvertisement(String customerId,String appId) {
+    public void getCustomerSavedAdvs(String customerId, String appId) {
         compositeDisposable.clear();
         compositeDisposable.add(
-                myRepository.getMyAdvertisement(customerId,appId)
+                myRepository.getCustomerSavedAdvs(customerId,appId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe(disposable -> {
@@ -412,9 +412,9 @@ public class MainViewModel extends ViewModel {
     }
 
 
-    public void addToMyAdvertisement(String customerId, String advertiseId) {
+    public void addToSavedAdvs(String customerId, String advertiseId) {
         compositeDisposable.add(
-                myRepository.addToMyAdvertisement(customerId, advertiseId)
+                myRepository.addToSavedAdvs(customerId, advertiseId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe(disposable -> {
@@ -439,9 +439,9 @@ public class MainViewModel extends ViewModel {
     }
 
 
-    public void deleteMyAdvertisement(String customerId, String advertisementId) {
+    public void removeFromSavedAdvs(String customerId, String advertisementId) {
         compositeDisposable.add(
-                myRepository.DeleteMyAdvertisement(customerId, advertisementId)
+                myRepository.removeFromSavedAdvs(customerId, advertisementId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe(disposable -> {
@@ -466,10 +466,9 @@ public class MainViewModel extends ViewModel {
     }
 
 
-    public void getCompany(String id) {
-
+    public void getCompanyDetailById(String id) {
         compositeDisposable.add(
-                myRepository.getCompany(id)
+                myRepository.getCompanyDetailById(id)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe(disposable -> {
@@ -546,9 +545,9 @@ public class MainViewModel extends ViewModel {
     }
 
 
-    public void addMyCompany(String customerId, String accountId,String appId) {
+    public void addToSavedAccounts(String customerId, String accountId, String appId) {
         compositeDisposable.add(
-                myRepository.addMyCompany(customerId, accountId,appId)
+                myRepository.addToSavedAccounts(customerId, accountId,appId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe(disposable -> {
@@ -573,9 +572,9 @@ public class MainViewModel extends ViewModel {
     }
 
 
-    public void deleteMyAccount(String customerId, String accountId,String appId) {
+    public void removeFromSavedAccounts(String customerId, String accountId, String appId) {
         compositeDisposable.add(
-                myRepository.DeleteMyAccount(customerId, accountId,appId)
+                myRepository.removeFromSavedAccounts(customerId, accountId,appId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe(disposable -> {

@@ -296,6 +296,7 @@ public class SplashScreenFragment extends Fragment {
 
     private void init() {
         sharedPreferences.edit().remove("storeCompany").apply();
+        sharedPreferences.edit().remove("storeHashMap").apply();
         Company.deleteAll(Company.class);
         account = Select.from(Account.class).first();
 
@@ -335,6 +336,7 @@ public class SplashScreenFragment extends Fragment {
             }
 
         });
+
         updateApplicationDialog.setOnClickNegativeButton(() ->
                 {
                     if (from.equals("update")) {

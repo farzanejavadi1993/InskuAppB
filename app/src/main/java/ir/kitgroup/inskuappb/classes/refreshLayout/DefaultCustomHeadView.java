@@ -1,5 +1,6 @@
 package ir.kitgroup.inskuappb.classes.refreshLayout;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,11 +18,22 @@ import java.util.Date;
 
 import ir.kitgroup.inskuappb.R;
 
+
+/**
+ * Created by liu on 2014/9/15.
+ */
+
+/**
+ * The DefaultCustomHeadViewLayout is a refresh head view provided as default.
+ * You can also make your own head view layout which must implement
+ * CustomSwipeRefreshHeadview.CustomSwipeRefreshHeadLayout interface.
+ */
 public class DefaultCustomHeadView extends LinearLayout implements CustomSwipeRefreshLayout.CustomSwipeRefreshHeadLayout {
 
     private LinearLayout mContainer;
 
     private TextView mMainTextView;
+    private TextView mSubTextView;
     private ImageView mImageView;
     private ProgressBar mProgressBar;
 
@@ -42,14 +54,17 @@ public class DefaultCustomHeadView extends LinearLayout implements CustomSwipeRe
         mContainer = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.default_swiperefresh_head_layout, null);
         addView(mContainer, lp);
         setGravity(Gravity.BOTTOM);
-        mImageView =  findViewById(R.id.default_header_arrow);
-        mMainTextView = findViewById(R.id.default_header_textview);
-        mProgressBar = findViewById(R.id.default_header_progressbar);
+        mImageView = (ImageView) findViewById(R.id.default_header_arrow);
+        mMainTextView = (TextView) findViewById(R.id.default_header_textview);
+        mSubTextView = (TextView) findViewById(R.id.default_header_time);
+        mProgressBar = (ProgressBar) findViewById(R.id.default_header_progressbar);
+
         setupAnimation();
 
     }
 
     public void setupAnimation() {
+
         mRotateUpAnim = new RotateAnimation(0.0f, -180.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         Animation.AnimationListener mRotateUpAnimListener = animationListener;
         mRotateUpAnim.setAnimationListener(mRotateUpAnimListener);
@@ -61,6 +76,25 @@ public class DefaultCustomHeadView extends LinearLayout implements CustomSwipeRe
         mRotateDownAnim.setFillAfter(true);
     }
 
+
+
+    public void updateData() {
+
+        String time = fetchData();
+        if (time != null) {
+            mSubTextView.setVisibility(VISIBLE);
+            mSubTextView.setText(time);
+        } else {
+            mSubTextView.setVisibility(GONE);
+        }
+
+    }
+
+    public String fetchData() {
+        return getResources().getString(R.string.csr_text_last_refresh);
+    }
+
+    @SuppressLint("SimpleDateFormat")
     @Override
     public void onStateChange(CustomSwipeRefreshLayout.State state, CustomSwipeRefreshLayout.State lastState) {
         int stateCode = state.getRefreshState();
@@ -102,17 +136,17 @@ public class DefaultCustomHeadView extends LinearLayout implements CustomSwipeRe
                 break;
             case CustomSwipeRefreshLayout.State.STATE_REFRESHING:
                 mMainTextView.setText(R.string.csr_text_state_refresh);
-
+                updateData();
                 break;
 
             case CustomSwipeRefreshLayout.State.STATE_COMPLETE:
                 mMainTextView.setText(R.string.csr_text_state_complete);
+
+                mSubTextView.setVisibility(VISIBLE);
+                mSubTextView.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+
                 break;
             default:
         }
     }
-
-
-
-
 }

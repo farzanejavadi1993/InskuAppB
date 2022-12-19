@@ -3,6 +3,9 @@ package ir.kitgroup.inskuappb.classes.refreshLayout;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
+import android.graphics.Rect;
+
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -12,22 +15,27 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Transformation;
-import android.view.animation.AnimationUtils;
-
-
-import android.graphics.Canvas;
-
-import android.graphics.Rect;
 import android.widget.AbsListView;
-
 
 import androidx.core.view.ViewCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import ir.kitgroup.inskuappb.R;
 
+/**
+ * The CustomSwipeRefreshLayout should be used whenever the user can refresh the
+ * contents of a view via a vertical swipe gesture. The activity that
+ * instantiates this view should add an OnRefreshListener to be notified
+ * whenever the swipe to refresh gesture is completed. And refreshComplete()
+ * should be called whenever the refreshing is complete. The CustomSwipeRefreshLayout
+ * will notify the listener each and every time the gesture is completed again;
+ * Two refresh mode are supported:
+ * swipe mode: android.support.v4.widget.SwipeRefreshLayout style with custom refresh head
+ * pull mode: pull-to-refresh style with progress bar and custom refresh head
+ */
 public class CustomSwipeRefreshLayout extends ViewGroup {
 
     public static final boolean DEBUG = false;
@@ -111,7 +119,7 @@ public class CustomSwipeRefreshLayout extends ViewGroup {
     private float mPrevY;
     private float mFromPercentage = 0;
     private float mCurrPercentage = 0;
-    private final Animation.AnimationListener mShrinkAnimationListener = new BaseAnimationListener() {
+    private final AnimationListener mShrinkAnimationListener = new BaseAnimationListener() {
         @Override
         public void onAnimationEnd(Animation animation) {
             mCurrPercentage = 0;
@@ -122,7 +130,7 @@ public class CustomSwipeRefreshLayout extends ViewGroup {
     private boolean checkHorizontalMove;
     private boolean mCheckValidMotionFlag = true;
     private int mCurrentTargetOffsetTop = 0;
-    private final Animation.AnimationListener mReturningAnimationListener = new BaseAnimationListener() {
+    private final AnimationListener mReturningAnimationListener = new BaseAnimationListener() {
         @Override
         public void onAnimationEnd(Animation animation) {
             // Once the target content has returned to its start position, reset
@@ -157,7 +165,7 @@ public class CustomSwipeRefreshLayout extends ViewGroup {
 
     };
 
-    private final Animation.AnimationListener mStayCompleteListener = new BaseAnimationListener() {
+    private final AnimationListener mStayCompleteListener = new BaseAnimationListener() {
         @Override
         public void onAnimationEnd(Animation animation) {
             mReturnToStartPosition.run();
@@ -289,14 +297,14 @@ public class CustomSwipeRefreshLayout extends ViewGroup {
         }
     }
 
-    private void animateStayComplete(Animation.AnimationListener listener) {
+    private void animateStayComplete(AnimationListener listener) {
         mAnimateStayComplete.reset();
         mAnimateStayComplete.setDuration(mRefreshCompleteTimeout);
         mAnimateStayComplete.setAnimationListener(listener);
         mTarget.startAnimation(mAnimateStayComplete);
     }
 
-    private void animateOffsetToTrigerPosition(int from, Animation.AnimationListener listener) {
+    private void animateOffsetToTrigerPosition(int from, AnimationListener listener) {
         mFrom = from;
         mAnimateToTrigerPosition.reset();
         mAnimateToTrigerPosition.setDuration(mReturnToHeaderDuration);
@@ -305,7 +313,7 @@ public class CustomSwipeRefreshLayout extends ViewGroup {
         mTarget.startAnimation(mAnimateToTrigerPosition);
     }
 
-    private void animateOffsetToStartPosition(int from, Animation.AnimationListener listener) {
+    private void animateOffsetToStartPosition(int from, AnimationListener listener) {
         mFrom = from;
         mAnimateToStartPosition.reset();
         mAnimateToStartPosition.setDuration(mReturnToTopDuration);
@@ -1145,7 +1153,7 @@ public class CustomSwipeRefreshLayout extends ViewGroup {
     /**
      * Classes that must be implemented by for custom headview
      *
-
+     * @see com.reginald.swiperefresh.CustomSwipeRefreshLayout.State
      * @see DefaultCustomHeadView a default headview if no custom headview provided
      */
     public interface CustomSwipeRefreshHeadLayout {
@@ -1219,7 +1227,7 @@ public class CustomSwipeRefreshLayout extends ViewGroup {
      * Simple AnimationListener to avoid having to implement unneeded methods in
      * AnimationListeners.
      */
-    private class BaseAnimationListener implements Animation.AnimationListener {
+    private class BaseAnimationListener implements AnimationListener {
         @Override
         public void onAnimationStart(Animation animation) {
         }

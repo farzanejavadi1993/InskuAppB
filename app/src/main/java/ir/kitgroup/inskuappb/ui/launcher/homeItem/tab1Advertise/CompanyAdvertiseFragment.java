@@ -334,9 +334,9 @@ public class CompanyAdvertiseFragment extends Fragment {
                     progressSave.setVisibility(View.VISIBLE);
                     positionSelect = position;
                     if (advertiseList.get(position).getIsSaved())
-                        mainViewModel.deleteMyAdvertisement(account.getI(), advertiseList.get(positionSelect).getI());
+                        mainViewModel.removeFromSavedAdvs(account.getI(), advertiseList.get(positionSelect).getI());
                     else
-                        mainViewModel.addToMyAdvertisement(account.getI(), advertiseList.get(positionSelect).getI());
+                        mainViewModel.addToSavedAdvs(account.getI(), advertiseList.get(positionSelect).getI());
                 }
             });
 
@@ -344,7 +344,7 @@ public class CompanyAdvertiseFragment extends Fragment {
             cardCompany.setOnClickListener(view -> {
                 progressCompany = v.findViewById(R.id.progress_company);
                 progressCompany.setVisibility(View.VISIBLE);
-                mainViewModel.getCompany(advertiseList.get(position).getCompanyId());
+                mainViewModel.getCompanyDetailById(advertiseList.get(position).getCompanyId());
             });
 
         });
@@ -356,9 +356,9 @@ public class CompanyAdvertiseFragment extends Fragment {
         binding.progressBar22.setVisibility(View.VISIBLE);
         pageMain++;
         if (companiesId.size() > 0)
-            mainViewModel.getCompanyAdvertisement(companiesId, pageMain, Constant.APPLICATION_ID, account.getI());
+            mainViewModel.getAdvsByCompanyId(companiesId, pageMain, Constant.APPLICATION_ID, account.getI());
         else
-            mainViewModel.getMyAdvertisement(account.getI(), Constant.APPLICATION_ID);
+            mainViewModel.getCustomerSavedAdvs(account.getI(), Constant.APPLICATION_ID);
 
     }
 
@@ -407,9 +407,9 @@ public class CompanyAdvertiseFragment extends Fragment {
 
             binding.progress.setVisibility(View.VISIBLE);
             if (companiesId.size() > 0)
-                mainViewModel.getCompanyAdvertisement(companiesId, pageMain, Constant.APPLICATION_ID, account.getI());
+                mainViewModel.getAdvsByCompanyId(companiesId, pageMain, Constant.APPLICATION_ID, account.getI());
             else
-                mainViewModel.getMyAdvertisement(account.getI(), Constant.APPLICATION_ID);
+                mainViewModel.getCustomerSavedAdvs(account.getI(), Constant.APPLICATION_ID);
         } else {
             String storedHashMap = sharedPreferences.getString("storeHashMap", "");
             if (!storedHashMap.equals("")) {

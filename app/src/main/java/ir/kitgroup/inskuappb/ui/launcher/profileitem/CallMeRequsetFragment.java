@@ -172,7 +172,7 @@ public class CallMeRequsetFragment extends Fragment {
             if (!goCompany) {
                 goCompany = true;
                 progressBarCompany.setVisibility(View.VISIBLE);
-                mainViewModel.getCompany(callMeRequests.get(position).getCompanyId());
+                mainViewModel.getCompanyDetailById(callMeRequests.get(position).getCompanyId());
             }
         });
     }

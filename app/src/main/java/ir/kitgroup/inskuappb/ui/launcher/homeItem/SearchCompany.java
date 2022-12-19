@@ -22,13 +22,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.card.MaterialCardView;
 import com.orm.query.Select;
-import com.squareup.picasso.Picasso;
 
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -53,7 +51,6 @@ import ir.kitgroup.inskuappb.dataBase.Company;
 import ir.kitgroup.inskuappb.dataBase.Files;
 
 import ir.kitgroup.inskuappb.databinding.SearchCompanyFragmentBinding;
-import ir.kitgroup.inskuappb.ui.launcher.homeItem.tab1Advertise.DetailAdvertiseFragmentDirections;
 import ir.kitgroup.inskuappb.util.Constant;
 
 @AndroidEntryPoint
@@ -355,9 +352,9 @@ public class SearchCompany extends Fragment {
                         progressSave.setVisibility(View.VISIBLE);
                         positionSelect = position;
                         if (companies.get(position).isSave())
-                            myViewModel.deleteMyAccount(account.getI(), companies.get(positionSelect).getI(),Constant.APPLICATION_ID);
+                            myViewModel.removeFromSavedAccounts(account.getI(), companies.get(positionSelect).getI(),Constant.APPLICATION_ID);
                         else
-                            myViewModel.addMyCompany(account.getI(), companies.get(positionSelect).getI(),Constant.APPLICATION_ID);
+                            myViewModel.addToSavedAccounts(account.getI(), companies.get(positionSelect).getI(),Constant.APPLICATION_ID);
                     }
 
                 });

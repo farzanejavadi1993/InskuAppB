@@ -308,9 +308,9 @@ public class SearchAdvertiseFragment extends Fragment {
                     progressSave.setVisibility(View.VISIBLE);
                     positionSelect = position;
                     if (advertiseList.get(position).getIsSaved())
-                        mainViewModel.deleteMyAdvertisement(account.getI(), advertiseList.get(positionSelect).getI());
+                        mainViewModel.removeFromSavedAdvs(account.getI(), advertiseList.get(positionSelect).getI());
                     else
-                        mainViewModel.addToMyAdvertisement(account.getI(), advertiseList.get(positionSelect).getI());
+                        mainViewModel.addToSavedAdvs(account.getI(), advertiseList.get(positionSelect).getI());
                 }
 
             });
@@ -319,7 +319,7 @@ public class SearchAdvertiseFragment extends Fragment {
             cardCompany.setOnClickListener(view -> {
                 progressCompany = v.findViewById(R.id.progress_company);
                 progressCompany.setVisibility(View.VISIBLE);
-                mainViewModel.getCompany(advertiseList.get(position).getCompanyId());
+                mainViewModel.getCompanyDetailById(advertiseList.get(position).getCompanyId());
             });
 
         });
@@ -331,7 +331,7 @@ public class SearchAdvertiseFragment extends Fragment {
         oldSizeLadderList = advertiseList.size();
         binding.progressBar22.setVisibility(View.VISIBLE);
         pageMain++;
-        mainViewModel.getSearchAdv(doFilter.getAccountFilter(), Constant.APPLICATION_ID, account.getI(), wordSearch, pageMain);
+        mainViewModel.searchAdvertisement(doFilter.getAccountFilter(), Constant.APPLICATION_ID, account.getI(), wordSearch, pageMain);
 
     }
 
@@ -414,7 +414,7 @@ public class SearchAdvertiseFragment extends Fragment {
         advertiseList.clear();
         adapter.notifyDataSetChanged();
         if (!text.trim().equals(""))
-            mainViewModel.getSearchAdv(doFilter.getAccountFilter(), Constant.APPLICATION_ID, account.getI(), wordSearch, pageMain);
+            mainViewModel.searchAdvertisement(doFilter.getAccountFilter(), Constant.APPLICATION_ID, account.getI(), wordSearch, pageMain);
         else {
             binding.progressSearch.setVisibility(View.GONE);
             binding.progress.setVisibility(View.GONE);

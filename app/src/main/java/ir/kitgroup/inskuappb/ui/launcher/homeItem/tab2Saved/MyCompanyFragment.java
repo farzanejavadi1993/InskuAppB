@@ -256,7 +256,7 @@ public class MyCompanyFragment extends Fragment {
                         imgSave = view.findViewById(R.id.ivSave);
                         progressSave.setVisibility(View.VISIBLE);
                         positionSelect = position;
-                        myViewModel.deleteMyAccount(account.getI(), companies.get(positionSelect).getI(), Constant.APPLICATION_ID);
+                        myViewModel.removeFromSavedAccounts(account.getI(), companies.get(positionSelect).getI(), Constant.APPLICATION_ID);
                     }
                 });
 

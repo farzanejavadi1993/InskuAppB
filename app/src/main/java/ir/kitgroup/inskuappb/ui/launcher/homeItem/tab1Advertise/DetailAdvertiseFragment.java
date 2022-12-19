@@ -98,7 +98,7 @@ public class DetailAdvertiseFragment extends Fragment {
 
         binding.progressBar.setVisibility(View.VISIBLE);
 
-        mainViewModel.getAdvertisement(advGuid, account.getI());
+        mainViewModel.getAdvertisementById(advGuid, account.getI());
         mainViewModel.getWannaAdvertisementStatus(account.getI(), advGuid);
 
 
@@ -243,10 +243,10 @@ public class DetailAdvertiseFragment extends Fragment {
             mainViewModel.getResultCreateVisitAdvertise().setValue(null);
 
             count = advertises.get(0).getCount();
-            if (result.size() > 0 && result.get(0).getMessage() == 1) {
+            if (result.size() > 0 && result.get(0).getMessage() == 1)
                 count = count + 1;
-                sharedPrefrenceValue.saveValueInSharedPrefrence(advGuid, save, count);
-            }
+
+            sharedPrefrenceValue.saveValueInSharedPrefrence(advGuid, save, count);
             binding.tvViewS.setText(String.valueOf(count));
         });
 
@@ -331,9 +331,9 @@ public class DetailAdvertiseFragment extends Fragment {
         binding.save.setOnClickListener(view13 -> {
             binding.save.setEnabled(false);
             if (save)
-                mainViewModel.deleteMyAdvertisement(account.getI(), advertises.get(0).getI());
+                mainViewModel.removeFromSavedAdvs(account.getI(), advertises.get(0).getI());
             else
-                mainViewModel.addToMyAdvertisement(account.getI(), advertises.get(0).getI());
+                mainViewModel.addToSavedAdvs(account.getI(), advertises.get(0).getI());
         });
 
         binding.cardLink.setOnClickListener(view18 -> {
@@ -348,7 +348,7 @@ public class DetailAdvertiseFragment extends Fragment {
 
         binding.tvCompanyName.setOnClickListener(view15 -> {
             binding.progressCompany.setVisibility(View.VISIBLE);
-            mainViewModel.getCompany(guidCompany);
+            mainViewModel.getCompanyDetailById(guidCompany);
         });
 
         binding.tvWant.setOnClickListener(view16 -> {
@@ -381,7 +381,7 @@ public class DetailAdvertiseFragment extends Fragment {
         binding.progressBar.setVisibility(View.VISIBLE);
         binding.mainLayout.setVisibility(View.GONE);
         binding.cardError3.setVisibility(View.GONE);
-        mainViewModel.getAdvertisement(advGuid, account.getI());
+        mainViewModel.getAdvertisementById(advGuid, account.getI());
     }
 
     private void nullTheMutable() {

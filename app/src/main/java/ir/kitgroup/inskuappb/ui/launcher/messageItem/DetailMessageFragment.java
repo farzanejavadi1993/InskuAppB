@@ -261,7 +261,7 @@ public class DetailMessageFragment extends Fragment {
 
         binding.cardCompany.setOnClickListener(view12 -> {
             binding.progressCompany.setVisibility(View.VISIBLE);
-            mainViewModel.getCompany(companyGuid);
+            mainViewModel.getCompanyDetailById(companyGuid);
         });
         binding.ivBack1.setOnClickListener(view1 -> Navigation.findNavController(binding.getRoot()).popBackStack());
 

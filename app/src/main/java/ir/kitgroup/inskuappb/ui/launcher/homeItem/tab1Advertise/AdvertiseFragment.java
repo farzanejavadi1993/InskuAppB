@@ -33,7 +33,6 @@ import org.apache.commons.collections4.CollectionUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 import javax.inject.Inject;
 
@@ -395,9 +394,9 @@ public class AdvertiseFragment extends Fragment {
 
                         positionSelect = position;
                         if (simpleList.get(position).getIsSaved())
-                            mainViewModel.deleteMyAdvertisement(account.getI(), simpleList.get(positionSelect).getI());
+                            mainViewModel.removeFromSavedAdvs(account.getI(), simpleList.get(positionSelect).getI());
                         else
-                            mainViewModel.addToMyAdvertisement(account.getI(), simpleList.get(positionSelect).getI());
+                            mainViewModel.addToSavedAdvs(account.getI(), simpleList.get(positionSelect).getI());
                     }
 
                 });
@@ -406,7 +405,7 @@ public class AdvertiseFragment extends Fragment {
                 cardCompany.setOnClickListener(view -> {
                     progressCompany = v.findViewById(R.id.progress_company);
                     progressCompany.setVisibility(View.VISIBLE);
-                    mainViewModel.getCompany(simpleList.get(position).getCompanyId());
+                    mainViewModel.getCompanyDetailById(simpleList.get(position).getCompanyId());
                 });
             }
         });

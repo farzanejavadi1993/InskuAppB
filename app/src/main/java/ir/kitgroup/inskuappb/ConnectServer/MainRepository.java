@@ -24,8 +24,6 @@ import ir.kitgroup.inskuappb.model.CompanyStatus;
 import ir.kitgroup.inskuappb.model.Log;
 import ir.kitgroup.inskuappb.model.WantAdvertisement;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
 
 public class MainRepository {
 
@@ -56,8 +54,8 @@ public class MainRepository {
         return api.getAllCompany(accountFilter,"", text,appId,customerId, page);
     }
 
-    public Observable<List<Company>> getCompany(String id) {
-        return api.getCompany(id);
+    public Observable<List<Company>> getCompanyDetailById(String id) {
+        return api.getCompanyDetailById(id);
     }
 
     public Observable<List<BusinessR>> getBusinessRelations(@Body AccountFilter accountFilter) {
@@ -80,8 +78,8 @@ public class MainRepository {
         return api.getBillboardAdvs(accountFilter,appId,customerId);
     }
 
-    public Observable<List<Advertise>> getSearchAdvertisement(AccountFilter accountFilter, String appId, String customerId, String text, int page) {
-        return api.getSearchAdvertisement(accountFilter,appId,customerId,text,page);
+    public Observable<List<Advertise>> searchAdvertisement(AccountFilter accountFilter, String appId, String customerId, String text, int page) {
+        return api.searchAdvertisement(accountFilter,appId,customerId,text,page);
     }
 
 
@@ -95,20 +93,20 @@ public class MainRepository {
 
 
 
-    public Observable<List<Advertise>> getCompanyAdvertisement(List<String> companiesId, int page,String appId,String customerId) {
-        return api.getCompanyAdvertisement(companiesId, page,appId,customerId);
+    public Observable<List<Advertise>> getAdvsByCompanyId(List<String> companiesId, int page, String appId, String customerId) {
+        return api.getAdvsByCompanyId(companiesId, page,appId,customerId);
     }
 
-    public Observable<List<Advertise>> getAdvertisement(String advertisementId,String customerId) {
-        return api.getAdvertisement(advertisementId,customerId);
+    public Observable<List<Advertise>> getAdvertisementById(String advertisementId, String customerId) {
+        return api.getAdvertisementById(advertisementId,customerId);
     }
 
     public Observable<List<Company>> getMyAccount(String customerId,String appId) {
         return api.getMyCompany(customerId,appId);
     }
 
-    public Observable<List<Advertise>> getMyAdvertisement(String customerId,String appId) {
-        return api.getMyAdvertisement(customerId,appId);
+    public Observable<List<Advertise>> getCustomerSavedAdvs(String customerId, String appId) {
+        return api.getCustomerSavedAdvs(customerId,appId);
     }
 
     public Observable<List<Log>> setFirebaseToken(String appId, String customerId, String imei, String token) {
@@ -143,25 +141,25 @@ public class MainRepository {
     public Observable<List<Log>> addNewCity(String cityName, String stateId) {
         return api.addNewCity(cityName, stateId);
     }
-    public Observable<List<Log>> addMyCompany(String customerId, String accountId,String appId) {
-        return api.addMyCompany(customerId, accountId,appId);
+    public Observable<List<Log>> addToSavedAccounts(String customerId, String accountId, String appId) {
+        return api.addToSavedAccounts(customerId, accountId,appId);
     }
 
 
     public Observable<JsonElement> getFilterMessage(String target, String customerId, String appId) {
         return api.getFilterMessage(target,customerId, appId);
     }
-    public Observable<List<Log>> addToMyAdvertisement(String customerId, String advertisementId) {
-        return api.addToMyAdvertisement(customerId, advertisementId);
+    public Observable<List<Log>> addToSavedAdvs(String customerId, String advertisementId) {
+        return api.addToSavedAdvs(customerId, advertisementId);
     }
 
-    public Observable<List<Log>> DeleteMyAccount(String customerId, String accountId,String appId) {
-        return api.DeleteMyAccount(customerId, accountId,appId);
+    public Observable<List<Log>> removeFromSavedAccounts(String customerId, String accountId, String appId) {
+        return api.removeFromSavedAccounts(customerId, accountId,appId);
     }
 
 
-    public Observable<List<Log>> DeleteMyAdvertisement(String customerId, String advertisementId) {
-        return api.DeleteMyAdvertisement(customerId, advertisementId);
+    public Observable<List<Log>> removeFromSavedAdvs(String customerId, String advertisementId) {
+        return api.removeFromSavedAdvs(customerId, advertisementId);
     }
 
     public Observable<List<Log>> CreateVisitAdvertisement(String jsonObject) {

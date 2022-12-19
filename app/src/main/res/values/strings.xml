@@ -2,10 +2,11 @@
     <string name="app_name">پخش یاب</string>
 
 
-        <string name="csr_text_state_normal">در </string>
-        <string name="csr_text_state_ready">در حال </string>
-        <string name="csr_text_state_refresh"> بارگیری</string>
+        <string name="csr_text_state_normal">در حال  بارگیری</string>
+        <string name="csr_text_state_ready">در حال  بارگیری</string>
+        <string name="csr_text_state_refresh">در حال  بارگیری</string>
         <string name="csr_text_state_complete">بروز رسانی انجام شد.</string>
+        <string name="csr_text_last_refresh">لطفا منتظر بمانید.</string>
 
 
 

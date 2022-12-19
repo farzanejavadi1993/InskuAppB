@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.orm.query.Select;
-import com.squareup.picasso.Picasso;
 
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -346,9 +345,9 @@ public class AllCompanyFragment extends Fragment {
                         progressSave.setVisibility(View.VISIBLE);
                         positionSelectCompany = position;
                         if (companies.get(position).isSave())
-                            mainViewModel.deleteMyAccount(account.getI(), companies.get(positionSelectCompany).getI(), Constant.APPLICATION_ID);
+                            mainViewModel.removeFromSavedAccounts(account.getI(), companies.get(positionSelectCompany).getI(), Constant.APPLICATION_ID);
                         else
-                            mainViewModel.addMyCompany(account.getI(), companies.get(positionSelectCompany).getI(), Constant.APPLICATION_ID);
+                            mainViewModel.addToSavedAccounts(account.getI(), companies.get(positionSelectCompany).getI(), Constant.APPLICATION_ID);
                     }
 
                 });

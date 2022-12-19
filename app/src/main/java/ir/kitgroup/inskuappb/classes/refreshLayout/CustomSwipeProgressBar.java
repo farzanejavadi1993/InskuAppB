@@ -1,9 +1,9 @@
 package ir.kitgroup.inskuappb.classes.refreshLayout;
-
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+
 import android.os.Build;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -11,6 +11,14 @@ import android.view.animation.Interpolator;
 
 import androidx.core.view.ViewCompat;
 
+
+/**
+ * Custom progress bar that shows a cycle of colors as widening circles that
+ * overdraw each other. When finished, the bar is cleared from the inside out as
+ * the main cycle continues. Before running, this can also indicate how close
+ * the user is to triggering something (e.g. how far they need to pull down to
+ * trigger a refresh).
+ */
 final class CustomSwipeProgressBar {
 
     // Default progress animation colors are grays.

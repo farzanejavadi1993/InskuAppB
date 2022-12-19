@@ -49,8 +49,8 @@ public interface APIMain {
     @POST("GetCity")
     Observable<List<City>> getCity(@Body() ArrayList<String> list);
 
-    @POST("GetAdvertisements")
-    Observable<List<Advertise>> getSearchAdvertisement(@Body() AccountFilter accountFilter, @Query("appId") String appId, @Query("customerId") String customerId, @Query("text") String text, @Query("page") int page);
+    @POST("SearchAdvertisement")
+    Observable<List<Advertise>> searchAdvertisement(@Body() AccountFilter accountFilter, @Query("appId") String appId, @Query("customerId") String customerId, @Query("text") String text, @Query("page") int page);
 
     @POST("GetBillboardAdvs")
     Observable<List<Advertise>> getBillboardAdvs(@Body() AccountFilter accountFilter,@Query("appId") String appId, @Query("customerId") String customerId);
@@ -61,35 +61,35 @@ public interface APIMain {
     @POST("GetSimpleAdvertisements")
     Observable<List<Advertise>> getSimpleAdvertisements(@Body() AccountFilter accountFilter, @Query("appId") String appId, @Query("customerId") String customerId, @Query("page") int page);
 
-    @POST("GetAdvertisement")
-    Observable<List<Advertise>> getAdvertisement(@Query("advertisementId") String advertisementId,@Query("customerId") String customerId);
+    @POST("GetAdvertisementById")
+    Observable<List<Advertise>> getAdvertisementById(@Query("advertisementId") String advertisementId, @Query("customerId") String customerId);
 
-    @POST("GetAdvertisement")
-    Observable<List<Advertise>> getCompanyAdvertisement(@Body List<String> companiesId, @Query("page") int page, @Query("appId") String appId, @Query("customerId") String customerId);
+    @POST("GetAdvsByCompanyId")
+    Observable<List<Advertise>> getAdvsByCompanyId(@Body List<String> companiesId, @Query("page") int page, @Query("appId") String appId, @Query("customerId") String customerId);
 
-    @POST("AddToMyAdvertisement")
-    Observable<List<Log>> addToMyAdvertisement(@Query("customerId") String customerId, @Query("advertisementId") String advertisementId);
+    @POST("AddToSavedAdvs")
+    Observable<List<Log>> addToSavedAdvs(@Query("customerId") String customerId, @Query("advertisementId") String advertisementId);
 
-    @POST("DeleteMyAdvertisement")
-    Observable<List<Log>> DeleteMyAdvertisement(@Query("customerId") String customerId, @Query("advertisementId") String advertisementId);
+    @POST("RemoveFromSavedAdvs")
+    Observable<List<Log>> removeFromSavedAdvs(@Query("customerId") String customerId, @Query("advertisementId") String advertisementId);
 
-    @GET("GetMyAdvertisement")
-    Observable<List<Advertise>> getMyAdvertisement(@Query("customerId") String customerId,@Query("appId") String appId);
+    @GET("GetCustomerSavedAdvs")
+    Observable<List<Advertise>> getCustomerSavedAdvs(@Query("customerId") String customerId, @Query("appId") String appId);
 
-    @POST("GetAccount")
+    @POST("GetAllAccount")
     Observable<List<Company>> getAllCompany(@Body AccountFilter accountFilter,@Query("parentAccountId") String parentAccountId,@Query("text") String text, @Query("appId") String appId,@Query("customerId") String customerId,@Query("page") int page);
 
-    @POST("GetAccount")
-    Observable<List<Company>> getCompany(@Query("id") String id);
+    @POST("GetAccountDetailById")
+    Observable<List<Company>> getCompanyDetailById(@Query("id") String id);
 
     @GET("GetMyAccount")
     Observable<List<Company>> getMyCompany(@Query("customerId") String customerId,@Query("appId") String appId);
 
-    @POST("AddToMyAccount")
-    Observable<List<Log>> addMyCompany(@Query("customerId") String customerId, @Query("accountId") String accountId,@Query("appId") String appId);
+    @POST("AddToSavedAccounts")
+    Observable<List<Log>> addToSavedAccounts(@Query("customerId") String customerId, @Query("accountId") String accountId, @Query("appId") String appId);
 
-    @POST("DeleteMyAccount")
-    Observable<List<Log>> DeleteMyAccount(@Query("customerId") String customerId, @Query("accountId") String accountId,@Query("appId")String appId);
+    @POST("RemoveFromSavedAccounts")
+    Observable<List<Log>> removeFromSavedAccounts(@Query("customerId") String customerId, @Query("accountId") String accountId, @Query("appId")String appId);
 
     @POST("CreateVisitAdvertisement")
     Observable<List<Log>> CreateVisitAdvertisement(@Body() String jsonVisitAdvertisement);
