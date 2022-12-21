@@ -166,7 +166,9 @@ public class SearchCompany extends Fragment {
 
         });
         myViewModel.getResultAddMyCompany().observe(getViewLifecycleOwner(), result -> {
-            if (result != null) {
+            if (result == null)
+            return;
+
                 myViewModel.getResultAddMyCompany().setValue(null);
                 if (result.get(0).getMessage() == 4) {
                     sharedPrefrenceValue.addToMyAccount(companies.get(positionSelect));
@@ -178,14 +180,13 @@ public class SearchCompany extends Fragment {
                 } else
                     ShowMessageWarning("خطا در ذخیره شرکت");
 
-
-            }
-            progressSave.setVisibility(View.GONE);
+                progressSave.setVisibility(View.GONE);
             saving=false;
         });
         myViewModel.getResultDeleteMyAccount().observe(getViewLifecycleOwner(), result -> {
 
-            if (result != null) {
+            if (result == null)
+                return;
                 myViewModel.getResultDeleteMyAccount().setValue(null);
                 if (result.get(0).getMessage() == 4) {
                     sharedPrefrenceValue.deleteFromMyCompany(companies.get(positionSelect).getI());
@@ -200,7 +201,7 @@ public class SearchCompany extends Fragment {
 
                 progressSave.setVisibility(View.GONE);
                 saving=false;
-            }
+
         });
     }
 

@@ -109,16 +109,19 @@ public class AllCompanyFragment extends Fragment {
 
 
                 ArrayList<Company>  saveCompanies = sharedPrefrenceValue.getListFromSharedPrefrence();
-                for (int i = 0; i < saveCompanies.size(); i++) {
-                    int finalI = i;
-                    ArrayList<Company> res = new ArrayList<>(companies);
-                    CollectionUtils.filter(res, r -> r.getI().equals(saveCompanies.get(finalI).getI()));
 
-                    if (res.size() > 0) {
-                        int index = companies.indexOf(res.get(0));
-                        adapter2.notifyItemChanged(index);
-                    }
-                }
+                  for (int i = 0; i < saveCompanies.size(); i++) {
+                      int finalI = i;
+                      ArrayList<Company> res = new ArrayList<>(companies);
+                      CollectionUtils.filter(res, r -> r.getI().equals(saveCompanies.get(finalI).getI()));
+
+                      if (res.size() > 0) {
+                          int index = companies.indexOf(res.get(0));
+                          adapter2.notifyItemChanged(index);
+                      }
+                  }
+
+
             }
         }
     }

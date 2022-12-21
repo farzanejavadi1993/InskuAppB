@@ -336,7 +336,7 @@ public class DetailCompanyFragment extends Fragment {
 
         });
         companyViewModel.getResultCatalog().observe(getViewLifecycleOwner(), result -> {
-            if (result != null) {
+            if (result == null) return;
                 animationView.setVisibility(View.GONE);
                 companyViewModel.getResultCatalog().setValue(null);
                 if (result.size() > 0) {
@@ -365,7 +365,7 @@ public class DetailCompanyFragment extends Fragment {
                     ShowMessageWarning("هیچ کاتالوگی برای این مشتری وجود ندارد.");
 
 
-            }
+
         });
     }
 

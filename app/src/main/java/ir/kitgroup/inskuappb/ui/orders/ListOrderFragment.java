@@ -131,13 +131,13 @@ public class ListOrderFragment extends Fragment {
 
         myViewModel.getResultMessage().observe(getViewLifecycleOwner(), result -> {
 
-            if (result != null) {
+            if (result == null) return;
                 binding.progressBar.setVisibility(View.GONE);
 
                 binding.tvError320.setText(result.getDescription());
                 binding.cardError320.setVisibility(View.VISIBLE);
 
-            }
+
         });
 
         myViewModel.getResultOrder().observe(getViewLifecycleOwner(), result -> {

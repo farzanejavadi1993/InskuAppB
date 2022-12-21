@@ -196,7 +196,7 @@ public class DetailMessageFragment extends Fragment {
         });
         mainViewModel.getResultCompany().observe(getViewLifecycleOwner(), result -> {
             binding.progressCompany.setVisibility(View.GONE);
-            if (result != null) {
+            if (result == null) return;
                 mainViewModel.getResultCompany().setValue(null);
 
                 if (result.size() > 0) {
@@ -207,7 +207,7 @@ public class DetailMessageFragment extends Fragment {
                     Files.saveInTx(result.get(0).getFiles());
                     Navigation.findNavController(getView()).navigate(R.id.DetailCompanyFragment);
                 }
-            }
+
         });
     }
 

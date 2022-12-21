@@ -181,9 +181,10 @@ public class ProfileFragment extends Fragment {
 
 
         myViewModel.getResultMessage().observe(getViewLifecycleOwner(), result -> {
-            if (result != null) {
+            if (result == null)
+                return;
                 ShowMessageWarning(result.getDescription());
-            }
+
         });
 
         myViewModel.getResultFirebaseToken().observe(getViewLifecycleOwner(), result -> {

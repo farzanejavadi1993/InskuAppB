@@ -120,23 +120,24 @@ public class AllMessageFragment extends Fragment {
         }
 
         doodViewModel.getResultMessage().observe(getViewLifecycleOwner(), result -> {
-            if (result != null) {
+            if (result == null)
+                return;
                 binding.progressSearch.setVisibility(View.GONE);
                 binding.progressBar.setVisibility(View.GONE);
                 binding.progressBar22.setVisibility(View.GONE);
                 binding.tvError4.setText(result.getDescription());
                 binding.cardError4.setVisibility(View.VISIBLE);
-            }
+
         });
 
         mainViewModel.getResultMessage().observe(getViewLifecycleOwner(), result -> {
-            if (result != null) {
+            if (result == null) return;
                 binding.progressSearch.setVisibility(View.GONE);
                 binding.progressBar.setVisibility(View.GONE);
                 binding.progressBar22.setVisibility(View.GONE);
                 binding.tvError4.setText(result.getDescription());
                 binding.cardError4.setVisibility(View.VISIBLE);
-            }
+
         });
 
         doodViewModel.getResultAllMessage().observe(getViewLifecycleOwner(), result -> {

@@ -144,7 +144,8 @@ public class LauncherFragment extends Fragment {
 
         doodViewModel.getNewMessagesCount(account.getI(), Constant.APPLICATION_ID);
         doodViewModel.getResultNewMessagesCount().observe(getViewLifecycleOwner(), result -> {
-            if (result != null) {
+            if (result == null)
+                return;
                 doodViewModel.getResultAllMessage().setValue(null);
 
                 if (result > 0)
@@ -152,7 +153,7 @@ public class LauncherFragment extends Fragment {
                 else
                     ((MainActivity) getActivity()).setClearCounterOrder();
 
-            }
+
         });
 
         mainViewModel.getResultFirebaseToken().observe(getViewLifecycleOwner(), result -> {

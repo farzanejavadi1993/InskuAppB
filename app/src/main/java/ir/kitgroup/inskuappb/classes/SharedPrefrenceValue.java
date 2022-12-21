@@ -25,7 +25,7 @@ public class SharedPrefrenceValue {
     SharedPreferences sharedPreferences;
 
     @Inject
-    public SharedPrefrenceValue(SharedPreferences preferenceHelper){
+    public SharedPrefrenceValue(SharedPreferences preferenceHelper) {
         this.sharedPreferences = preferenceHelper;
 
     }
@@ -96,9 +96,16 @@ public class SharedPrefrenceValue {
             HashMap<String, ArrayList<Company>> hashMap = gson.fromJson(storeCompany, type);
 
             storeChangeCompany = hashMap.get("changeCompany");
-            company.setSave(true);
-            storeChangeCompany.add(company);
+
         }
+        else
+            storeChangeCompany = new ArrayList<>();
+
+
+        company.setSave(true);
+        storeChangeCompany.add(company);
+
+
         HashMap<String, ArrayList<Company>> hashMapStore = new HashMap<>();
         hashMapStore.put("changeCompany", storeChangeCompany);
         String storeHashMap = gson.toJson(hashMapStore);

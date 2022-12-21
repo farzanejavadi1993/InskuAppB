@@ -329,11 +329,13 @@ public class DetailAdvertiseFragment extends Fragment {
         });
 
         binding.save.setOnClickListener(view13 -> {
-            binding.save.setEnabled(false);
-            if (save)
-                mainViewModel.removeFromSavedAdvs(account.getI(), advertises.get(0).getI());
-            else
-                mainViewModel.addToSavedAdvs(account.getI(), advertises.get(0).getI());
+           if (advertises.size()>0){
+               binding.save.setEnabled(false);
+               if (save)
+                   mainViewModel.removeFromSavedAdvs(account.getI(), advertises.get(0).getI());
+               else
+                   mainViewModel.addToSavedAdvs(account.getI(), advertises.get(0).getI());
+           }
         });
 
         binding.cardLink.setOnClickListener(view18 -> {

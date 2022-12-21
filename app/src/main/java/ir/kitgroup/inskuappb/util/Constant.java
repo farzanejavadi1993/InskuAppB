@@ -30,10 +30,10 @@ import ir.kitgroup.inskuappb.model.VisitAdvertisement;
 public class Constant {
 
 
-  /* public static String Main_URL = "http://api.kitgroup.ir/api/REST/";
-   public static String Main_URL_IMAGE = "api.kitgroup.ir";
-   public static String Dood_URL = "http://api.kitgroup.ir:4466/api/REST/";
-   public static String Dood_IMAGE = "http://api.kitgroup.ir:4466";*/
+    public static String Main_URL = "http://api.kitgroup.ir/api/REST/";
+    public static String Main_URL_IMAGE = "api.kitgroup.ir";
+    public static String Dood_URL = "http://api.kitgroup.ir:4466/api/REST/";
+    public static String Dood_IMAGE = "http://api.kitgroup.ir:4466";
 
 
     /*public static String Main_URL = "http://192.168.20.63:1993/api/REST/";
@@ -42,10 +42,10 @@ public class Constant {
     public static String Dood_IMAGE = "http://api.kitgroup.ir:4466";*/
 
 
-    public static String Main_URL = "http://2.180.28.6:1993/api/REST/";
-    public static String Main_URL_IMAGE = "2.180.28.6:1993";
-    public static String Dood_URL = "http://api.kitgroup.ir:4466/api/REST/";
-    public static String Dood_IMAGE = "http://api.kitgroup.ir:4466";
+//    public static String Main_URL = "http://2.180.28.6:1993/api/REST/";
+//    public static String Main_URL_IMAGE = "2.180.28.6:1993";
+//    public static String Dood_URL = "http://api.kitgroup.ir:4466/api/REST/";
+//    public static String Dood_IMAGE = "http://api.kitgroup.ir:4466";
 
     public static String PRODUCTION_BASE_URL = "";
 

@@ -135,10 +135,10 @@ public class LoginFragment extends Fragment {
 
 
         myViewModel.getResultMessage().observe(getViewLifecycleOwner(), result -> {
-            if (result != null) {
+            if (result == null) return;
                 changeUi(View.GONE, getResources().getColor(R.color.color_primary), true);
                 ShowMessageWarning(result.getDescription());
-            }
+
         });
 
 

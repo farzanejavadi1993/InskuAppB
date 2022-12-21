@@ -102,15 +102,17 @@ public class MyCompanyFragment extends Fragment {
         if (isVisibleToUser && !LauncherFragment.fragment.equals("myCompany")) {
             if (myViewModel != null) {
 
-                companies.clear();
-                List<Company> list = getListFromSharedPrefrence();
-                if (list.size() > 0) {
-                    companies.addAll(list);
-                    binding.layoutNotFound.setVisibility(View.GONE);
-                } else
-                    binding.layoutNotFound.setVisibility(View.VISIBLE);
 
-                adapter2.notifyDataSetChanged();
+                List<Company> list = getListFromSharedPrefrence();
+
+                    companies.clear();
+                    if (list.size() > 0) {
+                        companies.addAll(list);
+                        binding.layoutNotFound.setVisibility(View.GONE);
+                    } else
+                        binding.layoutNotFound.setVisibility(View.VISIBLE);
+
+                    adapter2.notifyDataSetChanged();
             }
         }
     }

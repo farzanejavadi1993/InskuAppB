@@ -440,11 +440,12 @@ public class CatalogFragment extends Fragment implements Filterable {
         });
         myViewModel.getResultMessage().observe(getViewLifecycleOwner(), result -> {
             binding.progress.setVisibility(View.GONE);
-            if (result != null) {
+            if (result == null)
+                return;
                 binding.cardError23.setVisibility(View.VISIBLE);
                 binding.tvError23.setText(result.getDescription());
 
-            }
+
 
 
         });
