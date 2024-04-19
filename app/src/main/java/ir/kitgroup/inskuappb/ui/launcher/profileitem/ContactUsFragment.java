@@ -1,37 +1,29 @@
 package ir.kitgroup.inskuappb.ui.launcher.profileitem;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
-import es.dmoral.toasty.Toasty;
 import ir.kitgroup.inskuappb.R;
-import ir.kitgroup.inskuappb.classes.dialog.CustomSnackBar;
-import ir.kitgroup.inskuappb.classes.socialMedia.Email;
-import ir.kitgroup.inskuappb.classes.socialMedia.Instagram;
-import ir.kitgroup.inskuappb.classes.socialMedia.InstallWatsApp;
-import ir.kitgroup.inskuappb.classes.socialMedia.Telegram;
-import ir.kitgroup.inskuappb.classes.socialMedia.WebSite;
-import ir.kitgroup.inskuappb.classes.watsApp.WatsApp;
+import ir.kitgroup.inskuappb.component.dialog.CustomSnackBar;
+import ir.kitgroup.inskuappb.component.socialMedia.Email;
+import ir.kitgroup.inskuappb.component.socialMedia.InstallWatsApp;
+import ir.kitgroup.inskuappb.component.socialMedia.Telegram;
+import ir.kitgroup.inskuappb.component.socialMedia.WebSite;
+import ir.kitgroup.inskuappb.component.watsApp.WatsApp;
 import ir.kitgroup.inskuappb.databinding.ContactUsFragmentBinding;
 
 @AndroidEntryPoint

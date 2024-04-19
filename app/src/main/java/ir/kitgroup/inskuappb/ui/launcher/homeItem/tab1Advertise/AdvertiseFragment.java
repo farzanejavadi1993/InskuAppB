@@ -38,20 +38,20 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import ir.kitgroup.inskuappb.BR;
-import ir.kitgroup.inskuappb.ConnectServer.MainViewModel;
+import ir.kitgroup.inskuappb.ui.viewmodel.MainViewModel;
 import ir.kitgroup.inskuappb.R;
 import ir.kitgroup.inskuappb.adapter.SliderAdapter;
 import ir.kitgroup.inskuappb.adapter.UniversalAdapter2;
-import ir.kitgroup.inskuappb.classes.EndlessParentScrollListener;
-import ir.kitgroup.inskuappb.classes.SharedPrefrenceValue;
-import ir.kitgroup.inskuappb.classes.dialog.CustomSnackBar;
-import ir.kitgroup.inskuappb.classes.filterr.Filters;
+import ir.kitgroup.inskuappb.component.EndlessParentScrollListener;
+import ir.kitgroup.inskuappb.component.SharedPrefrenceValue;
+import ir.kitgroup.inskuappb.component.dialog.CustomSnackBar;
+import ir.kitgroup.inskuappb.component.filterr.Filters;
 import ir.kitgroup.inskuappb.dataBase.Account;
 import ir.kitgroup.inskuappb.dataBase.Company;
 import ir.kitgroup.inskuappb.dataBase.Files;
 import ir.kitgroup.inskuappb.dataBase.StoreChangeAdvertise;
 import ir.kitgroup.inskuappb.databinding.AdvertiseFragmentBinding;
-import ir.kitgroup.inskuappb.model.Advertise;
+import ir.kitgroup.inskuappb.data.model.Advertise;
 import ir.kitgroup.inskuappb.util.Constant;
 
 @AndroidEntryPoint
@@ -171,7 +171,7 @@ public class AdvertiseFragment extends Fragment {
             adapterBanner.notifyDataSetChanged();
             binding.slider.setSliderAdapter(adapterBanner);
 
-            completeSync();
+            firstSync= completeSync(bannerSync,sampleSync,vipSync);
         });
 
         mainViewModel.getResultVipAdvertisements().observe(getViewLifecycleOwner(), result -> {
@@ -186,7 +186,7 @@ public class AdvertiseFragment extends Fragment {
                 vipList.addAll(result);
 
             vipAdapter.notifyDataSetChanged();
-            completeSync();
+            firstSync =completeSync(bannerSync,sampleSync,vipSync);
 
         });
 
@@ -221,7 +221,7 @@ public class AdvertiseFragment extends Fragment {
                 simpleAdapter.notifyItemRangeInserted(oldSizeLadderList, simpleList.size() - 1);
 
             binding.progressBar22.setVisibility(View.GONE);
-            completeSync();
+            firstSync =completeSync(bannerSync,sampleSync,vipSync);;
         });
 
         mainViewModel.getResultAddMyAdvertisement().observe(getViewLifecycleOwner(), result -> {
@@ -291,7 +291,7 @@ public class AdvertiseFragment extends Fragment {
         adapterBanner = new SliderAdapter(getActivity(), bannerList);
 
         adapterBanner.setOnClickListener((advertise, position) -> {
-            NavDirections action = AdvertiseFragmentDirections.actionGoToDetailAdvertiseFragment(advertise.getI());
+            NavDirections action = ir.kitgroup.inskuappb.ui.launcher.homeItem.tab1Advertise.AdvertiseFragmentDirections.actionGoToDetailAdvertiseFragment(advertise.getI());
             Navigation.findNavController(binding.getRoot()).navigate(action);
         });
 
@@ -485,12 +485,14 @@ public class AdvertiseFragment extends Fragment {
         }
     }
 
-    private void completeSync() {
+    public boolean completeSync(boolean bannerSync,boolean sampleSync , boolean vipSync) {
+        boolean FirstSync =false ;
         if (bannerSync && sampleSync && vipSync) {
-            firstSync = true;
+            FirstSync = true;
             binding.animation.setVisibility(View.GONE);
             binding.ISwipe.refreshComplete();
         }
+        return FirstSync;
     }
     private void visibleView(){
         if (simpleList.size() > 0 && vipList.size() > 0)

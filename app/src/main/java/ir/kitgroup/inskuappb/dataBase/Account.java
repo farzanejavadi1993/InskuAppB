@@ -8,8 +8,7 @@ import com.orm.SugarRecord;
 
 import java.util.List;
 
-import ir.kitgroup.inskuappb.App;
-import ir.kitgroup.inskuappb.model.AppDetail;
+import ir.kitgroup.inskuappb.data.model.AppDetail;
 
 @Keep
 public class Account extends SugarRecord {

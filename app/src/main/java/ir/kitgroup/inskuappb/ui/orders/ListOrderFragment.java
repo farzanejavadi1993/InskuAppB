@@ -20,11 +20,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import ir.kitgroup.inskuappb.BR;
-import ir.kitgroup.inskuappb.ConnectServer.CompanyViewModel;
-import ir.kitgroup.inskuappb.ConnectServer.MainViewModel;
+import ir.kitgroup.inskuappb.ui.viewmodel.CompanyViewModel;
 import ir.kitgroup.inskuappb.R;
 import ir.kitgroup.inskuappb.adapter.UniversalAdapter2;
-import ir.kitgroup.inskuappb.classes.dialog.CustomSnackBar;
+import ir.kitgroup.inskuappb.component.dialog.CustomSnackBar;
 import ir.kitgroup.inskuappb.dataBase.Account;
 import ir.kitgroup.inskuappb.dataBase.Company;
 import ir.kitgroup.inskuappb.dataBase.Ord;

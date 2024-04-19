@@ -7,7 +7,7 @@
 
         <variable
             name="detailMessage"
-            type="ir.kitgroup.inskuappb.model.Messages" />
+            type="ir.kitgroup.inskuappb.data.model.Messages" />
     </data>
 
     <RelativeLayout

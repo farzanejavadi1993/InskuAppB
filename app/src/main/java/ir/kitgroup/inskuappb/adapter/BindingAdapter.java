@@ -8,20 +8,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.Key;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.orm.query.Select;
 import com.squareup.picasso.Picasso;
 
-import java.security.MessageDigest;
 import java.text.DecimalFormat;
 
-import ir.kitgroup.inskuappb.App;
 import ir.kitgroup.inskuappb.R;
 import ir.kitgroup.inskuappb.dataBase.Company;
 import ir.kitgroup.inskuappb.ui.launcher.homeItem.LauncherFragment;

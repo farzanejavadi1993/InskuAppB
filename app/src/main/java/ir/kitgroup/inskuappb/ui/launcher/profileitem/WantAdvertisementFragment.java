@@ -24,13 +24,13 @@ import java.util.ArrayList;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import ir.kitgroup.inskuappb.BR;
-import ir.kitgroup.inskuappb.ConnectServer.MainViewModel;
+import ir.kitgroup.inskuappb.ui.viewmodel.MainViewModel;
 import ir.kitgroup.inskuappb.R;
 import ir.kitgroup.inskuappb.adapter.UniversalAdapter2;
-import ir.kitgroup.inskuappb.classes.dialog.CustomSnackBar;
+import ir.kitgroup.inskuappb.component.dialog.CustomSnackBar;
 import ir.kitgroup.inskuappb.dataBase.Account;
 import ir.kitgroup.inskuappb.databinding.WantAdvertisementFragmentBinding;
-import ir.kitgroup.inskuappb.model.WantAdvertisement;
+import ir.kitgroup.inskuappb.data.model.WantAdvertisement;
 import ir.kitgroup.inskuappb.ui.launcher.homeItem.tab1Advertise.AdvertiseFragmentDirections;
 
 @AndroidEntryPoint

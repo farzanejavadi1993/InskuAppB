@@ -7,7 +7,7 @@
 
         <variable
             name="wantAdv"
-            type="ir.kitgroup.inskuappb.model.WantAdvertisement" />
+            type="ir.kitgroup.inskuappb.data.model.WantAdvertisement" />
     </data>
 
     <RelativeLayout

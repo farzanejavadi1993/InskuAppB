@@ -6,7 +6,7 @@
     <data>
         <variable
             name="catalogPage"
-            type="ir.kitgroup.inskuappb.model.ModelCatalogPage" />
+            type="ir.kitgroup.inskuappb.data.model.ModelCatalogPage" />
     </data>
     <RelativeLayout
         android:layout_marginRight="10dp"

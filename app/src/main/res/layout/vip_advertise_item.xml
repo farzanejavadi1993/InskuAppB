@@ -7,7 +7,7 @@
 
         <variable
             name="vip"
-            type="ir.kitgroup.inskuappb.model.Advertise" />
+            type="ir.kitgroup.inskuappb.data.model.Advertise" />
     </data>
 
     <LinearLayout

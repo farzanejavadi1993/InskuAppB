@@ -34,18 +34,18 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import ir.kitgroup.inskuappb.BR;
-import ir.kitgroup.inskuappb.ConnectServer.MainViewModel;
+import ir.kitgroup.inskuappb.ui.launcher.homeItem.LauncherFragment;
+import ir.kitgroup.inskuappb.ui.viewmodel.MainViewModel;
 import ir.kitgroup.inskuappb.R;
 import ir.kitgroup.inskuappb.adapter.UniversalAdapter2;
-import ir.kitgroup.inskuappb.classes.CustomDialogOpenWith;
-import ir.kitgroup.inskuappb.classes.dialog.CustomSnackBar;
-import ir.kitgroup.inskuappb.classes.itent.OpenWith;
-import ir.kitgroup.inskuappb.classes.pdf.PdfTools;
+import ir.kitgroup.inskuappb.component.CustomDialogOpenWith;
+import ir.kitgroup.inskuappb.component.dialog.CustomSnackBar;
+import ir.kitgroup.inskuappb.component.itent.OpenWith;
+import ir.kitgroup.inskuappb.component.pdf.PdfTools;
 import ir.kitgroup.inskuappb.dataBase.Account;
 import ir.kitgroup.inskuappb.dataBase.Company;
 import ir.kitgroup.inskuappb.dataBase.Files;
 import ir.kitgroup.inskuappb.databinding.MyCompanyFragmentBinding;
-import ir.kitgroup.inskuappb.ui.launcher.homeItem.LauncherFragment;
 import ir.kitgroup.inskuappb.util.Constant;
 
 @AndroidEntryPoint

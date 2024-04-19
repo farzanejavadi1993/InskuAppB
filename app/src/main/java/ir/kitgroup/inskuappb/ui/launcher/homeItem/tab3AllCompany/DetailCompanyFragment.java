@@ -42,33 +42,34 @@ import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import ir.kitgroup.inskuappb.BR;
-import ir.kitgroup.inskuappb.ConnectServer.CompanyViewModel;
-import ir.kitgroup.inskuappb.ConnectServer.ConnectToServer;
-import ir.kitgroup.inskuappb.ConnectServer.HostSelectionInterceptor;
-import ir.kitgroup.inskuappb.ConnectServer.MainViewModel;
+import ir.kitgroup.inskuappb.ui.launcher.homeItem.tab3AllCompany.DetailCompanyFragmentDirections;
+import ir.kitgroup.inskuappb.ui.viewmodel.CompanyViewModel;
+import ir.kitgroup.inskuappb.component.connect.ConnectToServer;
+import ir.kitgroup.inskuappb.component.connect.HostSelectionInterceptor;
+import ir.kitgroup.inskuappb.ui.viewmodel.MainViewModel;
 import ir.kitgroup.inskuappb.R;
 
 import ir.kitgroup.inskuappb.adapter.SliderImageAdapter;
 import ir.kitgroup.inskuappb.adapter.UniversalAdapter2;
-import ir.kitgroup.inskuappb.classes.CustomOrderDialog;
-import ir.kitgroup.inskuappb.classes.CustomRecycleDialog;
-import ir.kitgroup.inskuappb.classes.SliderImage;
-import ir.kitgroup.inskuappb.classes.dialog.CustomSnackBar;
-import ir.kitgroup.inskuappb.classes.pdf.PdfTools;
-import ir.kitgroup.inskuappb.classes.socialMedia.Email;
-import ir.kitgroup.inskuappb.classes.socialMedia.Instagram;
-import ir.kitgroup.inskuappb.classes.socialMedia.InstallWatsApp;
-import ir.kitgroup.inskuappb.classes.socialMedia.Telegram;
-import ir.kitgroup.inskuappb.classes.socialMedia.WebSite;
-import ir.kitgroup.inskuappb.classes.watsApp.WatsApp;
+import ir.kitgroup.inskuappb.component.CustomOrderDialog;
+import ir.kitgroup.inskuappb.component.CustomRecycleDialog;
+import ir.kitgroup.inskuappb.component.SliderImage;
+import ir.kitgroup.inskuappb.component.dialog.CustomSnackBar;
+import ir.kitgroup.inskuappb.component.pdf.PdfTools;
+import ir.kitgroup.inskuappb.component.socialMedia.Email;
+import ir.kitgroup.inskuappb.component.socialMedia.Instagram;
+import ir.kitgroup.inskuappb.component.socialMedia.InstallWatsApp;
+import ir.kitgroup.inskuappb.component.socialMedia.Telegram;
+import ir.kitgroup.inskuappb.component.socialMedia.WebSite;
+import ir.kitgroup.inskuappb.component.watsApp.WatsApp;
 import ir.kitgroup.inskuappb.dataBase.Account;
 import ir.kitgroup.inskuappb.dataBase.Company;
 import ir.kitgroup.inskuappb.dataBase.Customer;
 import ir.kitgroup.inskuappb.dataBase.Files;
 import ir.kitgroup.inskuappb.dataBase.ModelCatalog;
 import ir.kitgroup.inskuappb.databinding.DetailCompanyFragmentBinding;
-import ir.kitgroup.inskuappb.model.CustomerCatalog;
-import ir.kitgroup.inskuappb.model.ModelSetting;
+import ir.kitgroup.inskuappb.data.model.CustomerCatalog;
+import ir.kitgroup.inskuappb.data.model.ModelSetting;
 import ir.kitgroup.inskuappb.util.Constant;
 
 
@@ -606,7 +607,7 @@ public class DetailCompanyFragment extends Fragment {
         });
         binding.cardOrder.setOnClickListener(view13 -> {
             Customer.deleteAll(Customer.class);
-            NavDirections action = DetailCompanyFragmentDirections.actionGoToListOrderFragment();
+            NavDirections action = ir.kitgroup.inskuappb.ui.launcher.homeItem.tab3AllCompany.DetailCompanyFragmentDirections.actionGoToListOrderFragment();
             Navigation.findNavController(binding.getRoot()).navigate(action);
         });
         binding.cardGift.setOnClickListener(view14 -> {

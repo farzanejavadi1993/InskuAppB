@@ -24,13 +24,14 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import es.dmoral.toasty.Toasty;
-import ir.kitgroup.inskuappb.ConnectServer.MainViewModel;
+import ir.kitgroup.inskuappb.ui.launcher.profileitem.ProfileFragmentDirections;
+import ir.kitgroup.inskuappb.ui.viewmodel.MainViewModel;
 
 import ir.kitgroup.inskuappb.R;
-import ir.kitgroup.inskuappb.classes.CustomDialog;
+import ir.kitgroup.inskuappb.component.CustomDialog;
 
-import ir.kitgroup.inskuappb.classes.dialog.CustomSnackBar;
-import ir.kitgroup.inskuappb.classes.share.ShareApp;
+import ir.kitgroup.inskuappb.component.dialog.CustomSnackBar;
+import ir.kitgroup.inskuappb.component.share.ShareApp;
 import ir.kitgroup.inskuappb.dataBase.Account;
 import ir.kitgroup.inskuappb.dataBase.BusinessR;
 import ir.kitgroup.inskuappb.dataBase.City;
@@ -131,7 +132,7 @@ public class ProfileFragment extends Fragment {
         });
 
         binding.detailProfile.setOnClickListener(view14 -> {
-            NavDirections action =  ProfileFragmentDirections.actionGoToFilterFragment("","profile");
+            NavDirections action =  ir.kitgroup.inskuappb.ui.launcher.profileitem.ProfileFragmentDirections.actionGoToFilterFragment("","profile");
             Navigation.findNavController(binding.getRoot()).navigate(action);
         });
 
@@ -181,8 +182,9 @@ public class ProfileFragment extends Fragment {
 
 
         myViewModel.getResultMessage().observe(getViewLifecycleOwner(), result -> {
-            if (result == null)
+            if (result == null) {
                 return;
+            }
                 ShowMessageWarning(result.getDescription());
 
         });

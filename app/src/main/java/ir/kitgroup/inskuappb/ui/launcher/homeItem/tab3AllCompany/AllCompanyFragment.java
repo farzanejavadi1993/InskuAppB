@@ -26,23 +26,23 @@ import org.apache.commons.collections4.CollectionUtils;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import ir.kitgroup.inskuappb.BR;
-import ir.kitgroup.inskuappb.ConnectServer.MainViewModel;
+import ir.kitgroup.inskuappb.databinding.AllCompanyFragmentBinding;
+import ir.kitgroup.inskuappb.ui.launcher.homeItem.LauncherFragment;
+import ir.kitgroup.inskuappb.ui.viewmodel.MainViewModel;
 
-import ir.kitgroup.inskuappb.classes.CustomDialogOpenWith;
-import ir.kitgroup.inskuappb.classes.EndlessParentScrollListener;
-import ir.kitgroup.inskuappb.classes.SharedPrefrenceValue;
-import ir.kitgroup.inskuappb.classes.dialog.CustomSnackBar;
-import ir.kitgroup.inskuappb.classes.share.ShareCompany;
-import ir.kitgroup.inskuappb.classes.filterr.Filters;
-import ir.kitgroup.inskuappb.classes.itent.OpenWith;
-import ir.kitgroup.inskuappb.classes.pdf.PdfTools;
+import ir.kitgroup.inskuappb.component.CustomDialogOpenWith;
+import ir.kitgroup.inskuappb.component.EndlessParentScrollListener;
+import ir.kitgroup.inskuappb.component.SharedPrefrenceValue;
+import ir.kitgroup.inskuappb.component.dialog.CustomSnackBar;
+import ir.kitgroup.inskuappb.component.share.ShareCompany;
+import ir.kitgroup.inskuappb.component.filterr.Filters;
+import ir.kitgroup.inskuappb.component.itent.OpenWith;
+import ir.kitgroup.inskuappb.component.pdf.PdfTools;
 import ir.kitgroup.inskuappb.dataBase.Account;
 import ir.kitgroup.inskuappb.dataBase.Company;
 import ir.kitgroup.inskuappb.R;
 import ir.kitgroup.inskuappb.adapter.UniversalAdapter2;
 import ir.kitgroup.inskuappb.dataBase.Files;
-import ir.kitgroup.inskuappb.databinding.AllCompanyFragmentBinding;
-import ir.kitgroup.inskuappb.ui.launcher.homeItem.LauncherFragment;
 import ir.kitgroup.inskuappb.util.Constant;
 
 import java.util.ArrayList;

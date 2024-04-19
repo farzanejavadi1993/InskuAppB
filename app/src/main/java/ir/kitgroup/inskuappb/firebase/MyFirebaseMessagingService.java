@@ -22,11 +22,8 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Random;
 
-import javax.inject.Inject;
-
-import dagger.hilt.android.AndroidEntryPoint;
 import ir.kitgroup.inskuappb.R;
-import ir.kitgroup.inskuappb.activities.MainActivity;
+import ir.kitgroup.inskuappb.ui.activities.MainActivity;
 
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {

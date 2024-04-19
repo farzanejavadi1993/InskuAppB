@@ -6,7 +6,7 @@
     <data>
         <variable
             name="simple"
-            type="ir.kitgroup.inskuappb.model.Advertise" />
+            type="ir.kitgroup.inskuappb.data.model.Advertise" />
     </data>
 
 

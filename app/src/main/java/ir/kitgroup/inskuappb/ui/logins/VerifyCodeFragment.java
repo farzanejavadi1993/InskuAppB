@@ -34,17 +34,17 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
-import ir.kitgroup.inskuappb.ConnectServer.MainViewModel;
+import ir.kitgroup.inskuappb.ui.viewmodel.MainViewModel;
 import ir.kitgroup.inskuappb.R;
-import ir.kitgroup.inskuappb.classes.CustomDialog;
+import ir.kitgroup.inskuappb.component.CustomDialog;
 
-import ir.kitgroup.inskuappb.classes.dialog.CustomSnackBar;
+import ir.kitgroup.inskuappb.component.dialog.CustomSnackBar;
 import ir.kitgroup.inskuappb.dataBase.Account;
 
 import ir.kitgroup.inskuappb.dataBase.Guild;
 import ir.kitgroup.inskuappb.dataBase.State;
 import ir.kitgroup.inskuappb.databinding.VerifyCodeFragmentBinding;
-import ir.kitgroup.inskuappb.model.AppDetail;
+import ir.kitgroup.inskuappb.data.model.AppDetail;
 import ir.kitgroup.inskuappb.service.AppSMSBroadcastReceiver;
 import ir.kitgroup.inskuappb.util.Constant;
 

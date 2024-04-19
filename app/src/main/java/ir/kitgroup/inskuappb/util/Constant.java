@@ -24,8 +24,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ir.kitgroup.inskuappb.classes.CustomTypefaceSpan;
-import ir.kitgroup.inskuappb.model.VisitAdvertisement;
+import ir.kitgroup.inskuappb.component.CustomTypefaceSpan;
+import ir.kitgroup.inskuappb.data.model.VisitAdvertisement;
 
 public class Constant {
 

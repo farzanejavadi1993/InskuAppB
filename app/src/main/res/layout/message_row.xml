@@ -6,7 +6,7 @@
     <data>
         <variable
             name="message"
-            type="ir.kitgroup.inskuappb.model.CompanyMessage" />
+            type="ir.kitgroup.inskuappb.data.model.CompanyMessage" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

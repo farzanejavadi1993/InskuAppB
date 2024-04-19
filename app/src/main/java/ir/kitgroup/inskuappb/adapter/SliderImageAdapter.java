@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ir.kitgroup.inskuappb.R;
-import ir.kitgroup.inskuappb.classes.SliderImage;
+import ir.kitgroup.inskuappb.component.SliderImage;
 
 public class SliderImageAdapter extends SliderViewAdapter<SliderImageAdapter.SliderAdapterViewHolder> {
 

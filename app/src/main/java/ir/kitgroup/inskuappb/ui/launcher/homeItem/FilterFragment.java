@@ -19,7 +19,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
@@ -39,15 +38,15 @@ import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 import es.dmoral.toasty.Toasty;
 import ir.kitgroup.inskuappb.BR;
-import ir.kitgroup.inskuappb.ConnectServer.MainViewModel;
+import ir.kitgroup.inskuappb.ui.viewmodel.MainViewModel;
 import ir.kitgroup.inskuappb.R;
 import ir.kitgroup.inskuappb.adapter.UniversalAdapter2;
 
 
-import ir.kitgroup.inskuappb.classes.AccountFilter;
-import ir.kitgroup.inskuappb.classes.CreateCityDialog;
+import ir.kitgroup.inskuappb.component.AccountFilter;
+import ir.kitgroup.inskuappb.component.CreateCityDialog;
 
-import ir.kitgroup.inskuappb.classes.dialog.CustomSnackBar;
+import ir.kitgroup.inskuappb.component.dialog.CustomSnackBar;
 
 
 import ir.kitgroup.inskuappb.dataBase.Account;
@@ -380,7 +379,7 @@ public class FilterFragment extends Fragment implements Filterable {
                     Toasty.success(getActivity(), "اطلاعات شما با موفقیت بروز رسانی شد", Toast.LENGTH_SHORT).show();
                     Navigation.findNavController(binding.getRoot()).popBackStack();
                 } else {
-                    NavDirections action = FilterFragmentDirections.actionGoToHomeFragment();
+                    NavDirections action = ir.kitgroup.inskuappb.ui.launcher.homeItem.FilterFragmentDirections.actionGoToHomeFragment();
                     Navigation.findNavController(binding.getRoot()).navigate(action);
                 }
 
@@ -942,7 +941,7 @@ public class FilterFragment extends Fragment implements Filterable {
     }
 
     private void getBundle() {
-        phoneNumber = FilterFragmentArgs.fromBundle(getArguments()).getPhoneNumber();
+        phoneNumber = ir.kitgroup.inskuappb.ui.launcher.homeItem.FilterFragmentArgs.fromBundle(getArguments()).getPhoneNumber();
         from = FilterFragmentArgs.fromBundle(getArguments()).getFrom();
 
         if (!from.equals("home")) {

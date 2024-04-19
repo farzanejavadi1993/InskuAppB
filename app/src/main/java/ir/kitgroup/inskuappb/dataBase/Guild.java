@@ -15,7 +15,9 @@ public class Guild extends SugarRecord {
     private String name;
 
 
-    public boolean isSave() {
+
+
+        public boolean isSave() {
         return save;
     }
 

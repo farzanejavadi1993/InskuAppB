@@ -35,19 +35,19 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import ir.kitgroup.inskuappb.BR;
-import ir.kitgroup.inskuappb.ConnectServer.MainViewModel;
+import ir.kitgroup.inskuappb.ui.viewmodel.MainViewModel;
 import ir.kitgroup.inskuappb.R;
 import ir.kitgroup.inskuappb.adapter.UniversalAdapter2;
-import ir.kitgroup.inskuappb.classes.EndlessParentScrollListener;
-import ir.kitgroup.inskuappb.classes.SharedPrefrenceValue;
-import ir.kitgroup.inskuappb.classes.dialog.CustomSnackBar;
-import ir.kitgroup.inskuappb.classes.filterr.Filters;
+import ir.kitgroup.inskuappb.component.EndlessParentScrollListener;
+import ir.kitgroup.inskuappb.component.SharedPrefrenceValue;
+import ir.kitgroup.inskuappb.component.dialog.CustomSnackBar;
+import ir.kitgroup.inskuappb.component.filterr.Filters;
 import ir.kitgroup.inskuappb.dataBase.Account;
 import ir.kitgroup.inskuappb.dataBase.Company;
 import ir.kitgroup.inskuappb.dataBase.Files;
 import ir.kitgroup.inskuappb.dataBase.StoreChangeAdvertise;
 import ir.kitgroup.inskuappb.databinding.SearchAdvertiseFragmentBinding;
-import ir.kitgroup.inskuappb.model.Advertise;
+import ir.kitgroup.inskuappb.data.model.Advertise;
 import ir.kitgroup.inskuappb.util.Constant;
 
 @AndroidEntryPoint

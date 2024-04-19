@@ -5,8 +5,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -14,12 +12,7 @@ import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-
-import ir.kitgroup.inskuappb.dataBase.City;
-import ir.kitgroup.inskuappb.dataBase.Guild;
-import ir.kitgroup.inskuappb.model.Message;
 
 public class UniversalAdapter2 extends RecyclerView.Adapter<UniversalAdapter2.MyHolder> {
 

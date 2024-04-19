@@ -38,21 +38,22 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import ir.kitgroup.inskuappb.BR;
-import ir.kitgroup.inskuappb.ConnectServer.DoodViewModel;
-import ir.kitgroup.inskuappb.ConnectServer.MainViewModel;
+import ir.kitgroup.inskuappb.ui.launcher.messageItem.DetailMessageFragmentArgs;
+import ir.kitgroup.inskuappb.ui.viewmodel.DoodViewModel;
+import ir.kitgroup.inskuappb.ui.viewmodel.MainViewModel;
 import ir.kitgroup.inskuappb.R;
 import ir.kitgroup.inskuappb.adapter.UniversalAdapter2;
-import ir.kitgroup.inskuappb.classes.CustomDialog;
-import ir.kitgroup.inskuappb.classes.EndlessParentScrollListener;
-import ir.kitgroup.inskuappb.classes.dialog.CustomSnackBar;
-import ir.kitgroup.inskuappb.classes.dialog.PictureDialog;
+import ir.kitgroup.inskuappb.component.CustomDialog;
+import ir.kitgroup.inskuappb.component.EndlessParentScrollListener;
+import ir.kitgroup.inskuappb.component.dialog.CustomSnackBar;
+import ir.kitgroup.inskuappb.component.dialog.PictureDialog;
 import ir.kitgroup.inskuappb.dataBase.Account;
 import ir.kitgroup.inskuappb.dataBase.Company;
 import ir.kitgroup.inskuappb.dataBase.Files;
 import ir.kitgroup.inskuappb.databinding.DetailMessageFragmentBinding;
 
-import ir.kitgroup.inskuappb.model.Messages;
-import ir.kitgroup.inskuappb.model.Survey;
+import ir.kitgroup.inskuappb.data.model.Messages;
+import ir.kitgroup.inskuappb.data.model.Survey;
 import ir.kitgroup.inskuappb.util.Constant;
 
 
@@ -237,7 +238,7 @@ public class DetailMessageFragment extends Fragment {
     }
 
     private void getBundle() {
-        companyGuid = DetailMessageFragmentArgs.fromBundle(getArguments()).getGID();
+        companyGuid = ir.kitgroup.inskuappb.ui.launcher.messageItem.DetailMessageFragmentArgs.fromBundle(getArguments()).getGID();
         companyName = DetailMessageFragmentArgs.fromBundle(getArguments()).getName();
     }
 

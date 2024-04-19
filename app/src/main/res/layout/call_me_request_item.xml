@@ -7,7 +7,7 @@
 
         <variable
             name="callMe"
-            type="ir.kitgroup.inskuappb.model.CallMe" />
+            type="ir.kitgroup.inskuappb.data.model.CallMe" />
     </data>
 
     <RelativeLayout

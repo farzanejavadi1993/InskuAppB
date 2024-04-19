@@ -21,15 +21,15 @@ import java.util.ArrayList;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import ir.kitgroup.inskuappb.BR;
-import ir.kitgroup.inskuappb.ConnectServer.MainViewModel;
+import ir.kitgroup.inskuappb.ui.viewmodel.MainViewModel;
 import ir.kitgroup.inskuappb.R;
 import ir.kitgroup.inskuappb.adapter.UniversalAdapter2;
-import ir.kitgroup.inskuappb.classes.dialog.CustomSnackBar;
+import ir.kitgroup.inskuappb.component.dialog.CustomSnackBar;
 import ir.kitgroup.inskuappb.dataBase.Account;
 import ir.kitgroup.inskuappb.dataBase.Company;
 import ir.kitgroup.inskuappb.dataBase.Files;
 import ir.kitgroup.inskuappb.databinding.CallMeRequsetFragmentBinding;
-import ir.kitgroup.inskuappb.model.CallMe;
+import ir.kitgroup.inskuappb.data.model.CallMe;
 
 @AndroidEntryPoint
 public class CallMeRequsetFragment extends Fragment {

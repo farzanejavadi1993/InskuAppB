@@ -98,7 +98,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <ir.kitgroup.inskuappb.classes.OtpEditText
+                        <ir.kitgroup.inskuappb.component.OtpEditText
                             android:id="@+id/et_otp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

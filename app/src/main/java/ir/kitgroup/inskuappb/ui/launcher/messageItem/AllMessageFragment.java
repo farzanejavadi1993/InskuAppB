@@ -30,15 +30,15 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import ir.kitgroup.inskuappb.BR;
-import ir.kitgroup.inskuappb.ConnectServer.DoodViewModel;
-import ir.kitgroup.inskuappb.ConnectServer.MainViewModel;
-import ir.kitgroup.inskuappb.R;
-import ir.kitgroup.inskuappb.activities.MainActivity;
-import ir.kitgroup.inskuappb.adapter.UniversalAdapter2;
-import ir.kitgroup.inskuappb.classes.EndlessParentScrollListener;
-import ir.kitgroup.inskuappb.dataBase.Account;
 import ir.kitgroup.inskuappb.databinding.AllCompanyMessageBinding;
-import ir.kitgroup.inskuappb.model.CompanyMessage;
+import ir.kitgroup.inskuappb.ui.viewmodel.DoodViewModel;
+import ir.kitgroup.inskuappb.ui.viewmodel.MainViewModel;
+import ir.kitgroup.inskuappb.R;
+import ir.kitgroup.inskuappb.ui.activities.MainActivity;
+import ir.kitgroup.inskuappb.adapter.UniversalAdapter2;
+import ir.kitgroup.inskuappb.component.EndlessParentScrollListener;
+import ir.kitgroup.inskuappb.dataBase.Account;
+import ir.kitgroup.inskuappb.data.model.CompanyMessage;
 
 
 import ir.kitgroup.inskuappb.util.Constant;
@@ -120,8 +120,9 @@ public class AllMessageFragment extends Fragment {
         }
 
         doodViewModel.getResultMessage().observe(getViewLifecycleOwner(), result -> {
-            if (result == null)
+            if (result == null) {
                 return;
+            }
                 binding.progressSearch.setVisibility(View.GONE);
                 binding.progressBar.setVisibility(View.GONE);
                 binding.progressBar22.setVisibility(View.GONE);

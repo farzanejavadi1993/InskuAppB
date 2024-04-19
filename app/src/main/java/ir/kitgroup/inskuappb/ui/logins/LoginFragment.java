@@ -25,12 +25,12 @@ import java.util.Random;
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
-import ir.kitgroup.inskuappb.ConnectServer.MainViewModel;
+import ir.kitgroup.inskuappb.ui.viewmodel.MainViewModel;
 import ir.kitgroup.inskuappb.R;
 
-import ir.kitgroup.inskuappb.classes.dialog.CustomSnackBar;
+import ir.kitgroup.inskuappb.component.dialog.CustomSnackBar;
 
-import ir.kitgroup.inskuappb.classes.verify.VerifyMobileNumber;
+import ir.kitgroup.inskuappb.component.verify.VerifyMobileNumber;
 import ir.kitgroup.inskuappb.databinding.LoginFragmentBinding;
 import ir.kitgroup.inskuappb.util.Constant;
 
@@ -135,7 +135,9 @@ public class LoginFragment extends Fragment {
 
 
         myViewModel.getResultMessage().observe(getViewLifecycleOwner(), result -> {
-            if (result == null) return;
+            if (result == null) {
+                return;
+            }
                 changeUi(View.GONE, getResources().getColor(R.color.color_primary), true);
                 ShowMessageWarning(result.getDescription());
 

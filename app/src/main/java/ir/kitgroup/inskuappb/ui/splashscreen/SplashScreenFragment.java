@@ -29,9 +29,9 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import es.dmoral.toasty.Toasty;
-import ir.kitgroup.inskuappb.ConnectServer.MainViewModel;
-import ir.kitgroup.inskuappb.classes.CustomDialog;
-import ir.kitgroup.inskuappb.classes.dialog.ErrorDialog;
+import ir.kitgroup.inskuappb.ui.viewmodel.MainViewModel;
+import ir.kitgroup.inskuappb.component.CustomDialog;
+import ir.kitgroup.inskuappb.component.dialog.ErrorDialog;
 import ir.kitgroup.inskuappb.dataBase.Account;
 import ir.kitgroup.inskuappb.dataBase.BusinessR;
 import ir.kitgroup.inskuappb.dataBase.City;
@@ -45,7 +45,7 @@ import ir.kitgroup.inskuappb.dataBase.Ord;
 import ir.kitgroup.inskuappb.dataBase.OrdDetail;
 import ir.kitgroup.inskuappb.dataBase.State;
 import ir.kitgroup.inskuappb.databinding.SplashScreenFragmentBinding;
-import ir.kitgroup.inskuappb.model.AppDetail;
+import ir.kitgroup.inskuappb.data.model.AppDetail;
 import ir.kitgroup.inskuappb.util.Constant;
 
 @SuppressLint("CustomSplashScreen")
@@ -160,10 +160,7 @@ public class SplashScreenFragment extends Fragment {
 
                     //region Save the user's State and guild in the mobile database to apply the filter in the application
                     if (Select.from(Guild.class).list().size() == 0 && Apps.get(0).getGuildId() != null) {
-                        Guild guild = new Guild();
-                        guild.setI(Apps.get(0).getGuildId());
-                        guild.setName(Apps.get(0).getGuildName());
-                        Guild.saveInTx(guild);
+                     insertGuild(Apps.get(0).getGuildId() , Apps.get(0).getGuildName());
                     } else if (Apps.get(0).getGuildId() == null)
                         Guild.deleteAll(Guild.class);
 
@@ -247,7 +244,7 @@ public class SplashScreenFragment extends Fragment {
                 .apply();
     }
 
-    private void checkUpdate() {
+    public void checkUpdate() {
         Account account = Select.from(Account.class).first();
 
         if (forcedUpdate && !newVersion.equals("") && !appVersion.equals(newVersion)) {
@@ -366,6 +363,22 @@ public class SplashScreenFragment extends Fragment {
     }
 
 
+
+    private void insertGuild(String i , String name){
+        Guild guild = new Guild();
+        guild.setI(i);
+        guild.setName(name);
+        Guild.saveInTx(guild);
+    }
+
+
+        public boolean UserManager(String i , String name) {
+            Guild guild = new Guild();
+            guild.setI(i);
+            guild.setName(name);
+            Guild.saveInTx(guild);
+            return guild.isSave();
+        }
 
 
 

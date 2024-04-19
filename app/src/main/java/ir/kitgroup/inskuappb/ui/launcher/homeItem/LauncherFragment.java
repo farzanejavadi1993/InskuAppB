@@ -23,14 +23,14 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.orm.query.Select;
 
 import dagger.hilt.android.AndroidEntryPoint;
-import ir.kitgroup.inskuappb.ConnectServer.DoodViewModel;
-import ir.kitgroup.inskuappb.ConnectServer.MainViewModel;
-import ir.kitgroup.inskuappb.R;
-import ir.kitgroup.inskuappb.activities.MainActivity;
-import ir.kitgroup.inskuappb.classes.filterr.Filters;
-import ir.kitgroup.inskuappb.dataBase.Account;
 import ir.kitgroup.inskuappb.databinding.HomeFragmentBinding;
 import ir.kitgroup.inskuappb.ui.launcher.homeItem.tab1Advertise.AdvertiseFragment;
+import ir.kitgroup.inskuappb.ui.viewmodel.DoodViewModel;
+import ir.kitgroup.inskuappb.ui.viewmodel.MainViewModel;
+import ir.kitgroup.inskuappb.R;
+import ir.kitgroup.inskuappb.ui.activities.MainActivity;
+import ir.kitgroup.inskuappb.component.filterr.Filters;
+import ir.kitgroup.inskuappb.dataBase.Account;
 import ir.kitgroup.inskuappb.ui.launcher.homeItem.tab2Saved.MyCompanyFragment;
 import ir.kitgroup.inskuappb.ui.launcher.homeItem.tab3AllCompany.AllCompanyFragment;
 
@@ -114,7 +114,7 @@ public class LauncherFragment extends Fragment {
 
 
             binding.filter.setOnClickListener(view1 -> {
-                NavDirections action =  LauncherFragmentDirections.actionGoToFilterFragment("","home");
+                NavDirections action =  ir.kitgroup.inskuappb.ui.launcher.homeItem.LauncherFragmentDirections.actionGoToFilterFragment("","home");
                 Navigation.findNavController(binding.getRoot()).navigate(action);
             });
 
@@ -144,8 +144,9 @@ public class LauncherFragment extends Fragment {
 
         doodViewModel.getNewMessagesCount(account.getI(), Constant.APPLICATION_ID);
         doodViewModel.getResultNewMessagesCount().observe(getViewLifecycleOwner(), result -> {
-            if (result == null)
+            if (result == null) {
                 return;
+            }
                 doodViewModel.getResultAllMessage().setValue(null);
 
                 if (result > 0)

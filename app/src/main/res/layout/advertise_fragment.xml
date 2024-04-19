@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ir.kitgroup.inskuappb.classes.refreshLayout.CustomSwipeRefreshLayout
+    <ir.kitgroup.inskuappb.component.refreshLayout.CustomSwipeRefreshLayout
         xmlns:swiperefresh="http://schemas.android.com/apk/res-auto"
         android:id="@+id/ISwipe"
         android:layout_width="match_parent"
@@ -199,5 +199,5 @@
 
 
         </RelativeLayout>
-    </ir.kitgroup.inskuappb.classes.refreshLayout.CustomSwipeRefreshLayout>
+    </ir.kitgroup.inskuappb.component.refreshLayout.CustomSwipeRefreshLayout>
 </layout>

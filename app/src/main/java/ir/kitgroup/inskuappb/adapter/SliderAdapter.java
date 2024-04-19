@@ -14,7 +14,7 @@ import com.smarteist.autoimageslider.SliderViewAdapter;
 import java.util.ArrayList;
 import java.util.List;
 import ir.kitgroup.inskuappb.R;
-import ir.kitgroup.inskuappb.model.Advertise;
+import ir.kitgroup.inskuappb.data.model.Advertise;
 import ir.kitgroup.inskuappb.util.Constant;
 
 public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapterViewHolder> {

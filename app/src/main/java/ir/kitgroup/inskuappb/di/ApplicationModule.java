@@ -19,11 +19,13 @@ import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.android.qualifiers.ApplicationContext;
 import dagger.hilt.components.SingletonComponent;
-import ir.kitgroup.inskuappb.ConnectServer.APICompany;
-import ir.kitgroup.inskuappb.ConnectServer.APIDood;
-import ir.kitgroup.inskuappb.ConnectServer.APIMain;
-import ir.kitgroup.inskuappb.ConnectServer.HostSelectionInterceptor;
-import ir.kitgroup.inskuappb.classes.SharedPrefrenceValue;
+import ir.kitgroup.inskuappb.data.api.APICompany;
+import ir.kitgroup.inskuappb.data.api.APIDood;
+import ir.kitgroup.inskuappb.data.api.APIMain;
+import ir.kitgroup.inskuappb.component.connect.HostSelectionInterceptor;
+import ir.kitgroup.inskuappb.component.SharedPrefrenceValue;
+import ir.kitgroup.inskuappb.repository.companyrepository.CRepository;
+import ir.kitgroup.inskuappb.repository.companyrepository.CompanyRepository;
 import ir.kitgroup.inskuappb.util.Constant;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
@@ -174,4 +176,21 @@ public class ApplicationModule {
     public APICompany provideAPICompany(@Named("Company") Retrofit ret) {
         return ret.create(APICompany.class);
     }
+
+
+
+    @Provides
+    public CompanyRepository provideMyRepository(APICompany apiCompany) {
+        return new CompanyRepository(apiCompany); // Instantiate the repository
+    }
+
+
+
+
+        @Provides
+        public CRepository provideCRepository(CompanyRepository companyRepository) {
+            return companyRepository;
+        }
+
+
 }

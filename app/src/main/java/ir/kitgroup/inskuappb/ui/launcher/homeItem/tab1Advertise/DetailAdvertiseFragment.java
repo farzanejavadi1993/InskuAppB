@@ -30,18 +30,18 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
-import ir.kitgroup.inskuappb.ConnectServer.MainViewModel;
+import ir.kitgroup.inskuappb.ui.viewmodel.MainViewModel;
 import ir.kitgroup.inskuappb.R;
-import ir.kitgroup.inskuappb.classes.SharedPrefrenceValue;
-import ir.kitgroup.inskuappb.classes.dialog.CustomSnackBar;
-import ir.kitgroup.inskuappb.classes.filterr.Filters;
-import ir.kitgroup.inskuappb.classes.socialMedia.WebSite;
+import ir.kitgroup.inskuappb.component.SharedPrefrenceValue;
+import ir.kitgroup.inskuappb.component.dialog.CustomSnackBar;
+import ir.kitgroup.inskuappb.component.filterr.Filters;
+import ir.kitgroup.inskuappb.component.socialMedia.WebSite;
 import ir.kitgroup.inskuappb.dataBase.Account;
 import ir.kitgroup.inskuappb.dataBase.Company;
 import ir.kitgroup.inskuappb.dataBase.Files;
 import ir.kitgroup.inskuappb.databinding.DetailAdvertiseFragmentBinding;
-import ir.kitgroup.inskuappb.model.Advertise;
-import ir.kitgroup.inskuappb.model.VisitAdvertisement;
+import ir.kitgroup.inskuappb.data.model.Advertise;
+import ir.kitgroup.inskuappb.data.model.VisitAdvertisement;
 import ir.kitgroup.inskuappb.util.Constant;
 
 @AndroidEntryPoint
@@ -302,7 +302,7 @@ public class DetailAdvertiseFragment extends Fragment {
 
     //region Custom Method
     private void getBundle() {
-        advGuid = DetailAdvertiseFragmentArgs.fromBundle(getArguments()).getGuid();
+        advGuid = ir.kitgroup.inskuappb.ui.launcher.homeItem.tab1Advertise.DetailAdvertiseFragmentArgs.fromBundle(getArguments()).getGuid();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)

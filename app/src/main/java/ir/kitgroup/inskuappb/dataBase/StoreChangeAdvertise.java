@@ -7,6 +7,13 @@ public class StoreChangeAdvertise  extends SugarRecord {
     private int count;
     private boolean save;
 
+  public   StoreChangeAdvertise(){}
+    public StoreChangeAdvertise(String i,boolean save, int cont){
+        this.I=i;
+        this.save=save;
+        this.count=cont;
+    }
+
     public String getI() {
         return I;
     }

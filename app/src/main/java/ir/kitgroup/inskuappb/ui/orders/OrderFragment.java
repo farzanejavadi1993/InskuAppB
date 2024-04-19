@@ -28,17 +28,16 @@ import com.orm.query.Select;
 import org.apache.commons.collections4.CollectionUtils;
 
 
-import ir.kitgroup.inskuappb.ConnectServer.CompanyViewModel;
-import ir.kitgroup.inskuappb.ConnectServer.MainViewModel;
-import ir.kitgroup.inskuappb.classes.CustomDialog;
-import ir.kitgroup.inskuappb.classes.dialog.CustomSnackBar;
+import ir.kitgroup.inskuappb.ui.viewmodel.CompanyViewModel;
+import ir.kitgroup.inskuappb.component.CustomDialog;
+import ir.kitgroup.inskuappb.component.dialog.CustomSnackBar;
 import ir.kitgroup.inskuappb.dataBase.Account;
 import ir.kitgroup.inskuappb.dataBase.Company;
 import ir.kitgroup.inskuappb.dataBase.Customer;
 import ir.kitgroup.inskuappb.dataBase.ModelCatalog;
 import ir.kitgroup.inskuappb.dataBase.ModelCatalogPageItem;
 import ir.kitgroup.inskuappb.dataBase.Ord;
-import ir.kitgroup.inskuappb.classes.CustomProgress;
+import ir.kitgroup.inskuappb.component.CustomProgress;
 import ir.kitgroup.inskuappb.databinding.OrderFragmentBinding;
 
 import java.lang.reflect.Type;
@@ -54,8 +53,8 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import ir.kitgroup.inskuappb.dataBase.OrdDetail;
-import ir.kitgroup.inskuappb.model.Message;
-import ir.kitgroup.inskuappb.model.ModelGift;
+import ir.kitgroup.inskuappb.data.model.Message;
+import ir.kitgroup.inskuappb.data.model.ModelGift;
 import ir.kitgroup.inskuappb.util.Constant;
 
 @AndroidEntryPoint
